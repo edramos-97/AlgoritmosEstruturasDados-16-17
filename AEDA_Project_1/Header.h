@@ -17,6 +17,10 @@ public:
 	};
 };
 
+/**
+  * test
+  * @param: stuff what
+*/
 class OptionalCourse : public Course {
 private:
 	uint openSlots;
