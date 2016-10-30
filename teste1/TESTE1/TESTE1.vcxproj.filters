@@ -18,9 +18,21 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="faculdade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="course.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="person.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exceptions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="faculdade.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

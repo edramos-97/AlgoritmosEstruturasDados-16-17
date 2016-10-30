@@ -1,20 +1,23 @@
-#include "Header.h"
+#include "exceptions.h"
+#include "course.h"
 #include "iostream"
+
 
 void mainMenu() {
 
 }
 
 int main() {
-	/*try {
-		mainMenu();
+	
+	try {
+		
 	}
 	catch (...) {
 
-	}*/
-	// revision 12
-	// new revision 13
+	}
 
-	std::cout << "Hello World!";
+
+
+	std::cout << "Course created"<< endl;
 	return 0;
 }

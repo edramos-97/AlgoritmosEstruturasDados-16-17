@@ -1,0 +1,24 @@
+#pragma once
+
+#include <string>
+using namespace std;
+
+template <class A, class B> 
+class value_out_of_range {
+	A value;
+	B info;
+public:
+	value_out_of_range(A value, B info) : value(value),info(info) {};
+	A get_value() { return value; };
+	B get_info() { return info; };
+};
+
+
+
+class short_argument {
+	string arg,info;
+public:
+	short_argument(string arg,string info) : arg(arg),info(info) {};
+	string get_arg() { return arg; };
+	string get_info() { return info; };
+};

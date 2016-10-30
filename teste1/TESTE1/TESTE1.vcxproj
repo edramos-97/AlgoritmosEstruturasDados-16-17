@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="faculdade.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="course.h" />
+    <ClInclude Include="exceptions.h" />
+    <ClInclude Include="faculdade.h" />
+    <ClInclude Include="person.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57085FEA-A5CA-4737-91B2-E9352137EFA5}</ProjectGuid>
