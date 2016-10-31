@@ -15,6 +15,7 @@ protected:
 	const uint year, semester, credits;
 	string name;
 	vector<Student*> attending_students;
+	vector<Student*> approved_students;
 public:
 	Course(uint year, uint semester, uint credits) : year(year), semester(semester), credits(credits) {
 		if (year < 1 || year > 5)
@@ -25,8 +26,10 @@ public:
 			throw value_out_of_range<uint,string>(credits, "credits");
 	};
 	virtual void add_student(Student x);
-
-
+	virtual void approve_student(Student x);
+	virtual const uint get_year() { return year; };
+	virtual const uint get_semestre() { return semester; };
+	virtual const uint get_credits() { return credits; };
 };
 
 
@@ -41,5 +44,5 @@ public:
 	uint getYear() const { return year; }
 	string get_scientificArea() const { return scientificArea; };
 	void add_student(Student x);
-
+	void approve_student(Student x);
 };

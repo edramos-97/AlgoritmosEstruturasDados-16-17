@@ -21,7 +21,8 @@ public:
 		if (code.size() != 9)
 			throw short_argument(code, "code");
 	};
-	virtual string getName() const = 0;
+	virtual string get_name() const = 0;
+	virtual string get_code() const = 0;
 
 };
 
@@ -30,11 +31,17 @@ public:
 class Student : public Person {
 private:
 	string email, status;
+	uint approved_credits, credits;
+	Tutor * assigned_tutor;
 public:
 	Student(string code, string name, string email, string status) : Person(code, name), email(email), status(status) {
 	
 	};
-	string getName() const { return name; }
+	string get_name() const { return name; }
+	string get_code() const { return code; }
+	void add_approved_credits(uint x) { approved_credits += x; };
+	void add_credits(uint x) { credits += x; };
+	void assign_tutor(Tutor * x) { assigned_tutor = x; };
 };
 
 
@@ -44,7 +51,8 @@ private:
 	vector<Student *> students;
 public:
 	Tutor(string code, string name) : Person(code, name) {
-
 	};
-	string getName() const { return name; }
+	string get_name() const { return name; }
+	string get_code() const { return code; }
+	void add_student(Student x);
 };

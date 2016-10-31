@@ -22,3 +22,11 @@ public:
 	string get_arg() { return arg; };
 	string get_info() { return info; };
 };
+
+class not_in_container {
+	string info;
+public:
+	not_in_container(string info) : info(info) {};
+	string get_info() { return info; };
+
+};
