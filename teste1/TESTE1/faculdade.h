@@ -31,6 +31,7 @@ public:
 	void new_student(Student x);
 	void new_course(Course x);
 
+	friend ostream& operator<<(ostream& os, const Department & d);
 
 
 };

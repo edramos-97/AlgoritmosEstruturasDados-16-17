@@ -37,3 +37,23 @@ void Department::new_course(Course x)
 	}
 }
 
+ostream & operator<<(ostream & os, const Department & d)
+{
+		os << d.name << endl
+		<< "Number of Students: " << d.students.size()<< endl
+		<< "Number of Tutors: " << d.tutors.size()<<endl
+		<< "Number of courses: " <<
+		(d.courses_11.size() +
+			d.courses_12.size() +
+			d.courses_21.size() +
+			d.courses_22.size() +
+			d.courses_31.size() +
+			d.courses_32.size() +
+			d.courses_41.size() +
+			d.courses_42.size() +
+			d.courses_51.size() +
+			d.courses_52.size())
+		<< endl;
+
+		return os;
+}

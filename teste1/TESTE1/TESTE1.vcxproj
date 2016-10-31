@@ -23,12 +23,17 @@
     <ClCompile Include="faculdade.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="person.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="course.h" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="faculdade.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="person.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Text.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57085FEA-A5CA-4737-91B2-E9352137EFA5}</ProjectGuid>

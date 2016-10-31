@@ -1,6 +1,7 @@
 #include "exceptions.h"
 #include "course.h"
-#include "iostream"
+#include "faculdade.h"
+
 
 
 void mainMenu() {
@@ -8,13 +9,8 @@ void mainMenu() {
 }
 
 int main() {
-	
-	try {
-		
-	}
-	catch (...) {
 
-	}
+	
 
 
 

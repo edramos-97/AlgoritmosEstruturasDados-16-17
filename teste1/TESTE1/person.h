@@ -9,7 +9,9 @@ using namespace std;
 
 typedef unsigned int uint;
 
-
+class Person;
+class Tutor;
+class Student;
 
 class Person {
 protected:
@@ -26,26 +28,6 @@ public:
 
 };
 
-
-
-class Student : public Person {
-private:
-	string email, status;
-	uint approved_credits, credits;
-	Tutor * assigned_tutor;
-public:
-	Student(string code, string name, string email, string status) : Person(code, name), email(email), status(status) {
-	
-	};
-	string get_name() const { return name; }
-	string get_code() const { return code; }
-	void add_approved_credits(uint x) { approved_credits += x; };
-	void add_credits(uint x) { credits += x; };
-	void assign_tutor(Tutor * x) { assigned_tutor = x; };
-};
-
-
-
 class Tutor : public Person {
 private:
 	vector<Student *> students;
@@ -56,3 +38,23 @@ public:
 	string get_code() const { return code; }
 	void add_student(Student x);
 };
+
+class Student : public Person {
+private:
+	string email, status, tutor;
+	double approved_credits, credits;
+public:
+	Student(string code, string name, string email, string status,string tutor) : Person(code, name), email(email), status(status),tutor(tutor) {
+		approved_credits = 0;
+		credits = 0;
+	};
+	string get_name() const { return name; }
+	string get_code() const { return code; }
+	void add_approved_credits(double x) { approved_credits += x; };
+	void add_credits(double x) { credits += x; };
+	void assign_tutor(Tutor * x) {tutor = x->get_code(); };
+	friend ostream& operator<<(ostream& os, const Student & s);
+};
+
+
+

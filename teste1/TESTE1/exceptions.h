@@ -28,5 +28,11 @@ class not_in_container {
 public:
 	not_in_container(string info) : info(info) {};
 	string get_info() { return info; };
+};
 
+class file_not_open {
+	string name;
+public:
+	file_not_open(string name) : name(name) {};
+	string get_info() { return name; };
 };

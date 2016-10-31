@@ -1,5 +1,6 @@
 #include "course.h"
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
@@ -38,4 +39,16 @@ void OptionalCourse::approve_student(Student x)
 		approved_students.push_back(&x);
 	}
 	++openSlots;
+}
+
+ostream & operator<<(ostream & os, const Course & c)
+{
+	os <<right << setw(10) << c.name << "::" << left <<setw (4) << c.credits;
+	return os;
+}
+
+ostream & operator<<(ostream & os, const OptionalCourse & c)
+{
+	os << right << setw(10) << c.name << "::" << left << setw(4) << c.credits << "Available slots: "<< c.openSlots;
+	return os;
 }
