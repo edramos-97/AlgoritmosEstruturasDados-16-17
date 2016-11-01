@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+typedef unsigned int uint;
 using namespace std;
 
 template <class A, class B> 
@@ -35,4 +36,14 @@ class file_not_open {
 public:
 	file_not_open(string name) : name(name) {};
 	string get_info() { return name; };
+};
+
+
+class corrupted_file {
+	uint line;
+	string info;
+public:
+	corrupted_file(uint line,string info) : line(line),info(info){};
+	uint get_linenum() { return line; };
+	string get_info() { return info; };
 };

@@ -43,6 +43,8 @@ class Student : public Person {
 private:
 	string email, status, tutor;
 	double approved_credits, credits;
+	vector<string> enrolled_courses;
+
 public:
 	Student(string code, string name, string email, string status,string tutor) : Person(code, name), email(email), status(status),tutor(tutor) {
 		approved_credits = 0;
@@ -50,6 +52,7 @@ public:
 	};
 	string get_name() const { return name; }
 	string get_code() const { return code; }
+	string get_email() const { return email; }
 	void add_approved_credits(double x) { approved_credits += x; };
 	void add_credits(double x) { credits += x; };
 	void assign_tutor(Tutor * x) {tutor = x->get_code(); };

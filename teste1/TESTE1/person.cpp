@@ -7,6 +7,10 @@ void Tutor::add_student(Student x)
 
 ostream & operator<<(ostream & os, const Student & s)
 {
-	os << s.code << s.name << s.email <<s.status << s.tutor << s.approved_credits<< s.credits;
+	os << s.code << "||" << s.name << "||" << s.email << endl <<
+		"Status: " << s.status << endl <<
+		"Tutor: " << s.tutor << endl <<
+		"Completed credits: " << s.approved_credits << endl <<
+		"Credits currently enrolled for: " << s.credits << endl;
 	return os;
 }

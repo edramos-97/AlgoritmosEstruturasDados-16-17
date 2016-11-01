@@ -2,7 +2,8 @@
 
 #include "course.h"
 #include "person.h"
-
+#include "utils.h"
+#include <fstream>
 
 class Department {
 	string name;
@@ -27,10 +28,11 @@ public:
 		last_assinged_tutor = 0;
 	};
 	uint last_assinged_tutor;
-	void new_tutor(Tutor x);
-	void new_student(Student x);
-	void new_course(Course x);
-
+	void new_tutor(Tutor* x);
+	void new_student(Student* x);
+	void new_course(Course* x);
+	void add_student(Student* x);
+	void load_dept(string x);
 	friend ostream& operator<<(ostream& os, const Department & d);
 
 

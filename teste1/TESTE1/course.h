@@ -6,6 +6,7 @@
 #include "person.h"
 
 
+
 using namespace std;
 
 typedef unsigned int uint;
@@ -15,9 +16,9 @@ protected:
 	const uint year, semester;
 	const double credits;
 	string name;
-	vector<Student*> attending_students;
-	vector<Student*> approved_students;
 public:
+	vector<Student *> enrolled_students;
+	vector<Student *> approved_students;
 	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits),name(name) {
 		if (year < 1 || year > 5)
 			throw value_out_of_range<uint,string>(year, "year");
@@ -28,12 +29,15 @@ public:
 		if (name.size() < 3)
 			throw short_argument(name, "name");
 	};
-	virtual void add_student(Student x);
+	void add_student(Student* x);
+	void add_approved_student(Student* x);
 	virtual void approve_student(Student x);
 	virtual const uint get_year() { return year; };
 	virtual const uint get_semestre() { return semester; };
 	virtual const double get_credits() { return credits; };
 	virtual const string get_name() { return name; };
+	void print_enrolled() const;
+	void print_approved() const;
 	friend ostream& operator<<(ostream& os, const Course & c);
 };
 
