@@ -8,8 +8,8 @@
 class Department {
 	string name;
 	
-	vector<Student*> students;
 	vector<Tutor*> tutors;
+	vector<Student*> students;
 	vector<Course*> courses_11;
 	vector<Course*> courses_12;
 	vector<Course*> courses_21;
@@ -20,7 +20,7 @@ class Department {
 	vector<Course*> courses_42;
 	vector<Course*> courses_51;
 	vector<Course*> courses_52;
-public:
+public:	
 	Department(string name): name(name)
 	{
 		if (name.size() < 3)
@@ -28,11 +28,14 @@ public:
 		last_assinged_tutor = 0;
 	};
 	uint last_assinged_tutor;
+	string get_name() const { return name; };
 	void new_tutor(Tutor* x);
 	void new_student(Student* x);
 	void new_course(Course* x);
+	void add_course(Course * x);
 	void add_student(Student* x);
-	void load_dept(string x);
+	void load_dept(string filename);
+	void save_dept(string filename);
 	friend ostream& operator<<(ostream& os, const Department & d);
 
 

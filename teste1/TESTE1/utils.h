@@ -21,4 +21,6 @@ template<typename T>bool check_duplicates(vector<T> v,T arg)
 	}
 	return false;
 };
-
+void save_student(ofstream &f,Student* x);
+void save_tutor(ofstream &f,Tutor * x);
+void save_course(ofstream &f,Course * x);

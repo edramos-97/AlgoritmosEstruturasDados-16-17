@@ -33,7 +33,7 @@
     <ClInclude Include="person.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Text.txt" />
+    <Text Include="Mieic.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57085FEA-A5CA-4737-91B2-E9352137EFA5}</ProjectGuid>

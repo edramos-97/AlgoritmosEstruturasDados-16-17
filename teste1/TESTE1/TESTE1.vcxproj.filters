@@ -49,7 +49,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Text.txt">
+    <Text Include="Mieic.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

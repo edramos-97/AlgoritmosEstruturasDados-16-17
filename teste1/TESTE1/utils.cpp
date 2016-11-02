@@ -93,14 +93,12 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	string code, name, line;
 
 	read_line(f, line, linenum);
-
-	code = (line.substr(0, line.find(';')));
+	name = (line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-	name = line.substr(0, line.find(';'));
-	
-	Tutor* t= new Tutor(code, name);
+	code = line.substr(0, line.find(';'));
 
+	Tutor* t= new Tutor(code, name);
 	return t;
 }
 
@@ -108,6 +106,11 @@ Course* read_course(ifstream &f,uint &linenum) {
 	string name, line;
 	uint year, semestre;
 	double credits;
+
+	read_line(f, line, linenum);
+
+	if (line != "course_start")
+		throw corrupted_file(linenum, "expected course_start");
 
 	read_line(f, line, linenum);
 
@@ -145,6 +148,37 @@ void read_line(ifstream & f, string & line, uint &linenum)
 {
 	getline(f, line);
 	++linenum;
+}
+
+void save_student(ofstream & f, Student* x)
+{
+	f << x->get_code() << ';'
+		<< x->get_name() << ';'
+		<< x->get_email() << ';'
+		<< x->get_status() << ';'
+		<< x->get_tutor() << ';'
+		<< x->get_appcredits() << ';'
+		<< x->get_credits() <<endl;
+}
+
+void save_tutor(ofstream & f,Tutor* x)
+{
+	f << x->get_name() << ';' << x->get_code()<< endl;
+}
+
+void save_course(ofstream & f, Course* x)
+{
+	f << "course_start" << endl;
+	f << x->get_name() << ';'
+		<< x->get_year() << ';'
+		<< x->get_semestre() << ';'
+		<< x->get_credits() << endl;
+	for (auto x : x->enrolled_students)
+		save_student(f, x);
+	f << "approved_students"<<endl;
+	for (auto x : x->approved_students)
+		save_student(f, x);
+	f << "end_course"<<endl;
 }
 
 
