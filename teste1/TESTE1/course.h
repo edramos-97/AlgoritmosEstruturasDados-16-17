@@ -4,6 +4,7 @@
 #include <vector>
 #include "exceptions.h"
 #include "person.h"
+#include "date.h"
 
 
 
@@ -19,6 +20,7 @@ protected:
 public:
 	vector<Student *> enrolled_students;
 	vector<Student *> approved_students;
+	vector<Date *> date_enrolled;
 	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits),name(name) {
 		if (year < 1 || year > 5)
 			throw value_out_of_range<uint,string>(year, "year");
@@ -31,6 +33,7 @@ public:
 	};
 	void add_student(Student* x);
 	void add_approved_student(Student* x);
+	void add_date(Date* d);
 	virtual void approve_student(Student x);
 	virtual const uint get_year() { return year; };
 	virtual const uint get_semestre() { return semester; };

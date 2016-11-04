@@ -11,6 +11,10 @@ ostream & operator<<(ostream & os, const Student & s)
 		"Status: " << s.status << endl <<
 		"Tutor: " << s.tutor << endl <<
 		"Completed credits: " << s.approved_credits << endl <<
-		"Credits currently enrolled for: " << s.credits << endl;
+		"Credits currently enrolled for: " << s.credits;
 	return os;
+}
+
+bool Tutor::operator< (const Tutor &t) const {
+	return students.size() < t.students.size();
 }

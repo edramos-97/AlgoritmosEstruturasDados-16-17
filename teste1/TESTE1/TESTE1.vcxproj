@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="course.cpp" />
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="faculdade.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="person.cpp" />
@@ -27,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="course.h" />
+    <ClInclude Include="Date.h" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="faculdade.h" />
     <ClInclude Include="utils.h" />

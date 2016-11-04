@@ -14,8 +14,6 @@ public:
 	B get_info() { return info; };
 };
 
-
-
 class short_argument {
 	string arg,info;
 public:
@@ -38,7 +36,6 @@ public:
 	string get_info() { return name; };
 };
 
-
 class corrupted_file {
 	uint line;
 	string info;
@@ -47,3 +44,5 @@ public:
 	uint get_linenum() { return line; };
 	string get_info() { return info; };
 };
+
+class date_not_valid {};

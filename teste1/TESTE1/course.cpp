@@ -15,6 +15,11 @@ void Course::add_approved_student(Student* x)
 	approved_students.push_back(x);
 }
 
+void Course::add_date(Date * d)
+{
+	date_enrolled.push_back(d);
+}
+
 void Course::approve_student(Student x)
 {
 	auto it = find(enrolled_students.begin(), enrolled_students.end(), &x);
@@ -29,9 +34,10 @@ void Course::approve_student(Student x)
 
 void Course::print_enrolled() const
 {
-	for (auto x: enrolled_students)
+	for (uint it = 0; it < enrolled_students.size();it++)
 	{
-		cout << *x << "\n ||||||||||||||||||||||||||||\n\n";
+		cout << *enrolled_students[it] << "Date of enrolment: " << *date_enrolled[it]
+			<<"\n ||||||||||||||||||||||||||||\n\n";
 	}
 }
 

@@ -20,7 +20,6 @@ void clrscr(void)
 	SetConsoleCursorPosition(hCon, upperLeftCorner);
 }
 
-
 Student* read_student(ifstream &f,uint &linenum)
 {
 	string code, name, email, status, tutor, line;
@@ -57,30 +56,33 @@ Student* read_student(ifstream &f,uint &linenum)
 	return s;
 }
 
-Student* read_student(string line)
+Student* read_student(string &line)
 {
 	string code, name, email, status, tutor;
 	double apcredits, credits;
 	
-	code = (line.substr(0, line.find(';')));
+	code = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
 	name = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
-	email = (line.substr(0, line.find(';')));
+	email = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
-	status = (line.substr(0, line.find(';')));
+	status = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
-	tutor = (line.substr(0, line.find(';')));
+	tutor = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
 	apcredits = stod(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
 	credits = stod(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+
 
 	Student* s= new Student(code, name, email, status, tutor);
 	s->add_approved_credits(apcredits);
@@ -103,7 +105,7 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 }
 
 Course* read_course(ifstream &f,uint &linenum) {
-	string name, line;
+	string name, line, date;
 	uint year, semestre;
 	double credits;
 
@@ -124,14 +126,15 @@ Course* read_course(ifstream &f,uint &linenum) {
 	line.erase(0, line.find(';') + 1);
 
 	credits = stod(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
 
 	Course* c= new Course(year, semestre, credits, name);
-
 	read_line(f, line, linenum);
 	
 	for (; line != "approved_students";) {
 		c->add_student(read_student(line));
+		date = line.substr(0, line.find(';'));
+		Date * d= new Date(date);
+		c->add_date(d);
 		read_line(f, line, linenum);
 	}
 
@@ -158,7 +161,7 @@ void save_student(ofstream & f, Student* x)
 		<< x->get_status() << ';'
 		<< x->get_tutor() << ';'
 		<< x->get_appcredits() << ';'
-		<< x->get_credits() <<endl;
+		<< x->get_credits();
 }
 
 void save_tutor(ofstream & f,Tutor* x)
@@ -173,12 +176,37 @@ void save_course(ofstream & f, Course* x)
 		<< x->get_year() << ';'
 		<< x->get_semestre() << ';'
 		<< x->get_credits() << endl;
-	for (auto x : x->enrolled_students)
-		save_student(f, x);
+	for (uint it = 0; it < x->enrolled_students.size(); it++)
+	{
+		save_student(f, x->enrolled_students[it]);
+		f << ';' << *(x->date_enrolled[it]) << endl;
+	}
 	f << "approved_students"<<endl;
-	for (auto x : x->approved_students)
+	for (auto x : x->approved_students) {
 		save_student(f, x);
+		f << endl;
+	}
 	f << "end_course"<<endl;
 }
 
-
+int search_for_student(vector<Course*> v, Student* t) {
+	int counter = 0;
+	for (auto x : v) {
+		if (check_duplicates<Student*>(x->approved_students, t))
+		{
+			++counter;
+			continue;
+		}
+		else if (check_duplicates<Student*>(x->enrolled_students, t))
+		{
+			++counter;
+			continue;
+		}
+		else
+		{
+			++counter;
+			return counter;
+		}
+	}
+	return -1;
+}

@@ -4,7 +4,7 @@ Raul Vidal;199703569
 #courses_start
 course_start
 AEDA;2;1;6
-201505779;Eduardo Ramos;up201505779@fe.up.pt;ordinario;199703569;0;0
+201505779;Eduardo Ramos;up201505779@fe.up.pt;ordinario;199703569;0;0;15/03/2015
 approved_students
 end_course
 #courses_end

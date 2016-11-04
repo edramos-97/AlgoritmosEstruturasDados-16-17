@@ -38,6 +38,7 @@ public:
 	string get_name() const { return name; }
 	string get_code() const { return code; }
 	void add_student(Student* x);
+	bool operator< (const Tutor &t) const;
 };
 
 class Student : public Person {
