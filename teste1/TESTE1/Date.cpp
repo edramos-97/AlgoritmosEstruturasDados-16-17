@@ -24,7 +24,7 @@ int maxmonthday(int month){
 
 Date::Date(string dateStr){
 	string tmp;
-	int pos;
+	size_t pos;
 	pos = dateStr.find('/');
 	
 	if (pos == -1)
