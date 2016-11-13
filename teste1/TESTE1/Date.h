@@ -14,14 +14,12 @@ private:
 	int day;
 	int month;
 	int year;
-	int totaldays;
 public:
 	Date();
 	Date(string dateStr); // data na forma DD/MM/AAA
 	int getDay() const;
 	int getMonth() const;
 	int getYear() const;
-	int getTotaldays() const;
 	void setDay(int dia);
 	void setMonth(int mes);
 	void setYear(int ano);
