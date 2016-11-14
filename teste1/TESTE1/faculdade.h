@@ -27,12 +27,11 @@ public:
 	{
 		if (name.size() < 3)
 			throw short_argument(name,"name");
-		last_assinged_tutor = 0;
 		vector<vector<Course*>>v1(5, vector<Course*>());
 		courses.push_back(v1);
 		courses.push_back(v1);
 	};
-	uint last_assinged_tutor;
+	
 	string get_name() const { return name; };
 	void new_tutor(Tutor* x);
 	void new_student(Student* x);
