@@ -34,9 +34,9 @@ void Course::approve_student(Student x)
 
 void Course::print_enrolled() const
 {
-	for (uint it = 0; it < enrolled_students.size();it++)
+	for (uint i = 0; i < enrolled_students.size();i++)
 	{
-		cout << *enrolled_students[it] << "Date of enrolment: " << *date_enrolled[it]
+		cout << *enrolled_students[i] << "Date of enrolment: " << *date_enrolled[i]
 			<<"\n ||||||||||||||||||||||||||||\n\n";
 	}
 }
