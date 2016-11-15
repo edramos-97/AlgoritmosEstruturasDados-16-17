@@ -42,6 +42,7 @@ void mainMenu(Department &dept, string filename) {
 
 bool Menu_department() {
 	unsigned short option;
+	string filename; //without .txt
 
 	cout << BIG_TAB << "Bem vindo!" << endl << endl;
 	cout << TAB << "1 - Criar uma nova faculdade" << endl;
@@ -56,12 +57,48 @@ bool Menu_department() {
 
 	switch (option) {
 	case 1:
-		break;
+	{
+		try {
+			Department D = newDepartment();
+			break;
+		}
+		catch (input_not_valid) {
+			cerr << "Essa faculdade já existe" << endl;
+
+		}
+	}
 	case 2:
+	{
+		cout << "Insira o nome do ficheiro que contem as informaçoes da faculdade: ";
+		cin >> filename;
+		Department D("filename");
+		D.load_dept("filename");
+		//proximo menu
 		break;
+	}
 	case 0:
 		return true;
 	}
 	return false;
 }
 
+Department newDepartment() {
+	ifstream f;
+	
+	string name, cod;
+	cout << "Insira o nome da nova faculdade: ";
+	cin >> name;
+	
+	f.open(name + ".txt");
+	if (f.is_open())
+		throw input_not_valid();
+	
+	Department D(name);
+
+	cout << "A faculdade necessita de pelo menos um tutor, por favor insira o seu nome: ";
+	cin >> name;
+	cod = "tu00000001";
+	Tutor *T= new Tutor(name, cod);
+	D.new_tutor(T);
+	return D;
+}
