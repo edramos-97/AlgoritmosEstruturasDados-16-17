@@ -5,6 +5,8 @@
 #include "iostream"
 #include <fstream>
 
+#define TAB	"\t"		
+#define BIG_TAB	"\t\t\t\t\t\t\t"
 void clrscr();
 
 Student* read_student(ifstream &f, uint &linenum);

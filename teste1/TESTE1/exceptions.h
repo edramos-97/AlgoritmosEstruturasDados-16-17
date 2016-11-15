@@ -46,3 +46,4 @@ public:
 };
 
 class date_not_valid {};
+class input_not_valid {};
