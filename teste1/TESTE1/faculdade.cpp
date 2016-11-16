@@ -88,9 +88,9 @@ void Department::add_student(Student * x)
 {
 	string filename = x + ".txt", line;
 	uint linenum=0;
-	ifstream f(filename);
+	ifstream f;
+	f.open(filename);
 	if (!f.is_open()) {
-		cout << "file not open";
 		throw file_not_open(x);
 	}
 	read_line(f, line, linenum);

@@ -26,7 +26,7 @@ public:
 	Department(string name): name(name)
 	{
 		if (name.size() < 3)
-			throw short_argument(name,"name");
+			throw short_argument(name,"Nome para a faculdade demasiado pequeno");
 		vector<vector<Course*>>v1(5, vector<Course*>());
 		courses.push_back(v1);
 		courses.push_back(v1);

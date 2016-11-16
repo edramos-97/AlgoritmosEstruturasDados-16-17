@@ -60,22 +60,47 @@ bool Menu_department() {
 	{
 		try {
 			Department D = newDepartment();
-			break;
+			//chama menu
+			return true;
 		}
 		catch (input_not_valid) {
-			cerr << "Essa faculdade já existe" << endl;
-
+			cerr << "Essa faculdade ja existe. Tente novamente" << endl;
+			system("PAUSE");
+			clrscr();
 		}
-	}
-	case 2:
-	{
-		cout << "Insira o nome do ficheiro que contem as informaçoes da faculdade: ";
-		cin >> filename;
-		Department D("filename");
-		D.load_dept("filename");
-		//proximo menu
+		catch (short_argument x) {
+			cerr << x.get_arg() << ". Tente novamente!" << endl;
+			system("PAUSE");
+			clrscr();
+		}
 		break;
 	}
+
+	case 2:
+	{
+		try
+		{
+			cout << "Insira o nome do ficheiro que contem as informacoes da faculdade: ";
+			cin >> filename;
+			Department D(filename);
+			D.load_dept(filename);
+			//chama menu
+			return true;
+		}
+		catch (file_not_open x)
+		{
+			cerr << "Nao existe nenhum ficheiro com o nome: " << x.get_info() << ". Tente novamente!" << endl;
+			system("PAUSE");
+			clrscr();
+		}
+		catch (short_argument x) {
+			cerr << x.get_info() << ". Tente novamente!" << endl;
+			system("PAUSE");
+			clrscr();
+		}
+		break;
+	}
+
 	case 0:
 		return true;
 	}
@@ -97,8 +122,8 @@ Department newDepartment() {
 
 	cout << "A faculdade necessita de pelo menos um tutor, por favor insira o seu nome: ";
 	cin >> name;
-	cod = "tu00000001";
-	Tutor *T= new Tutor(name, cod);
+	cod = "tu000000001";//a alterar
+	Tutor *T= new Tutor(cod, name);
 	D.new_tutor(T);
 	return D;
 }

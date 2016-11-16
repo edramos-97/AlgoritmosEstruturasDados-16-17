@@ -19,9 +19,9 @@ protected:
 public:
 	Person(string code, string name) : code(code), name(name) {
 		if (name.size() < 3)
-			throw short_argument(name, "name");
-		if (code.size() != 9)
-			throw short_argument(code, "code");
+			throw short_argument(name, "Nome que tentou atribuir a esta pessoa é demasiado pequeno");
+		if (code.length() != 11)
+			throw short_argument(code, "Codigo de aluno ou tutor invalido");
 	};
 	virtual string get_name() const = 0;
 	virtual string get_code() const = 0;
