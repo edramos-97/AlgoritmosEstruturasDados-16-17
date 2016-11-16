@@ -61,6 +61,7 @@ public:
 	string get_email() const { return email; }
 	string get_status() const { return status; }
 	string get_tutor() const { return tutor; }
+	const vector<string> get_enrol_courses() const;
 	double get_appcredits() const { return approved_credits; }
 	double get_credits() const { return credits; }
 	void add_approved_credits(double x) { approved_credits += x; };

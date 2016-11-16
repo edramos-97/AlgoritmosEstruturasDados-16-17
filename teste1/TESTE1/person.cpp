@@ -5,6 +5,10 @@ void Tutor::add_student(Student* x)
 	students.push_back(x);
 }
 
+const vector<string> Student::get_enrol_courses() const {
+	return enrolled_courses;
+}
+
 ostream & operator<<(ostream & os, const Student & s)
 {
 	os << s.code << "||" << s.name << "||" << s.email << endl <<

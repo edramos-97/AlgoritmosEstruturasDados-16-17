@@ -57,7 +57,7 @@ void Department::add_course(Course * x) {
 	}
 }
 /**
-* @brief Adds an existant student to the Department.
+* @brief Adds an existent student to the Department.
 * @param x Preaviously read student to add.
 *
 * An existing Student read from a text file is added to the Department vector of students.
@@ -78,6 +78,7 @@ void Department::add_student(Student * x)
 	}
 	return;
 }
+
 /**
 * @brief Reads a file containing Department info.
 * @param x Filename of a .txt file, no extension given (e.g. "Mieic" instead of "Mieic.txt").

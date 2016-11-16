@@ -73,6 +73,11 @@ bool Menu_department() {
 	return false;
 }
 
+//TODO
+void menu_enroll(Department & dept) {
+
+}
+
 void mainMenu(Department & dept)
 {
 	unsigned short option;
@@ -83,7 +88,7 @@ void mainMenu(Department & dept)
 
 
 		cout << BIG_TAB << "Menu Principal!" << endl << endl;
-		cout << TAB << "1 - " << endl;
+		cout << TAB << "1 - Inscricao" << endl;
 		cout << TAB << "2 - " << endl;
 		cout << TAB << "3 - " << endl;
 		cout << TAB << "4 - " << endl;
@@ -104,8 +109,10 @@ void mainMenu(Department & dept)
 			continue;
 		}
 
+		//chamam uma funcao que apenas vai corrigir o erro e chamar a função que se quer!!!
 		switch (option) {
-		case 1://chamam uma funcao que apenas vai corrigir o erro e chamar a função que se quer!!!
+		case 1:
+			menu_enroll(dept);
 			break;
 		case 2:
 			break;
