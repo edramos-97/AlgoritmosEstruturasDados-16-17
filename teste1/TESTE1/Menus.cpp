@@ -106,12 +106,19 @@ void mainMenu(Department & dept)
 
 		switch (option) {
 		case 1://chamam uma funcao que apenas vai corrigir o erro e chamar a função que se quer!!!
+			break;
 		case 2:
+			break;
 		case 3:
+			break;
 		case 4:
+			break;
 		case 5:
+			break;
 		case 6:
+			break;
 		case 7:
+			break;
 		case 0:
 			//grava tudo num ficheiro 
 			exit_program=true;
@@ -119,8 +126,8 @@ void mainMenu(Department & dept)
 		default: 
 			cerr << "O input nao e valido. Tente novamente " << endl << endl;
 			system("PAUSE");
-			clrscr();
 		}
+		clrscr();
 	}
 	return;
 }
