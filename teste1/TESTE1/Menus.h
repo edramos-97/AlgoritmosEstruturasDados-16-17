@@ -6,7 +6,9 @@
 #include "utils.h"
 #include "exceptions.h"
 #include "faculdade.h"
+#undef max
 
 using namespace std;
 Department newDepartment();
 bool Menu_department();
+void mainMenu(Department &dept);

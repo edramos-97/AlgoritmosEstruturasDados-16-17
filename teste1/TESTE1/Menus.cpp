@@ -1,45 +1,5 @@
 #include "Menus.h"
 
-/*
-void mainMenu(Department &dept, string filename) {
-	int option;
-
-	while (true) {
-		clrscr();
-		cout << "Main Menu\n\n";
-
-		cout << setw(6) << right << "1) " << "Apply for degree\n";
-		cout << setw(6) << right << "2) " << "List enrollments by student\n";
-		cout << setw(6) << right << "3) " << "List enrollments by course\n";
-		cout << setw(6) << right << "4) " << "Other options\n";
-		cout << "\n0) Save and exit\n\n";
-
-		cout << "Option: ";
-		cin >> option;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-		switch (option) {
-		case 0:
-			//dept.save_dept(filename);
-		case 1:
-			//	applyForDegree();
-			return;
-		case 2:
-			//	studentEnrollmentInfo(dept);
-			break;
-		case 3:
-			//courseEnrollmentInfo(dept);
-			break;
-		case 4:
-			break;
-		default:
-			continue;
-		}
-	}
-}*/
-
-
 bool Menu_department() {
 	unsigned short option;
 	string filename; //without .txt
@@ -60,7 +20,8 @@ bool Menu_department() {
 	{
 		try {
 			Department D = newDepartment();
-			//chama menu
+			clrscr();
+			mainMenu(D);
 			return true;
 		}
 		catch (input_not_valid) {
@@ -84,7 +45,8 @@ bool Menu_department() {
 			cin >> filename;
 			Department D(filename);
 			D.load_dept(filename);
-			//chama menu
+			clrscr();
+			mainMenu(D);
 			return true;
 		}
 		catch (file_not_open x)
@@ -103,9 +65,66 @@ bool Menu_department() {
 
 	case 0:
 		return true;
+	default: 
+		cerr << "O input nao e valido. Tente novamente " << endl << endl;
+		system("PAUSE");
+		clrscr();
 	}
 	return false;
 }
+
+void mainMenu(Department & dept)
+{
+	unsigned short option;
+	bool exit_program=false;
+	 //without .txt
+	while (!exit_program)
+	{
+
+
+		cout << BIG_TAB << "Menu Principal!" << endl << endl;
+		cout << TAB << "1 - " << endl;
+		cout << TAB << "2 - " << endl;
+		cout << TAB << "3 - " << endl;
+		cout << TAB << "4 - " << endl;
+		cout << TAB << "5 - " << endl;
+		cout << TAB << "6 - " << endl;
+		cout << TAB << "7 - " << endl;
+		cout << TAB << "0 - Sair" << endl << endl; //grava num ficheiro e sai definitvamente do programa
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente " << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		switch (option) {
+		case 1://chamam uma funcao que apenas vai corrigir o erro e chamar a função que se quer!!!
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 0:
+			//grava tudo num ficheiro 
+			exit_program=true;
+			break;
+		default: 
+			cerr << "O input nao e valido. Tente novamente " << endl << endl;
+			system("PAUSE");
+			clrscr();
+		}
+	}
+	return;
+}
+
 
 Department newDepartment() {
 	ifstream f;
