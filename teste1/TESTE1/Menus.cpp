@@ -21,8 +21,10 @@ bool Menu_department() {
 		try {
 			cout << "Para voltar atras insira \"exit\"\nInsira o nome da nova faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
 			cin >> filename;
-			if (filename == "exit") //    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
-				return true;
+			if (filename == "exit") {//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
+				clrscr();
+				return false;
+			}
 			Department D = newDepartment(filename);
 			clrscr();
 			mainMenu(D);
@@ -47,8 +49,10 @@ bool Menu_department() {
 		{
 			cout << "Para voltar atras insira \"exit\"\nInsira o nome do ficheiro que contem as informacoes da faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
 			cin >> filename;
-			if (filename == "exit")//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
-				return true;
+			if (filename == "exit") {//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
+				clrscr();
+				return false;
+			}
 			Department D(filename);
 			D.load_dept(filename);
 			clrscr();
