@@ -85,7 +85,66 @@ bool Menu_department() {
 
 //TODO
 void menu_enroll(Department & dept) {
+	clrscr();
 
+	bool isNew = false; //TODO - Needed?
+	string courseName;
+	Student *stud = nullptr;
+	Course *course;
+	unsigned short option;
+	cout << "1 - Novo estudante" << endl;
+	cout << "2 - Estudante existente" << endl;
+	cout << "0 - Voltar" << endl;
+	cout << "Opcao: ";
+	cin >> option;
+
+	switch (option) {
+		case 1:
+			stud = create_student();
+			isNew = true;
+			break;
+		case 2:
+			//TODO - Find student.
+			break;
+		case 0:
+			return;
+		default:
+			//TODO - Loop.
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			clrscr();
+	}
+
+	//Choose course
+	//TODO - How to choose the semester? Date-dependent?
+	uint semester = 0;
+	bool invalidCourse = true, foundCourse = false;
+
+	while (invalidCourse) {
+		cout << "Nome da UC: ";
+		cin >> courseName;
+
+		{
+			size_t year = 0, courseInd = 0;
+			for (; year < dept.get_courses().at(semester).size(); ++year) {
+				for (size_t courseInd = 0; courseInd < dept.get_courses().at(semester).at(year).size(); ++courseInd) {
+					if (courseName == dept.get_courses().at(semester).at(year).at(courseInd)->get_name()) {
+						course = dept.get_courses().at(semester).at(year).at(courseInd);
+						foundCourse = true;
+						break;
+					}
+				}
+				if (foundCourse)
+					break;
+			}
+
+			if ("OK" == dept.apply_for_course(stud, dept.get_courses().at(semester).at(year).at(courseInd))) {
+				invalidCourse = false;
+			}
+		}
+	}
+	
+	//Enrol student
 }
 
 void mainMenu(Department & dept)

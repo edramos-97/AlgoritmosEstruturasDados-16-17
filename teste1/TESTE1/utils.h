@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "course.h"
 #include "person.h"
-#include "iostream"
+#include <iostream>
 #include <fstream>
 
 #define TAB	"\t"		
@@ -27,3 +27,4 @@ void save_student(ofstream &f,Student* x);
 void save_tutor(ofstream &f,Tutor * x);
 void save_course(ofstream &f,Course * x);
 int search_for_student(vector<Course*> v, Student * t);
+Student* create_student();

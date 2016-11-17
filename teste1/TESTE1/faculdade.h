@@ -43,6 +43,5 @@ public:
 	void load_dept(string filename);
 	void save_dept(string filename);
 	friend ostream& operator<<(ostream& os, const Department & d);
-
-
+	const vector<vector<vector<Course*>>> get_courses() const;
 };

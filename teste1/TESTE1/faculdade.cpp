@@ -197,29 +197,40 @@ string Department::apply_for_course(Student * s, Course * c)
 		switch (c->get_year()) {
 		case 1:
 			c->add_student(s);
+			break;
 		case 2:
-			verify_courses_completition(2, 1, s, c);
+			return verify_courses_completition(2, 1, s, c);
+			break;
 		case 3:
-			verify_courses_completition(3, 1, s, c);
+			return verify_courses_completition(3, 1, s, c);
+			break;
 		case 4:
-			verify_courses_completition(4, 1, s, c);
+			return verify_courses_completition(4, 1, s, c);
+			break;
 		case 5:
-			verify_courses_completition(5, 1, s, c);
-		default: return "FAIL";
+			return verify_courses_completition(5, 1, s, c);
+			break;
+		default:
+			return "FAIL";
 		}
 	case 2:
 		switch (c->get_year()) {
 		case 1:
 			c->add_student(s);
 		case 2:
-			verify_courses_completition(2, 2, s, c);
+			return verify_courses_completition(2, 2, s, c);
+			break;
 		case 3:
-			verify_courses_completition(3, 2, s, c);
+			return verify_courses_completition(3, 2, s, c);
+			break;
 		case 4:
-			verify_courses_completition(4, 2, s, c);
+			return verify_courses_completition(4, 2, s, c);
+			break;
 		case 5:
-			verify_courses_completition(5, 2, s, c);
-		default: return "FAIL";
+			return verify_courses_completition(5, 2, s, c);
+			break;
+		default:
+			return "FAIL";
 		}
 	default:
 		return "FAIL";
@@ -271,4 +282,8 @@ string Department::verify_courses_completition(uint year, uint semestre,Student*
 		}
 	}
 	return "FAIL";
+}
+
+const vector<vector<vector<Course*>>> Department::get_courses() const {
+	return courses;
 }
