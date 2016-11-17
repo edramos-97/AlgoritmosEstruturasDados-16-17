@@ -11,6 +11,6 @@ approved_students
 end_course
 #courses_end
 #students_start
-st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;199703569;0;0
-st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;199703569;0;0
+st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;0
+st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569;0;0
 #students_end

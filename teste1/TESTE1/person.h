@@ -69,6 +69,3 @@ public:
 	void assign_tutor(Tutor * x) {tutor = x->get_code(); };
 	friend ostream& operator<<(ostream& os, const Student & s);
 };
-
-
-

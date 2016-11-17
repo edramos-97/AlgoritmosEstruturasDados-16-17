@@ -39,13 +39,14 @@ public:
 	string get_name() const { return name; };
 	int getNext_assgined_tutor() const{ return next_assign_tutor; };
 	int getNext_assgined_student() const { return next_assign_student; };
+	Student* getStudent(const string &studCode) const;
 	void new_tutor(Tutor* x);
 	void new_student(Student* x);
 	void new_course(Course* x);
 	void add_course(Course * x);
 	void add_student(Student* x);
-	string apply_for_course(Student * s, Course * c);
-	string verify_courses_completition(uint year, uint semestre, Student * s,Course* c);
+	bool apply_for_course(Student * s, Course * c);
+	bool verify_courses_completition(uint year, uint semestre, Student * s,Course* c);
 	void load_dept(string filename);
 	void save_dept();
 	friend ostream& operator<<(ostream& os, const Department & d);

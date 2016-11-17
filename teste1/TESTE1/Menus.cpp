@@ -138,7 +138,7 @@ bool Menu_department() {
 //					break;
 //			}
 //
-//			if ("OK" == dept.apply_for_course(stud, dept.get_courses().at(semester).at(year).at(courseInd))) {
+//			if (dept.apply_for_course(stud, dept.get_courses().at(semester).at(year).at(courseInd))) {
 //				invalidCourse = false;
 //			}
 //		}
@@ -163,8 +163,8 @@ void mainMenu(Department & dept)
 
 		cout << BIG_TAB << "Menu Principal!" << endl << endl;
 		cout << TAB << "1 - Novo Tutor" << endl;
-		cout << TAB << "2 - " << endl;
-		cout << TAB << "3 - " << endl;
+		cout << TAB << "2 - Novo Estudante" << endl;
+		cout << TAB << "3 - Informacao de Estudante" << endl;
 		cout << TAB << "4 - " << endl;
 		cout << TAB << "5 - " << endl;
 		cout << TAB << "6 - " << endl;
@@ -192,6 +192,7 @@ void mainMenu(Department & dept)
 			call_newstudent(dept);
 			break;
 		case 3:
+			menu_studentInfo(dept);
 			break;
 		case 4:
 			break;
@@ -257,14 +258,14 @@ void call_newtutor(Department &D) {
 	return;
 }
 
-void call_newstudent(Department & d)
+void call_newstudent(Department &d)
 {
 	string name, status,cod;
 	cout << "Insira o nome do novo estudante: ";
 	cin.ignore();
 	getline(cin,name);
-	cout << "Insira o seu estatuto: \n"
-		<< "Trabalhador Estudante \n"
+	cout << "Insira o seu estatuto:\n"
+		<< "Trabalhador Estudante\n"
 		<< "Estudante\n"
 		<< "Atleta Estudante\n";
 	getline(cin, status);
@@ -280,4 +281,15 @@ void call_newstudent(Department & d)
 	catch (...) {
 	}
 
+}
+
+void menu_studentInfo(const Department &dept) {
+	clrscr();
+	
+	string studCode;
+	cout << "Codigo do estudante: ";
+	cin >> studCode;
+	Student stud = *(dept.getStudent(studCode));
+
+	//TODO - Info.
 }

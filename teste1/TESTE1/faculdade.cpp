@@ -2,9 +2,9 @@
 
 /**
 * @brief Adds a new Student to the Department.
-* @param x Preaviously created Student to add.
+* @param x Previously created Student to add.
 *
-* Adds a preaviously created Student pointer to the Department vector of students and assigns a Tutor to given student.
+* Adds a Previously created Student pointer to the Department vector of students and assigns a Tutor to given student.
 */
 void Department::new_student(Student* x)
 {
@@ -16,9 +16,9 @@ void Department::new_student(Student* x)
 }
 /**
 * @brief Adds a Tutor to the Department.
-* @param x Preaviously created Tutor to add.
+* @param x Previously created Tutor to add.
 *
-* Adds a preaviously created Tutor pointer to the Department vector of Tutors.
+* Adds a Previously created Tutor pointer to the Department vector of Tutors.
 */
 void Department::new_tutor(Tutor* x)
 {
@@ -27,9 +27,9 @@ void Department::new_tutor(Tutor* x)
 }
 /**
 * @brief Adds a Course to the Department.
-* @param x Preaviously created Course to add.
+* @param x Previously created Course to add.
 *
-* Adds a preaviously created Course pointer to the Department vector of Course.
+* Adds a Previously created Course pointer to the Department vector of Course.
 */
 void Department::new_course(Course* x)
 {
@@ -41,8 +41,8 @@ void Department::new_course(Course* x)
 	courses[semestre-1][year-1].push_back(x);
 }
 /**
-* @brief Adds an existant course to the Department.
-* @param x Preaviously read course to add.
+* @brief Adds an existent course to the Department.
+* @param x Previously read course to add.
 *
 * An existing Course read from a text file is added to the Department vector of courses.
 */
@@ -60,7 +60,7 @@ void Department::add_course(Course * x) {
 }
 /**
 * @brief Adds an existent student to the Department.
-* @param x Preaviously read student to add.
+* @param x Previously read student to add.
 *
 * An existing Student read from a text file is added to the Department vector of students.
 */
@@ -143,6 +143,7 @@ void Department::load_dept(string x)
 		throw corrupted_file(linenum,"expected #students_end");
 	f.close();
 }
+
 /**
 * @brief Saves to a text file the Department's info.
 * @param filename Filename of a .txt file, extension given (e.g. "Mieic.txt" instead of "Mieic").
@@ -190,14 +191,15 @@ void Department::save_dept()
 	f << "#students_end" << endl;
 	f.close();
 }
+
 /**
 * @brief Verifies if it is possible for the student to apply for the given course and enrolls him.
 * @param s The student that is applying for a Course.
 * @param c The course to which a student is applying.
 *
-* Verifies if the student has completed or is enrolled in all previous years courses and if he is, he is going to be  enrolled in the course specified.
+* Verifies if the student has completed or is enrolled in all previous years courses and if he is, he is going to be enrolled in the course specified.
 */
-string Department::apply_for_course(Student * s, Course * c)
+bool Department::apply_for_course(Student * s, Course * c)
 {
 	int result = 0;
 	switch (c->get_semestre()) {
@@ -219,7 +221,7 @@ string Department::apply_for_course(Student * s, Course * c)
 			return verify_courses_completition(5, 1, s, c);
 			break;
 		default:
-			return "FAIL";
+			return false;
 		}
 	case 2:
 		switch (c->get_year()) {
@@ -238,10 +240,10 @@ string Department::apply_for_course(Student * s, Course * c)
 			return verify_courses_completition(5, 2, s, c);
 			break;
 		default:
-			return "FAIL";
+			return false;
 		}
 	default:
-		return "FAIL";
+		return false;
 	}
 }
 
@@ -274,22 +276,34 @@ ostream & operator<<(ostream & os, const Department & d)
 *
 * Verifies if the student has completed or is enrolled in all previous years courses.
 */
-string Department::verify_courses_completition(uint year, uint semestre,Student* s,Course * c) {
+bool Department::verify_courses_completition(uint year, uint semestre,Student* s,Course * c) {
 	int result;
 	for (uint i = 0; i < (year-1); i++) {
 		result = search_for_student(courses[semestre][i], s);
 		if (result != -1) {
 			cout << "Para se puder increver a esse curso o estudante tem primeiro que completar "
-				<< courses[semestre][i][result]->get_name() << '.';
-			return "FAIL";
+				<< courses.at(semestre).at(i).at(result)->get_name() << '.';
+			return false;
 		}
 		else
 		{
 			c->add_student(s);
-			return "OK";
+			return true;
 		}
 	}
-	return "FAIL";
+	return false;
+}
+
+Student* Department::getStudent(const string &studCode) const {
+	for (size_t studInd = 0; studInd < students.size(); ++studInd) {
+		if (studCode == students.at(studInd)->get_code()) {
+			return students.at(studInd);
+		}
+	}
+	
+	return nullptr;
+//	TODO - Exception.
+//	throw StudentNotFound();
 }
 
 const vector<vector<vector<Course*>>> Department::get_courses() const {
