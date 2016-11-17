@@ -213,7 +213,7 @@ int search_for_student(vector<Course*> v, Student* t) {
 }
 
 // Student constructor may throw exception.
-Student* create_student() {
+/*Student* create_student() {
 	string code, name, email, status;
 	cout << "Codigo: ";
 	cin >> code;
@@ -226,4 +226,4 @@ Student* create_student() {
 	cin >> status;
 
 	return new Student(code, name, email, status);
-}
+}*/

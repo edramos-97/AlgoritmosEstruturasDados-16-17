@@ -4,6 +4,7 @@
 #include "Menus.h"
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 using namespace std;
 
@@ -54,6 +55,7 @@ int main() {
 		}
 	}
 	
+
 	/*vector<Student*> v1;
 
 	v1.push_back(read_student(line));

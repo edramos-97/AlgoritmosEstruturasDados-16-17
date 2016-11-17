@@ -12,6 +12,7 @@ void Department::new_student(Student* x)
 	x->assign_tutor(tutors[0]);
 	students.push_back(x);
 	tutors[0]->add_student(x);
+	next_assign_student++;
 }
 /**
 * @brief Adds a Tutor to the Department.
@@ -22,6 +23,7 @@ void Department::new_student(Student* x)
 void Department::new_tutor(Tutor* x)
 {
 	tutors.push_back(x);
+	next_assign_tutor++;
 }
 /**
 * @brief Adds a Course to the Department.
@@ -85,7 +87,7 @@ void Department::add_student(Student * x)
 *
 * Reads from a text file tutors into the Department's tutors vector, courses into the Department's corresponding courses[semestre][year] vector and students into the Department's students vector.
 */
-/*Verify comment*/void Department::load_dept(string x)
+void Department::load_dept(string x)
 {
 	string filename = x + ".txt", line;
 	uint linenum=0;
@@ -94,6 +96,12 @@ void Department::add_student(Student * x)
 	if (!f.is_open()) {
 		throw file_not_open(x);
 	}
+	read_line(f, line, linenum);
+	this->next_assign_tutor = stoi(line);
+
+	read_line(f, line, linenum);
+	this->next_assign_student = stoi(line);
+	
 	read_line(f, line, linenum);
 	if (line != "#tutors_start") {
 		throw corrupted_file(linenum, "expected #tutors_start");
@@ -141,9 +149,9 @@ void Department::add_student(Student * x)
 *
 * Saves to a text file the Department's tutors, courses and students.
 */
-void Department::save_dept(string filename)
+void Department::save_dept()
 {
-	ofstream f(/*this->get_name()+".txt"*/filename);
+	ofstream f(name+".txt");
 	f << "#tutors_start" << endl;
 	for (auto x : tutors)
 		save_tutor(f, x);

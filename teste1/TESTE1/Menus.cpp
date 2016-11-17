@@ -84,73 +84,73 @@ bool Menu_department() {
 }
 
 //TODO
-void menu_enroll(Department & dept) {
-	clrscr();
-
-	bool isNew = false; //TODO - Needed?
-	string courseName;
-	Student *stud = nullptr;
-	Course *course = nullptr;
-	unsigned short option;
-	cout << "1 - Novo estudante" << endl;
-	cout << "2 - Estudante existente" << endl;
-	cout << "0 - Voltar" << endl;
-	cout << "Opcao: ";
-	cin >> option;
-
-	switch (option) {
-		case 1:
-			stud = create_student();
-			isNew = true;
-			break;
-		case 2:
-			//TODO - Find student.
-			break;
-		case 0:
-			return;
-		default:
-			//TODO - Loop.
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			clrscr();
-	}
-
-	// Choose course.
-	//TODO - How to choose semester? Date-dependent?
-	uint semester = 0;
-	bool invalidCourse = true, foundCourse = false;
-
-	while (invalidCourse) {
-		cout << "Nome da UC: ";
-		cin >> courseName;
-
-		{
-			size_t year = 0, courseInd = 0;
-			for (; year < dept.get_courses().at(semester).size(); ++year) {
-				for (size_t courseInd = 0; courseInd < dept.get_courses().at(semester).at(year).size(); ++courseInd) {
-					if (courseName == dept.get_courses().at(semester).at(year).at(courseInd)->get_name()) {
-						course = dept.get_courses().at(semester).at(year).at(courseInd);
-						foundCourse = true;
-						break;
-					}
-				}
-				if (foundCourse)
-					break;
-			}
-
-			if ("OK" == dept.apply_for_course(stud, dept.get_courses().at(semester).at(year).at(courseInd))) {
-				invalidCourse = false;
-			}
-		}
-	}
-	if (course == nullptr) {
-		cerr << "menu_enroll(): Unintended behavior: course = nullptr after initialization cycle" << endl;
-		exit(1); //Replace by exception.
-	}
-	
-	// TODO - Enroll student.
-
-}
+//void menu_enroll(Department & dept) {
+//	clrscr();
+//
+//	bool isNew = false; //TODO - Needed?
+//	string courseName;
+//	Student *stud = nullptr;
+//	Course *course = nullptr;
+//	unsigned short option;
+//	cout << "1 - Novo estudante" << endl;
+//	cout << "2 - Estudante existente" << endl;
+//	cout << "0 - Voltar" << endl;
+//	cout << "Opcao: ";
+//	cin >> option;
+//
+//	switch (option) {
+//		case 1:
+//			stud = create_student();
+//			isNew = true;
+//			break;
+//		case 2:
+//			//TODO - Find student.
+//			break;
+//		case 0:
+//			return;
+//		default:
+//			//TODO - Loop.
+//			cin.clear();
+//			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//			clrscr();
+//	}
+//
+//	// Choose course.
+//	//TODO - How to choose semester? Date-dependent?
+//	uint semester = 0;
+//	bool invalidCourse = true, foundCourse = false;
+//
+//	while (invalidCourse) {
+//		cout << "Nome da UC: ";
+//		cin >> courseName;
+//
+//		{
+//			size_t year = 0, courseInd = 0;
+//			for (; year < dept.get_courses().at(semester).size(); ++year) {
+//				for (size_t courseInd = 0; courseInd < dept.get_courses().at(semester).at(year).size(); ++courseInd) {
+//					if (courseName == dept.get_courses().at(semester).at(year).at(courseInd)->get_name()) {
+//						course = dept.get_courses().at(semester).at(year).at(courseInd);
+//						foundCourse = true;
+//						break;
+//					}
+//				}
+//				if (foundCourse)
+//					break;
+//			}
+//
+//			if ("OK" == dept.apply_for_course(stud, dept.get_courses().at(semester).at(year).at(courseInd))) {
+//				invalidCourse = false;
+//			}
+//		}
+//	}
+//	if (course == nullptr) {
+//		cerr << "menu_enroll(): Unintended behavior: course = nullptr after initialization cycle" << endl;
+//		exit(1); //Replace by exception.
+//	}
+//	
+//	// TODO - Enroll student.
+//
+//}
 
 void mainMenu(Department & dept)
 {
@@ -162,7 +162,7 @@ void mainMenu(Department & dept)
 
 
 		cout << BIG_TAB << "Menu Principal!" << endl << endl;
-		cout << TAB << "1 - Inscricao" << endl;
+		cout << TAB << "1 - Novo Tutor" << endl;
 		cout << TAB << "2 - " << endl;
 		cout << TAB << "3 - " << endl;
 		cout << TAB << "4 - " << endl;
@@ -186,9 +186,10 @@ void mainMenu(Department & dept)
 		//chamam uma funcao que apenas vai corrigir o erro e chamar a função que se quer!!!
 		switch (option) {
 		case 1:
-			menu_enroll(dept);
+			call_newtutor(dept);
 			break;
 		case 2:
+			call_newstudent(dept);
 			break;
 		case 3:
 			break;
@@ -199,9 +200,10 @@ void mainMenu(Department & dept)
 		case 6:
 			break;
 		case 7:
+			/*menu_enroll(dept);*/
 			break;
 		case 0:
-			//grava tudo num ficheiro 
+			dept.save_dept();
 			exit_program=true;
 			break;
 		default: 
@@ -225,10 +227,57 @@ Department newDepartment(string name) {
 	
 	Department D(name);
 
-	cout << "A faculdade necessita de pelo menos um tutor, por favor insira o seu nome: ";
-	cin >> name;
-	cod = "tu000000001";//a alterar
+	cout << "O departamento necessita de pelo menos um tutor, por favor insira o seu nome: ";
+	getline(cin, name);
+	cod=to_string(D.getNext_assgined_tutor());
+	while (cod.length() < 9) {
+		cod = '0' + cod;
+	}
+	cod = "tu" + cod;
 	Tutor *T= new Tutor(cod, name);
 	D.new_tutor(T);
 	return D;
+}
+
+void call_newtutor(Department &D) {
+	string name, cod;
+	cout <<  "Por favor insira o seu nome: ";
+	cin.ignore();
+	getline(cin, name);
+	cod = to_string(D.getNext_assgined_tutor());
+	while (cod.length() < 9) {
+		cod = '0' + cod;
+	}
+	cod = "tu" + cod;
+	try {
+		Tutor *T = new Tutor(cod, name);
+		D.new_tutor(T);
+	}
+	catch (...) {}
+	return;
+}
+
+void call_newstudent(Department & d)
+{
+	string name, status,cod;
+	cout << "Insira o nome do novo estudante: ";
+	cin.ignore();
+	getline(cin,name);
+	cout << "Insira o seu estatuto: \n"
+		<< "Trabalhador Estudante \n"
+		<< "Estudante\n"
+		<< "Atleta Estudante\n";
+	getline(cin, status);
+	cod = to_string(d.getNext_assgined_student());
+	while (cod.length() < 9) {
+		cod = '0' + cod;
+	}
+	cod = "st" + cod;
+	try {
+		Student *st = new Student(cod, name, cod + "@fe.up.pt", status);
+		d.add_student(st);
+	}
+	catch (...) {
+	}
+
 }
