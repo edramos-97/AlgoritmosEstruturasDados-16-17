@@ -1,3 +1,10 @@
+/**
+* @file Date.h
+* @author AEDA T3GE
+* @title Date
+* @brief Class that handles all dates in this project
+*/
+
 #pragma once
 
 
@@ -15,16 +22,47 @@ private:
 	int month;
 	int year;
 public:
+	/**
+	@brief By default contructor wich creates an object date with the actual date of the day
+	*/
 	Date();
-	Date(string dateStr); // data na forma DD/MM/AAA
+	/**
+	@brief Contructor wich creates an object date from a string in the format Day/Month/Year
+	@param dateStr String that contains a date
+	*/
+	Date(string dateStr); 
+	/**
+	@brief Returns the day of an object type Date
+	@return day
+	*/
 	int getDay() const;
+	/**
+	@brief Returns the month of an object type Date
+	@return month
+	*/
 	int getMonth() const;
+	/**
+	@brief Returns the year of an object type Date
+	@return year
+	*/
 	int getYear() const;
-	void setDay(int dia);
-	void setMonth(int mes);
-	void setYear(int ano);
+	/**
+	@brief Saves an object type Date in a file in the format DD/MM/YY
+	@param out reference to the file
+	*/
 	void save(ofstream & out) const;
+	/**
+	@brief Operator << for Date
+	@param out ostream&
+	@param data Date object to use the operator
+	*/
 	friend ostream& operator<<(ostream& out, const Date & data);
+	/**
+	@brief Operator < for class Date
+	@param date1 object type Date
+	@param date2 object type Date
+	@return return true if date1 < date2
+	*/
 	friend bool operator<(const Date &date1, const Date &date2);
 };
 

@@ -61,20 +61,6 @@ int Date::getYear() const{
 	return year;
 }
 
-
-
-void Date::setDay(int dia){
-	day = dia;
-}
-
-void Date::setMonth(int mes){
-	month = mes;
-}
-
-void Date::setYear(int ano){
-	year = ano;
-}
-
 void Date::save(ofstream & out) const{
 	out << day << '/' << month << '/' << year;
 	return;
