@@ -9,6 +9,6 @@
 #undef max
 
 using namespace std;
-Department newDepartment();
+Department newDepartment(string name);
 bool Menu_department();
 void mainMenu(Department &dept);

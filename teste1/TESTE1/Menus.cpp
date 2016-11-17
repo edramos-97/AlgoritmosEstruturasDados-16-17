@@ -19,18 +19,22 @@ bool Menu_department() {
 	case 1:
 	{
 		try {
-			Department D = newDepartment();
+			cout << "Para voltar atras insira \"exit\"\nInsira o nome da nova faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
+			cin >> filename;
+			if (filename == "exit") //    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
+				return true;
+			Department D = newDepartment(filename);
 			clrscr();
 			mainMenu(D);
 			return true;
 		}
 		catch (input_not_valid) {
-			cerr << "Essa faculdade ja existe. Tente novamente" << endl;
+			cerr << "Essa faculdade ja existe. Tente novamente\n";
 			system("PAUSE");
 			clrscr();
 		}
 		catch (short_argument x) {
-			cerr << x.get_arg() << ". Tente novamente!" << endl;
+			cerr << x.get_info() <<  x.get_arg()<< "\"" << ". Tente novamente!\n";
 			system("PAUSE");
 			clrscr();
 		}
@@ -41,8 +45,10 @@ bool Menu_department() {
 	{
 		try
 		{
-			cout << "Insira o nome do ficheiro que contem as informacoes da faculdade: ";
+			cout << "Para voltar atras insira \"exit\"\nInsira o nome do ficheiro que contem as informacoes da faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
 			cin >> filename;
+			if (filename == "exit")//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
+				return true;
 			Department D(filename);
 			D.load_dept(filename);
 			clrscr();
@@ -51,12 +57,12 @@ bool Menu_department() {
 		}
 		catch (file_not_open x)
 		{
-			cerr << "Nao existe nenhum ficheiro com o nome: " << x.get_info() << ". Tente novamente!" << endl;
+			cerr << "Nao existe nenhum ficheiro com o nome: \"" << x.get_info() << "\". Tente novamente!\n";
 			system("PAUSE");
 			clrscr();
 		}
 		catch (short_argument x) {
-			cerr << x.get_info() << ". Tente novamente!" << endl;
+			cerr << x.get_info() << ". Tente novamente!\n";
 			system("PAUSE");
 			clrscr();
 		}
@@ -140,12 +146,10 @@ void mainMenu(Department & dept)
 }
 
 
-Department newDepartment() {
+Department newDepartment(string name) {
 	ifstream f;
 	
-	string name, cod;
-	cout << "Insira o nome da nova faculdade: ";
-	cin >> name;
+	string cod;
 	
 	f.open(name + ".txt");
 	if (f.is_open())

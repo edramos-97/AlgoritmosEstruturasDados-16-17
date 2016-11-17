@@ -39,7 +39,7 @@ int main() {
 	//D.load_dept("test");
 
 	//D.save_dept("test.txt");
-	bool stop_program = false;
+	/*bool stop_program = false;
 	while (!stop_program) {
 
 		try {
@@ -52,9 +52,8 @@ int main() {
 			system("PAUSE");
 			clrscr();
 		}
-	}
-	
-
+	}*/
+	cout << "Para voltar atras insira \"exit\"\nInsira o nome do ficheiro que contem as informacoes da faculdade: ";
 	/*vector<Student*> v1;
 
 	v1.push_back(read_student(line));
