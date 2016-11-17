@@ -90,7 +90,7 @@ void menu_enroll(Department & dept) {
 	bool isNew = false; //TODO - Needed?
 	string courseName;
 	Student *stud = nullptr;
-	Course *course;
+	Course *course = nullptr;
 	unsigned short option;
 	cout << "1 - Novo estudante" << endl;
 	cout << "2 - Estudante existente" << endl;
@@ -115,8 +115,8 @@ void menu_enroll(Department & dept) {
 			clrscr();
 	}
 
-	//Choose course
-	//TODO - How to choose the semester? Date-dependent?
+	// Choose course.
+	//TODO - How to choose semester? Date-dependent?
 	uint semester = 0;
 	bool invalidCourse = true, foundCourse = false;
 
@@ -143,8 +143,13 @@ void menu_enroll(Department & dept) {
 			}
 		}
 	}
+	if (course == nullptr) {
+		cerr << "menu_enroll(): Unintended behavior: course = nullptr after initialization cycle" << endl;
+		exit(1); //Replace by exception.
+	}
 	
-	//Enrol student
+	// TODO - Enroll student.
+
 }
 
 void mainMenu(Department & dept)

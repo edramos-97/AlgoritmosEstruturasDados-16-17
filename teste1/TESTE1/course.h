@@ -7,9 +7,6 @@
 #include "date.h"
 
 
-//Discussion - Should Course also have a "code" attribute (e.g. "EIC0014")?
-// - João Esteves
-
 using namespace std;
 
 typedef unsigned int uint;
