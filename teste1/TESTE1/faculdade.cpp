@@ -133,7 +133,6 @@ void Department::load_dept(string x)
 		if (students.size() != 0) {
 			if (check_duplicates<Student*>(students, temp))
 				continue;
-			//throw corrupted_file(linenum,"duplicate students are not allowed");
 		}
 			
 		add_student(temp);

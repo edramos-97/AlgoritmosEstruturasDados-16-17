@@ -1,3 +1,10 @@
+/**
+* @file utils.h
+* @author AEDA T3GE
+* @title Utilitie Functions
+* @brief Utilitie functions and definitions to help in the development of this project
+*/
+
 #pragma once
 #include <windows.h>
 #include "course.h"
@@ -7,23 +14,74 @@
 
 #define TAB	"\t"		
 #define BIG_TAB	"\t\t\t\t\t\t\t"
+/**
+@brief Clears console screen, for a clean look, expecially used in menus
+*/
 void clrscr();
-
+/**
+*@brief reads the information of a student from the text file, used in Faculdade::load_dept
+*@param f ifstream that contains reference to the file
+*@param linenum number of the line being treated
+*@return returns a pointer to the student created
+*/
 Student* read_student(ifstream &f, uint &linenum);
+/**
+*@brief reads  the information of a student from the textfile under some course, used in read_course
+*@param line string to conver to object type student
+*@return returns a pointer to the student created
+*/
 Student* read_student(string &line);
+/**
+*@brief reads the information of a tutor from the text file, used in Faculdade::load_dept
+*@param f ifstream that contains reference to the file
+*@param linenum number of the line being treated
+*@return returns a pointer to the tutor created
+*/
 Tutor* read_tutor(ifstream &f, uint &linenum);
+/**
+*@brief reads the information of a Course from the text file, used in Faculdade::load_dept
+*@param f ifstream that contains reference to the file
+*@param linenum number of the line being treated
+*@return returns a pointer to the course created
+*/
 Course* read_course(ifstream &f, uint &linenum);
+/**
+*@brief reads a line from the text file and puts it on a string, used in Faculdade::load_dept
+*@param f ifstream that contains reference to the file
+*@param line string wich will have the content from the line
+*@param linenum number of the line being treated
+*/
 void read_line(ifstream &f, string &line, uint &linenum);
-template<typename T>bool check_duplicates(vector<T> v,T arg) 
-{
-	for (auto x : v)
-	{
-		if (x->get_name() == arg->get_name() || x->get_code() == arg->get_code())
-			return true;
-	}
-	return false;
-};
+
+/**
+*@brief checks if a vector already contains an equal argument to the what he want;
+*@param v vector to check
+*@param arg argument to check if already exists in the vector
+*@return returns a true if it already exist else false
+*/
+template<typename T>bool check_duplicates(vector<T> v,T arg);
+/**
+*@brief saves the information of an object type student in the textfile, used in Faculdade::save_dept
+*@param f ifstream that contains reference to the file
+*@param x student to save
+*/
 void save_student(ofstream &f,Student* x);
+/**
+*@brief saves the information of an object type tutor in the textfile, used in Faculdade::save_dept
+*@param f ifstream that contains reference to the file
+*@param x tutor to save
+*/
 void save_tutor(ofstream &f,Tutor * x);
+/**
+*@brief saves the information of an object type tutor in the textfile, used in Faculdade::save_dept
+*@param f ifstream that contains reference to the file
+*@param x tutor to save
+*/
 void save_course(ofstream &f,Course * x);
+/**
+*@brief 
+*@param v Vector of courses
+*@param t student to find
+*returns 
+*/
 int search_for_student(vector<Course*> v, Student * t);

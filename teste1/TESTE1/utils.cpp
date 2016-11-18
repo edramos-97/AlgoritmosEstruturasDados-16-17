@@ -212,18 +212,12 @@ int search_for_student(vector<Course*> v, Student* t) {
 	return -1;
 }
 
-// Student constructor may throw exception.
-/*Student* create_student() {
-	string code, name, email, status;
-	cout << "Codigo: ";
-	cin >> code;
-	cin.ignore();
-	cout << "Nome: ";
-	getline(cin, name);
-	cout << "E-mail: ";
-	cin >> email;
-	cout << "Status: ";
-	cin >> status;
-
-	return new Student(code, name, email, status);
-}*/
+template<typename T>bool check_duplicates(vector<T> v, T arg)
+{
+	for (auto x : v)
+	{
+		if (x->get_name() == arg->get_name() || x->get_code() == arg->get_code())
+			return true;
+	}
+	return false;
+}

@@ -2,7 +2,7 @@
 * @file Date.h
 * @author AEDA T3GE
 * @title Date
-* @brief Class that handles all dates in this project
+* @brief Definition of Class that handles all dates in this project
 */
 
 #pragma once
