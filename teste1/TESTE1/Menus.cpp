@@ -161,7 +161,7 @@ void mainMenu(Department & dept)
 	{
 
 
-		cout << BIG_TAB << "Menu Principal!" << endl << endl;
+		cout << BIG_TAB << "Menu Principal" << endl << endl;
 		cout << TAB << "1 - Novo Tutor" << endl;
 		cout << TAB << "2 - Novo Estudante" << endl;
 		cout << TAB << "3 - Informacao de Estudante" << endl;
@@ -322,11 +322,11 @@ void studentInfo(const Department &dept) {
 	cout << stud << "\n";
 	cout << "Enrolled in:\n";
 	for (Course *course : stud.get_enrol_courses()) {
-		cout << "- " << course->get_name() << "\n";
+		cout << " - " << course->get_name() << "\n";
 	}
-	cout << "\n";
+	cout << "Approved in:\n";
 	for (Course *course : stud.get_approv_courses()) {
-		cout << "- " << course->get_name() << "\n";
+		cout << " - " << course->get_name() << "\n";
 	}
 
 	system("pause");

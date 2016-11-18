@@ -1,4 +1,4 @@
-199703569
+199703571
 201505789
 #tutors_start
 Raul Vidal;tu199703569
@@ -6,7 +6,7 @@ Raul Vidal;tu199703569
 #courses_start
 course_start
 AEDA;2;1;6
-st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;199703569;0;0;15/03/2015
+st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;199703569;0;0;15/3/2015
 approved_students
 end_course
 #courses_end

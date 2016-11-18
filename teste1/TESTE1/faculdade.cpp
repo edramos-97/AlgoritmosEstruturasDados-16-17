@@ -152,6 +152,8 @@ void Department::load_dept(string x)
 void Department::save_dept()
 {
 	ofstream f(name+".txt");
+	f << this->next_assign_tutor << "\n";
+	f << this->next_assign_student << "\n";
 	f << "#tutors_start" << endl;
 	for (auto x : tutors)
 		save_tutor(f, x);

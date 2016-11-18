@@ -134,7 +134,7 @@ Course* read_course(ifstream &f,uint &linenum) {
 	for (; line != "approved_students";) {
 		c->add_student(read_student(line));
 		date = line.substr(0, line.find(';'));
-		Date * d= new Date(date);
+		Date *d = new Date(date);
 		c->add_date(d);
 		read_line(f, line, linenum);
 	}
