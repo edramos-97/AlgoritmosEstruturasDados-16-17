@@ -192,7 +192,7 @@ void mainMenu(Department & dept)
 			call_newstudent(dept);
 			break;
 		case 3:
-			menu_studentInfo(dept);
+			studentInfo(dept);
 			break;
 		case 4:
 			break;
@@ -311,13 +311,23 @@ void call_newstudent(Department &d)
 
 }
 
-void menu_studentInfo(const Department &dept) {
+void studentInfo(const Department &dept) {
 	clrscr();
 	
 	string studCode;
 	cout << "Codigo do estudante: ";
 	cin >> studCode;
-	Student stud = *(dept.getStudent(studCode));
+	Student stud = *(dept.getStudent(studCode)); //TODO - Exception handling.
+	
+	cout << stud << "\n";
+	cout << "Enrolled in:\n";
+	for (Course *course : stud.get_enrol_courses()) {
+		cout << "- " << course->get_name() << "\n";
+	}
+	cout << "\n";
+	for (Course *course : stud.get_approv_courses()) {
+		cout << "- " << course->get_name() << "\n";
+	}
 
-	//TODO - Info.
+	system("pause");
 }

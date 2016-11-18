@@ -11,6 +11,8 @@ using namespace std;
 
 typedef unsigned int uint;
 
+class Student;
+
 class Course {
 protected:
 	const uint year, semester;
@@ -20,13 +22,13 @@ public:
 	vector<Student *> enrolled_students;
 	vector<Student *> approved_students;
 	vector<Date *> date_enrolled;
-	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits),name(name) {
+	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits), name(name) {
 		if (year < 1 || year > 5)
-			throw value_out_of_range<uint,string>(year, "year");
+			throw value_out_of_range<uint, string>(year, "year");
 		if (semester < 1 || semester > 2)
-			throw value_out_of_range<uint,string>(semester, "semestre");
+			throw value_out_of_range<uint, string>(semester, "semestre");
 		if (credits < 1 || credits > 30)
-			throw value_out_of_range<double,string>(credits, "credits");
+			throw value_out_of_range<double, string>(credits, "credits");
 		if (name.size() < 3)
 			throw short_argument(name, "name");
 	};
@@ -50,7 +52,7 @@ private:
 	uint openSlots;
 	string scientificArea;
 public:
-	OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name) : Course(year, semester, credits,name), openSlots(openSlots) {
+	OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name) : Course(year, semester, credits, name), openSlots(openSlots) {
 	};
 	string get_scientificArea() const { return scientificArea; };
 	uint get_openSlots() const { return openSlots; };

@@ -15,4 +15,4 @@ bool Menu_department();
 void mainMenu(Department &dept);
 void call_newtutor(Department &d);
 void call_newstudent(Department &d);
-void menu_studentInfo(const Department &dept);
+void studentInfo(const Department &dept);

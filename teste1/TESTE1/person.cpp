@@ -15,7 +15,7 @@ Person::Person(string code, string name) : code(code), name(name) {
 *CLASS TUTOR
 *********************************/
 Tutor::Tutor(string code, string name) : Person(code, name) {
-	if(code.at(0)!='t'||code.at(1)!='u')
+	if (code.at(0) != 't' || code.at(1) != 'u')
 		throw short_argument(code, "Codigo de tutor invalido");
 }
 
@@ -56,22 +56,34 @@ string Student::get_email() const { return email; }
 string Student::get_status() const { return status; }
 string Student::get_tutor() const { return tutor; }
 
-vector<string> Student::get_enrol_courses() const {
+vector<Course *> Student::get_enrol_courses() const {
 	return enrolled_courses;
+}
+
+vector<Course *> Student::get_approv_courses() const {
+	return approved_courses;
 }
 
 double Student::get_appcredits() const { return approved_credits; }
 double Student::get_credits() const { return credits; }
-void Student::add_approved_credits(double x) { 
+void Student::add_approved_credits(double x) {
 	approved_credits += x;
 	credits -= x; // right? se foi aprovado retiramos dos creditos que esta inscrito...
 }
 void Student::add_credits(double x) { credits += x; }
 void Student::assign_tutor(Tutor * x) { tutor = x->get_code(); }
 
+void Student::enroll_course(Course *c) {
+	enrolled_courses.push_back(c);
+}
+
+void Student::approve_course(Course *c) {
+	approved_courses.push_back(c);
+}
+
 ostream & operator<<(ostream & os, const Student & s)
 {
-	os << s.code << "||" << s.name << "||" << s.email << endl <<
+	os << s.code << " || " << s.name << " || " << s.email << endl <<
 		"Status: " << s.status << endl <<
 		"Tutor: " << s.tutor << endl <<
 		"Completed credits: " << s.approved_credits << endl <<

@@ -206,19 +206,15 @@ bool Department::apply_for_course(Student * s, Course * c)
 		switch (c->get_year()) {
 		case 1:
 			c->add_student(s);
-			break;
+			s->enroll_course(c);
 		case 2:
 			return verify_courses_completition(2, 1, s, c);
-			break;
 		case 3:
 			return verify_courses_completition(3, 1, s, c);
-			break;
 		case 4:
 			return verify_courses_completition(4, 1, s, c);
-			break;
 		case 5:
 			return verify_courses_completition(5, 1, s, c);
-			break;
 		default:
 			return false;
 		}
@@ -226,18 +222,15 @@ bool Department::apply_for_course(Student * s, Course * c)
 		switch (c->get_year()) {
 		case 1:
 			c->add_student(s);
+			s->enroll_course(c);
 		case 2:
 			return verify_courses_completition(2, 2, s, c);
-			break;
 		case 3:
 			return verify_courses_completition(3, 2, s, c);
-			break;
 		case 4:
 			return verify_courses_completition(4, 2, s, c);
-			break;
 		case 5:
 			return verify_courses_completition(5, 2, s, c);
-			break;
 		default:
 			return false;
 		}
@@ -269,24 +262,25 @@ ostream & operator<<(ostream & os, const Department & d)
 /**
 * @brief Verifies if it is possible for the student to apply for the given course.
 * @param year The year of the Course specified.
-* @param semestre The semestre of the course specified.
+* @param semester The semester of the course specified.
 * @param s The student that is applying for a Course.
 * @param c The course to which a student is applying.
 *
 * Verifies if the student has completed or is enrolled in all previous years courses.
 */
-bool Department::verify_courses_completition(uint year, uint semestre,Student* s,Course * c) {
+bool Department::verify_courses_completition(uint year, uint semester, Student* s, Course * c) {
 	int result;
 	for (uint i = 0; i < (year-1); i++) {
-		result = search_for_student(courses[semestre][i], s);
+		result = search_for_student(courses[semester][i], s);
 		if (result != -1) {
 			cout << "Para se puder increver a esse curso o estudante tem primeiro que completar "
-				<< courses.at(semestre).at(i).at(result)->get_name() << '.';
+				<< courses.at(semester).at(i).at(result)->get_name() << '.';
 			return false;
 		}
 		else
 		{
 			c->add_student(s);
+			s->enroll_course(c);
 			return true;
 		}
 	}

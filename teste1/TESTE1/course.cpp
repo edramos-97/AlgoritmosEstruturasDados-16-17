@@ -34,10 +34,10 @@ void Course::approve_student(Student x)
 
 void Course::print_enrolled() const
 {
-	for (uint i = 0; i < enrolled_students.size();i++)
+	for (uint i = 0; i < enrolled_students.size(); i++)
 	{
 		cout << *enrolled_students[i] << "Date of enrolment: " << *date_enrolled[i]
-			<<"\n ||||||||||||||||||||||||||||\n\n";
+			<< "\n ||||||||||||||||||||||||||||\n\n";
 	}
 }
 
@@ -70,7 +70,7 @@ void OptionalCourse::approve_student(Student x)
 
 ostream & operator<<(ostream & os, const Course & c)
 {
-	os <<right << setw(6) << c.name << "::" << left <<setw (4) << c.credits<< endl;
+	os << right << setw(6) << c.name << "::" << left << setw(4) << c.credits << endl;
 	os << "\nEnrolled students:\n" << endl;
 	c.print_enrolled();
 	os << "\nApproved students:\n" << endl;
@@ -80,7 +80,7 @@ ostream & operator<<(ostream & os, const Course & c)
 
 ostream & operator<<(ostream & os, const OptionalCourse & c)
 {
-	os << right << setw(10) << c.name << "::" << left << setw(4) << c.credits << "Available slots: "<< c.openSlots;
+	os << right << setw(10) << c.name << "::" << left << setw(4) << c.credits << "Available slots: " << c.openSlots;
 	os << "\nEnrolled students:\n" << endl;
 	c.print_enrolled();
 	os << "\nApproved students:\n" << endl;
