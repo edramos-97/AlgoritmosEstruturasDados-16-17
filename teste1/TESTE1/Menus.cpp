@@ -260,22 +260,50 @@ void call_newtutor(Department &D) {
 
 void call_newstudent(Department &d)
 {
-	string name, status,cod;
+	string name, cod, status_str;
+	uint status;
 	cout << "Insira o nome do novo estudante: ";
 	cin.ignore();
 	getline(cin,name);
 	cout << "Insira o seu estatuto:\n"
-		<< "Trabalhador Estudante\n"
-		<< "Estudante\n"
-		<< "Atleta Estudante\n";
-	getline(cin, status);
+		<< "1 - Trabalhador Estudante\n"
+		<< "2 - Estudante\n"
+		<< "3 - Atleta Estudante\n";
+	cin >> status;
+	
+	if (!cin.good()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cerr << "O input nao e valido. Tente novamente " << endl << endl;
+		system("PAUSE");
+		clrscr();
+		return;
+	}
+	switch (status)
+	{
+	case 1: 
+		status_str = "Trabalhador Estudante";
+		break;
+	case 2:
+		status_str = "Estudante";
+		break;
+	case 3:
+		status_str = "Atleta Estudante";
+		break;
+	default:
+		cerr << "O input nao e valido. Tente novamente " << endl << endl;
+		system("PAUSE");
+		clrscr();
+		return;
+	}	
+
 	cod = to_string(d.getNext_assgined_student());
 	while (cod.length() < 9) {
 		cod = '0' + cod;
 	}
 	cod = "st" + cod;
 	try {
-		Student *st = new Student(cod, name, cod + "@fe.up.pt", status);
+		Student *st = new Student(cod, name, cod + "@fe.up.pt", status_str);
 		d.add_student(st);
 	}
 	catch (...) {
