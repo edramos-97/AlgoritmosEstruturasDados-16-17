@@ -78,6 +78,10 @@ void Student::enroll_course(Course *c) {
 }
 
 void Student::approve_course(Course *c) {
+	for (vector<Course *>::iterator it = enrolled_courses.begin(); it != enrolled_courses.end(); ++it) {
+		if (*it == c)
+			enrolled_courses.erase(it);
+	}
 	approved_courses.push_back(c);
 }
 
