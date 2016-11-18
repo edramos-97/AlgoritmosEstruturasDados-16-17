@@ -31,11 +31,13 @@ public:
 	*@param name of the person
 	*/
 	Person(string code, string name);
+
 	/**
 	*@brief virtual fuction that returns the name of a Person
 	*@return string with the name
 	*/
 	virtual string get_name() const = 0;
+
 	/**
 	*@brief virtual fuction that returns the code of a Person
 	*@return string with the code
@@ -135,8 +137,8 @@ public:
 	string get_tutor() const;
 
 	/**
-	*@brief fucntions that returns a vector with the courses the stundent is enrolled
-	*@return returns vector<string> with stundent enrolled courses
+	*@brief Function that returns a vector with the courses the student is enrolled
+	*@return Returns vector<Course *> with student enrolled courses
 	*/
 	vector<Course *> get_enrol_courses() const;
 

@@ -24,7 +24,6 @@ void Department::new_student(Student* x)
 	x->assign_tutor(tutors[0]);
 	students.push_back(x);
 	tutors[0]->add_student(x);
-//	next_assign_student++;
 }
 /**
 * @brief Adds a Tutor to the Department.
@@ -35,8 +34,8 @@ void Department::new_student(Student* x)
 void Department::new_tutor(Tutor* x)
 {
 	tutors.push_back(x);
-//	next_assign_tutor++;
 }
+
 /**
 * @brief Adds a Course to the Department.
 * @param x Previously created Course to add.
@@ -50,8 +49,9 @@ void Department::new_course(Course* x)
 	year = x->get_year();
 	semestre = x->get_semestre();
 
-	courses[semestre-1][year-1].push_back(x);
+	courses.at(semestre-1).at(year-1).push_back(x);
 }
+
 /**
 * @brief Adds an existent course to the Department.
 * @param x Previously read course to add.

@@ -317,15 +317,16 @@ void studentInfo(const Department &dept) {
 	string studCode;
 	cout << "Codigo do estudante: ";
 	cin >> studCode;
-	Student stud = *(dept.getStudent(studCode)); //TODO - Exception handling.
-	
-	cout << stud << "\n";
+	const Student *stud = dept.getStudent(studCode); //TODO - Exception handling.
+
+	cout << *stud << "\n";
 	cout << "Enrolled in:\n";
-	for (Course *course : stud.get_enrol_courses()) {
+	vector<Course *> enrol_courses = stud->get_enrol_courses();
+	for (Course *course : stud->get_enrol_courses()) {
 		cout << " - " << course->get_name() << "\n";
 	}
 	cout << "Approved in:\n";
-	for (Course *course : stud.get_approv_courses()) {
+	for (Course *course : stud->get_approv_courses()) {
 		cout << " - " << course->get_name() << "\n";
 	}
 
