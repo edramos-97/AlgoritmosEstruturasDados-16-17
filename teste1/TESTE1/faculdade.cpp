@@ -1,5 +1,17 @@
 #include "faculdade.h"
 
+int Department::getNext_assigned_tutor(bool newTutor) {
+	if (newTutor)
+		++next_assign_tutor;
+	return next_assign_tutor;
+};
+
+int Department::getNext_assigned_student(bool newStudent) {
+	if (newStudent)
+		++next_assign_student;
+	return next_assign_student;
+}
+
 /**
 * @brief Adds a new Student to the Department.
 * @param x Previously created Student to add.
@@ -12,7 +24,7 @@ void Department::new_student(Student* x)
 	x->assign_tutor(tutors[0]);
 	students.push_back(x);
 	tutors[0]->add_student(x);
-	next_assign_student++;
+//	next_assign_student++;
 }
 /**
 * @brief Adds a Tutor to the Department.
@@ -23,7 +35,7 @@ void Department::new_student(Student* x)
 void Department::new_tutor(Tutor* x)
 {
 	tutors.push_back(x);
-	next_assign_tutor++;
+//	next_assign_tutor++;
 }
 /**
 * @brief Adds a Course to the Department.

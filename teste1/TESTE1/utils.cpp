@@ -132,7 +132,9 @@ Course* read_course(ifstream &f,uint &linenum) {
 	read_line(f, line, linenum);
 	
 	for (; line != "approved_students";) {
-		c->add_student(read_student(line));
+		Student *stud = read_student(line);
+		stud->enroll_course(c);
+		c->add_student(stud);
 		date = line.substr(0, line.find(';'));
 		Date *d = new Date(date);
 		c->add_date(d);
@@ -141,7 +143,9 @@ Course* read_course(ifstream &f,uint &linenum) {
 
 	read_line(f, line, linenum);
 	for (;line!="end_course";){
-		c->add_approved_student(read_student(line));
+		Student *stud = read_student(line);
+		stud->approve_course(c);
+		c->add_approved_student(stud);
 		read_line(f, line, linenum);
 	}
 

@@ -6,6 +6,9 @@
 #include <fstream>
 #include <algorithm>
 
+#define NEW_TUTOR true
+#define NEW_STUDENT true
+
 class Department {
 	string name;
 	
@@ -28,7 +31,7 @@ public:
 	Department(string name): name(name)
 	{
 		if (name.size() < 3)
-			throw short_argument(name,"Nome para a faculdade demasiado pequeno : \"");
+			throw short_argument(name, "Nome para a faculdade demasiado pequeno : \"");
 		vector<vector<Course*>>v1(5, vector<Course*>());
 		courses.push_back(v1);
 		courses.push_back(v1);
@@ -37,8 +40,8 @@ public:
 	};
 	
 	string get_name() const { return name; };
-	int getNext_assigned_tutor() const{ return next_assign_tutor; };
-	int getNext_assigned_student() const { return next_assign_student; };
+	int getNext_assigned_tutor(bool newTutor = false);
+	int getNext_assigned_student(bool newStudent = false);
 	Student* getStudent(const string &studCode) const;
 	void new_tutor(Tutor* x);
 	void new_student(Student* x);
