@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mieic.txt">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
 </Project>
