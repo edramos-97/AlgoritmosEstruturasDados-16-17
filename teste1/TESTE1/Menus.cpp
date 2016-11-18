@@ -230,7 +230,7 @@ Department newDepartment(string name) {
 
 	cout << "O departamento necessita de pelo menos um tutor, por favor insira o seu nome: ";
 	getline(cin, name);
-	cod=to_string(D.getNext_assgined_tutor());
+	cod=to_string(D.getNext_assigned_tutor());
 	while (cod.length() < 9) {
 		cod = '0' + cod;
 	}
@@ -245,7 +245,7 @@ void call_newtutor(Department &D) {
 	cout <<  "Por favor insira o seu nome: ";
 	cin.ignore();
 	getline(cin, name);
-	cod = to_string(D.getNext_assgined_tutor());
+	cod = to_string(D.getNext_assigned_tutor());
 	while (cod.length() < 9) {
 		cod = '0' + cod;
 	}
@@ -297,7 +297,7 @@ void call_newstudent(Department &d)
 		return;
 	}	
 
-	cod = to_string(d.getNext_assgined_student());
+	cod = to_string(d.getNext_assigned_student());
 	while (cod.length() < 9) {
 		cod = '0' + cod;
 	}
