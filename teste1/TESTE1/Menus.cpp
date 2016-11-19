@@ -407,5 +407,4 @@ void enrollStudent(Department &dept) {
 			continue;
 		}
 	}
-	
 }

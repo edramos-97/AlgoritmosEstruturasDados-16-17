@@ -216,42 +216,63 @@ bool Department::apply_for_course(Student *stud, Course *course)
 {
 	Date *date = new Date();
 	int result = 0;
+	bool success;
 	switch (course->get_semestre()) {
 	case 1:
 		switch (course->get_year()) {
 		case 1:
 			course->add_student(stud, date);
 			stud->enroll_course(course);
+			success = true;
+			break;
 		case 2:
-			return verify_courses_completition(2, 1, stud, course, date);
+			success = verify_courses_completition(2, 1, stud, course, date);
+			break;
 		case 3:
-			return verify_courses_completition(3, 1, stud, course, date);
+			success = verify_courses_completition(3, 1, stud, course, date);
+			break;
 		case 4:
-			return verify_courses_completition(4, 1, stud, course, date);
+			success = verify_courses_completition(4, 1, stud, course, date);
+			break;
 		case 5:
-			return verify_courses_completition(5, 1, stud, course, date);
+			success = verify_courses_completition(5, 1, stud, course, date);
 		default:
-			return false;
+			success = false;
+			break;
 		}
+		break;
 	case 2:
 		switch (course->get_year()) {
 		case 1:
 			course->add_student(stud, date);
 			stud->enroll_course(course);
+			success = true;
+			break;
 		case 2:
-			return verify_courses_completition(2, 2, stud, course, date);
+			success = verify_courses_completition(2, 2, stud, course, date);
+			break;
 		case 3:
-			return verify_courses_completition(3, 2, stud, course, date);
+			success = verify_courses_completition(3, 2, stud, course, date);
+			break;
 		case 4:
-			return verify_courses_completition(4, 2, stud, course, date);
+			success = verify_courses_completition(4, 2, stud, course, date);
+			break;
 		case 5:
-			return verify_courses_completition(5, 2, stud, course, date);
+			success = verify_courses_completition(5, 2, stud, course, date);
+			break;
 		default:
-			return false;
+			success = false;
+			break;
 		}
+		break;
 	default:
-		return false;
+		success = false;
+		break;
 	}
+	if (!success) {
+		delete date;
+	}
+	return success;
 }
 
 ostream & operator<<(ostream & os, const Department & d)

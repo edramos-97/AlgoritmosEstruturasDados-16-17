@@ -35,7 +35,6 @@ public:
 	};
 	void add_student(Student *stud, Date *date);
 	void add_approved_student(Student *stud, Date *date);
-//	void add_date(Date* d);
 	virtual void approve_student(Student x, Date *date);
 	virtual const uint get_year() { return year; };
 	virtual const uint get_semestre() { return semester; };
