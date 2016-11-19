@@ -4,7 +4,7 @@
 #include "person.h"
 #include "utils.h"
 #include <fstream>
-#include <algorithm>6
+#include <algorithm>
 
 #define NEW_TUTOR true
 #define NEW_STUDENT true
@@ -40,6 +40,7 @@ public:
 	void new_course(Course* x);
 	void add_course(Course * x);
 	void add_student(Student* x);
+	void approve_student(Student *stud, Course *course);
 	bool apply_for_course(Student * s, Course * c);
 	bool verify_courses_completition(uint year, uint semestre, Student *stud, Course *course, Date *date);
 	void Department::processCourse(ifstream &f, uint &linenum);

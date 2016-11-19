@@ -288,6 +288,12 @@ void Department::save_dept()
 	f.close();
 }
 
+void Department::approve_student(Student *stud, Course *course) {
+	Date *date = new Date();
+	stud->approve_course(course);
+	course->approve_student(stud, date);
+}
+
 /**
 * @brief Verifies if it is possible for the student to apply for the given course and enrolls him.
 * @param s The student that is applying for a Course.

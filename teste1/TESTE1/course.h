@@ -78,10 +78,13 @@ public:
 	*@brief virtual function, gets vector with the approved students
 	*/
 	virtual vector<Student *> get_approv_students() const;
+
 	/**
 	*@brief virtual function, gets vector with the dates of assignment of the students to the course
 	*/
 	virtual vector<Date *> get_date_enrolled() const;
+
+	virtual vector<Date *> get_date_approved() const;
 
 	/**
 	*@brief virtual function, prints enrolled students

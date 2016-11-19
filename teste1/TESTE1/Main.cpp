@@ -10,12 +10,13 @@ using namespace std;
 
 #undef max  //To use numeric_limits<streamsize>::max()
 
+/*
 void courseEnrollmentInfo(const Department &dept) {
 	string courseName;
 	cout << "Course name: ";
 	getline(cin, courseName);
 	//TODO - cout << course;
-}
+} */
 
 
 

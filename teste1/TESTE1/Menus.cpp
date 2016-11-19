@@ -98,8 +98,7 @@ void mainMenu(Department & dept)
 		cout << TAB << "3 - Informacao de Estudante" << endl;
 		cout << TAB << "4 - Informacao de UC" << endl;
 		cout << TAB << "5 - Inscricao de Estudante" << endl;
-		cout << TAB << "6 - " << endl;
-		cout << TAB << "7 - " << endl;
+		cout << TAB << "6 - Aprovacao de Estudante" << endl;
 		cout << TAB << "0 - Sair" << endl << endl; //grava num ficheiro e sai definitvamente do programa
 
 		cout << "Escolha uma opcao: ";
@@ -132,8 +131,7 @@ void mainMenu(Department & dept)
 			enrollStudent(dept);
 			break;
 		case 6:
-			break;
-		case 7:
+			approveStudent(dept);
 			break;
 		case 0:
 			dept.save_dept();
@@ -333,6 +331,39 @@ void enrollStudent(Department &dept) {
 				system("pause");
 				continue;
 			}
+			break;
+		}
+		catch (StudentNotFound(studName)) {
+			system("pause");
+			continue;
+		}
+		catch (CourseNotFound(courseName)) {
+			system("pause");
+			continue;
+		}
+	}
+}
+
+void approveStudent(Department &dept) {
+	Student *stud;
+	Course *course;
+	string studName, courseName;
+
+	while (true) {
+		try {
+			cout << "Codigo do estudante (\"exit\" para sair): ";
+			cin >> studName;
+			if (studName == "exit") {
+				return;
+			}
+			stud = dept.getStudent(studName);
+			cout << "Nome da UC (\"exit\" para sair): ";
+			cin >> courseName;
+			if (courseName == "exit") {
+				return;
+			}
+			course = dept.getCourse(courseName);
+			dept.approve_student(stud, course);
 			break;
 		}
 		catch (StudentNotFound(studName)) {

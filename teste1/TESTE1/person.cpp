@@ -79,9 +79,16 @@ void Student::enroll_course(Course *course) {
 }
 
 void Student::approve_course(Course *course) {
+	bool found = false;
 	for (vector<Course *>::iterator it = enrolled_courses.begin(); it != enrolled_courses.end(); ++it) {
-		if (*it == course)
+		if (*it == course) {
 			enrolled_courses.erase(it);
+			found = true;
+			break;
+		}
+	}
+	if (!found) {
+		throw CourseNotFound(course->get_name());
 	}
 	approved_courses.push_back(course);
 	credits -= course->get_credits();

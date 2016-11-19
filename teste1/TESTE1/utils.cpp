@@ -134,15 +134,14 @@ void save_course(ofstream & f, Course* course)
 			<< course->get_scientificArea();
 	}
 	f << endl;
-	for (uint studInd = 0; studInd < course->get_enrol_students().size(); studInd++)
-	{
+	for (uint studInd = 0; studInd < course->get_enrol_students().size(); studInd++) {
 		f << course->get_enrol_students().at(studInd)->get_code() <<
 			';' << *(course->get_date_enrolled().at(studInd)) << endl;
 	}
 	f << "approved_students" << endl;
-	for (auto student : course->get_approv_students()) {
-		save_student(f, student);
-		f << endl;
+	for (uint studInd = 0; studInd < course->get_approv_students().size(); studInd++) {
+		f << course->get_approv_students().at(studInd)->get_code() <<
+			';' << *(course->get_date_approved().at(studInd)) << endl;
 	}
 	f << "end_course" << endl;
 }

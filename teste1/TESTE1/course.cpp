@@ -38,7 +38,7 @@ void Course::approve_student(Student *student, Date *date)
 {
 	auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
 	if (it == enrolled_students.end())
-		throw not_in_container(student->get_code());
+		throw StudentNotFound(student->get_code());
 	else
 	{
 		enrolled_students.erase(it);
@@ -64,6 +64,10 @@ vector<Student *> Course::get_approv_students() const {
 
 vector<Date *> Course::get_date_enrolled() const {
 	return date_enrolled;
+}
+
+vector<Date *> Course::get_date_approved() const {
+	return date_approved;
 }
 
 void Course::print_enrolled() const
