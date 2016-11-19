@@ -47,11 +47,12 @@ public:
 	*@param x Student to add
 	*/
 	virtual void add_approved_student(Student *stud, Date *date);
+
 	/**
 	*@brief virtual function, approves a stundent on the course, removes from vector enrolled students and puts the student on approved students
 	*@param x students to approve
 	*/
-	virtual void approve_student(Student *x);
+	virtual void approve_student(Student *stud, Date *date);
 	/**
 	*@brief virtual function, gets curricular year that a student is suppoded to take the course
 	*/

@@ -20,30 +20,29 @@ Course::Course(uint year, uint semester, double credits, string name) : year(yea
 }
 
 void Course::add_student(Student *student, Date *date)
-
 {
-		enrolled_students.push_back(student);
-		date_enrolled.push_back(date);
+	enrolled_students.push_back(student);
+	date_enrolled.push_back(date);
 }
 
 
 void Course::add_approved_student(Student *student, Date *date)
-
 {
-		approved_students.push_back(student);
-		date_approved.push_back(date);
+	approved_students.push_back(student);
+	date_approved.push_back(date);
 }
 
 
-void Course::approve_student(Student *x)
+//TODO - Date.
+void Course::approve_student(Student *student, Date *date)
 {
-	auto it = find(enrolled_students.begin(), enrolled_students.end(), x);
+	auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
 	if (it == enrolled_students.end())
-		throw not_in_container(x->get_code());
+		throw not_in_container(student->get_code());
 	else
 	{
 		enrolled_students.erase(it);
-		approved_students.push_back(x);
+		approved_students.push_back(student);
 	}
 }
 
@@ -100,8 +99,8 @@ ostream & operator<<(ostream & os, const Course & c)
 /*********************************
 *CLASS Optional Course
 *********************************/
-OptionalCourse::OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name, 
-	string scientificArea) : Course(year, semester, credits, name), openSlots(openSlots) ,scientificArea(scientificArea){
+OptionalCourse::OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name,
+	string scientificArea) : Course(year, semester, credits, name), openSlots(openSlots), scientificArea(scientificArea) {
 }
 
 string OptionalCourse::get_scientificArea() const { return scientificArea; }
@@ -114,15 +113,15 @@ void OptionalCourse::add_student(Student *x)
 	--openSlots;
 }
 
-void OptionalCourse::approve_student(Student *x)
+void OptionalCourse::approve_student(Student *student)
 {
-	auto it = find(enrolled_students.begin(), enrolled_students.end(), &x);
+	auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
 	if (it == enrolled_students.end())
-		throw not_in_container(x->get_code());
+		throw not_in_container(student->get_code());
 	else
 	{
 		enrolled_students.erase(it);
-		approved_students.push_back(x);
+		approved_students.push_back(student);
 	}
 	++openSlots;
 }
