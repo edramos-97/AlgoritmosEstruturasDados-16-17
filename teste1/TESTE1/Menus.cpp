@@ -83,75 +83,6 @@ bool Menu_department() {
 	return false;
 }
 
-//TODO
-//void menu_enroll(Department & dept) {
-//	clrscr();
-//
-//	bool isNew = false; //TODO - Needed?
-//	string courseName;
-//	Student *stud = nullptr;
-//	Course *course = nullptr;
-//	unsigned short option;
-//	cout << "1 - Novo estudante" << endl;
-//	cout << "2 - Estudante existente" << endl;
-//	cout << "0 - Voltar" << endl;
-//	cout << "Opcao: ";
-//	cin >> option;
-//
-//	switch (option) {
-//		case 1:
-//			stud = create_student();
-//			isNew = true;
-//			break;
-//		case 2:
-//			//TODO - Find student.
-//			break;
-//		case 0:
-//			return;
-//		default:
-//			//TODO - Loop.
-//			cin.clear();
-//			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//			clrscr();
-//	}
-//
-//	// Choose course.
-//	//TODO - How to choose semester? Date-dependent?
-//	uint semester = 0;
-//	bool invalidCourse = true, foundCourse = false;
-//
-//	while (invalidCourse) {
-//		cout << "Nome da UC: ";
-//		cin >> courseName;
-//
-//		{
-//			size_t year = 0, courseInd = 0;
-//			for (; year < dept.get_courses().at(semester).size(); ++year) {
-//				for (size_t courseInd = 0; courseInd < dept.get_courses().at(semester).at(year).size(); ++courseInd) {
-//					if (courseName == dept.get_courses().at(semester).at(year).at(courseInd)->get_name()) {
-//						course = dept.get_courses().at(semester).at(year).at(courseInd);
-//						foundCourse = true;
-//						break;
-//					}
-//				}
-//				if (foundCourse)
-//					break;
-//			}
-//
-//			if (dept.apply_for_course(stud, dept.get_courses().at(semester).at(year).at(courseInd))) {
-//				invalidCourse = false;
-//			}
-//		}
-//	}
-//	if (course == nullptr) {
-//		cerr << "menu_enroll(): Unintended behavior: course = nullptr after initialization cycle" << endl;
-//		exit(1); //Replace by exception.
-//	}
-//	
-//	// TODO - Enroll student.
-//
-//}
-
 void mainMenu(Department & dept)
 {
 	unsigned short option;
@@ -203,14 +134,13 @@ void mainMenu(Department & dept)
 		case 6:
 			break;
 		case 7:
-			/*menu_enroll(dept);*/
 			break;
 		case 0:
 			dept.save_dept();
 			exit_program=true;
 			break;
 		default: 
-			cerr << "O input nao e valido. Tente novamente " << endl << endl;
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
 			system("PAUSE");
 		}
 		clrscr();

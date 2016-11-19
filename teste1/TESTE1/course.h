@@ -30,13 +30,14 @@ protected:
 	vector<Date *> date_approved;
 public:
 	/**
-	*@brief Constructor of virtual class course
-	*@param year wich year corresponds the course from 1 to 5
+	*@brief Constructor of class course
+	*@param year Year of the course ranging from 1 to 5
 	*@param semester wich semester corresponds the course 1/2
 	*@param credits how much credits it gives to the students
 	*@param name name of the course
 	*/
 	Course(uint year, uint semester, double credits, string name);
+
 	/**
 	*@brief adds student to the course
 	*@param x Student to add
@@ -81,14 +82,27 @@ public:
 	*@brief virtual function, gets vector with the dates of assignment of the students to the course
 	*/
 	virtual vector<Date *> get_date_enrolled() const;
+
 	/**
 	*@brief virtual function, prints enrolled students
 	*/
 	virtual void print_enrolled() const;
+
 	/**
 	*@brief virtual function, prints approved students
 	*/
 	virtual void print_approved() const;
+
+	/**
+	*@brief Declared to be used on OptionalCourse. Do not invoke.
+	*/
+	virtual string get_scientificArea() const { cerr << "Invoked Course::get_scientificArea()\n"; return "NULL"; };
+
+	/**
+	*@brief Declared to be used on OptionalCourse. Do not invoke.
+	*/
+	virtual uint get_openSlots() const { cerr << "Invoked Course::get_openSlots()\n"; return 0; };
+
 	/**
 	@brief Operator << for Course
 	@param os ostream&
@@ -112,19 +126,23 @@ public:
 	*@param name name of the course
 	*/
 	OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name, string scientificArea);
+
 	/**
 	*@brief gets scientficArea of the OptionalCourse
 	*/
 	string get_scientificArea() const;
+
 	/**
 	*@brief gets how much open slots the course has
 	*/
 	uint get_openSlots() const;
+
 	/**
 	*@brief adds student to the course
 	*@param x Student to add
 	*/
 	void add_student(Student *student, Date *date);
+
 	/**
 	*@brief virtual function, approves a stundent on the course, removes from vector enrolled students and puts the student on approved students
 	*@param x students to approve

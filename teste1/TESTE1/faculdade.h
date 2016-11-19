@@ -4,7 +4,7 @@
 #include "person.h"
 #include "utils.h"
 #include <fstream>
-#include <algorithm>
+#include <algorithm>6
 
 #define NEW_TUTOR true
 #define NEW_STUDENT true

@@ -8,13 +8,18 @@ st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569
 st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569
 #students_end
 #courses_start
-course_start
+main_course_start
 AEDA;2;1;7.5
 st201505779;19/11/2016
 approved_students
 end_course
-course_start
+main_course_start
 MNUM;2;1;4.5
+st201505779;19/11/2016
+approved_students
+end_course
+opt_course_start
+APSI;4;2;6;99;Interacção e Multimédia
 st201505779;19/11/2016
 approved_students
 end_course

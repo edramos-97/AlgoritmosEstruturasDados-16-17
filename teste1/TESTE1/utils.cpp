@@ -117,11 +117,23 @@ void save_tutor(ofstream & f,Tutor* x)
 
 void save_course(ofstream & f, Course* course)
 {
-	f << "course_start" << endl;
+	bool isOptional = (!(dynamic_cast<OptionalCourse *>(course) == NULL));
+
+	if (!isOptional) {
+		f << "main_course_start" << endl;
+	}
+	else {
+		f << "opt_course_start" << endl;
+	}
 	f << course->get_name() << ';'
 		<< course->get_year() << ';'
 		<< course->get_semestre() << ';'
-		<< course->get_credits() << endl;
+		<< course->get_credits();
+	if (isOptional) {
+		f << ';' << course->get_openSlots() << ';'
+			<< course->get_scientificArea();
+	}
+	f << endl;
 	for (uint studInd = 0; studInd < course->get_enrol_students().size(); studInd++)
 	{
 		f << course->get_enrol_students().at(studInd)->get_code() <<

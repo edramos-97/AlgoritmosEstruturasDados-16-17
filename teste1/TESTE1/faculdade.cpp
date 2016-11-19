@@ -102,19 +102,25 @@ void Department::add_student(Student * x)
 }
 
 void Department::processCourse(ifstream &f, uint &linenum) {
-	string name, line, dateStr;
-	uint year, semester;
-	double credits;
+	bool isOptional = false;
+	Course *course = nullptr;
+	OptionalCourse *optCourse = nullptr;
 	Date *date = nullptr;
+	string name, line, dateStr, scientificArea;
+	uint year, semester, openSlots;
+	double credits;	
 
 	read_line(f, line, linenum);
 
-	if (line != "course_start")
+	if (line != "main_course_start" && line != "opt_course_start")
 		throw corrupted_file(linenum, "expected course_start");
 
+	if (line == "opt_course_start")
+		isOptional = true;
+
 	read_line(f, line, linenum);
 
-	name = (line.substr(0, line.find(';')));
+	name = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
 	year = stoul(line.substr(0, line.find(';')));
@@ -125,7 +131,17 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 
 	credits = stod(line.substr(0, line.find(';')));
 
-	Course* course = new Course(year, semester, credits, name);
+	if (!isOptional) {
+		course = new Course(year, semester, credits, name);
+	}
+	else {
+		line.erase(0, line.find(';') + 1);
+		openSlots = stoul(line.substr(0, line.find(';')));
+		line.erase(0, line.find(';') + 1);
+		scientificArea = line.substr(0, line.find(';'));
+		optCourse = new OptionalCourse(year, semester, credits, openSlots, name, scientificArea);
+	}
+
 	read_line(f, line, linenum);
 
 	for (; line != "approved_students";) {
@@ -138,8 +154,16 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 				break;
 			}
 		}
-		originalStud->enroll_course(course);
-		course->add_student(originalStud, date);
+		
+		if (!isOptional) {
+			originalStud->enroll_course(course);
+			course->add_student(originalStud, date);
+		}
+		else {
+			originalStud->enroll_course(optCourse);
+			optCourse->add_student(originalStud, date);
+		}
+		
 		read_line(f, line, linenum);
 	}
 
@@ -154,12 +178,26 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 				break;
 			}
 		}
-		originalStud->approve_course(course);
-		course->add_approved_student(originalStud, date);
+
+		if (!isOptional) {
+			originalStud->approve_course(course);
+			course->add_approved_student(originalStud, date);
+		}
+		else {
+			originalStud->approve_course(optCourse);
+			optCourse->add_approved_student(originalStud, date);
+		}
+		
 		read_line(f, line, linenum);
 	}
 
-	courses.at(semester - 1).at(year - 1).push_back(course);
+	if (!isOptional) {
+		courses.at(semester - 1).at(year - 1).push_back(course);
+	}
+	else {
+		courses.at(semester - 1).at(year - 1).push_back(optCourse);
+	}
+	
 }
 
 /**
@@ -212,8 +250,6 @@ void Department::load_dept(string x)
 	
 	while (f.peek() != '#') {
 		processCourse(f, linenum);
-	/*	Course* temp = read_course(f, linenum);
-		add_course(temp); */
 	}
 	read_line(f, line, linenum);
 	if (line != "#courses_end")
@@ -354,10 +390,10 @@ ostream & operator<<(ostream & os, const Department & d)
 bool Department::verify_courses_completition(uint year, uint semester, Student *stud, Course *course, Date *date) {
 	int result;
 	for (uint i = 0; i < (year-1); i++) {
-		result = search_for_student(courses[semester][i], stud);
+		result = search_for_student(courses.at(semester - 1).at(i), stud);
 		if (result != -1) {
 			cout << "Para se puder increver a esse curso o estudante tem primeiro que completar "
-				<< courses.at(semester).at(i).at(result)->get_name() << '.';
+				<< courses.at(semester - 1).at(i).at(result)->get_name() << '.';
 			return false;
 		}
 		else
