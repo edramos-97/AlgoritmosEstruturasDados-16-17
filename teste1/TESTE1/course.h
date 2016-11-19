@@ -124,12 +124,12 @@ public:
 	*@brief adds student to the course
 	*@param x Student to add
 	*/
-	void add_student(Student *x);
+	void add_student(Student *student, Date *date);
 	/**
 	*@brief virtual function, approves a stundent on the course, removes from vector enrolled students and puts the student on approved students
 	*@param x students to approve
 	*/
-	void approve_student(Student *x);
+	void approve_student(Student *student, Date *date);
 	/**
 	@brief Operator << for optionalCourse
 	@param os ostream&

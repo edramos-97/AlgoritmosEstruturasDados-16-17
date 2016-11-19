@@ -107,13 +107,14 @@ string OptionalCourse::get_scientificArea() const { return scientificArea; }
 
 uint OptionalCourse::get_openSlots() const { return openSlots; }
 
-void OptionalCourse::add_student(Student *x)
+void OptionalCourse::add_student(Student *student, Date *date)
 {
-	enrolled_students.push_back(x);
+	enrolled_students.push_back(student);
+	date_enrolled.push_back(date);
 	--openSlots;
 }
 
-void OptionalCourse::approve_student(Student *student)
+void OptionalCourse::approve_student(Student *student, Date *date)
 {
 	auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
 	if (it == enrolled_students.end())
