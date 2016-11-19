@@ -25,6 +25,10 @@ void clrscr();
 *@return returns a pointer to the student created
 */
 Student* read_student(ifstream &f, uint &linenum);
+
+//TODO - Docs.
+void readStudentInCourse(string &line, string &studCode, Date *date);
+
 /**
 *@brief reads  the information of a student from the textfile under some course, used in read_course
 *@param line string to conver to object type student

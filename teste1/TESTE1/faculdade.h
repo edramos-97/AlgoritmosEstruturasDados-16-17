@@ -51,6 +51,7 @@ public:
 	void add_student(Student* x);
 	bool apply_for_course(Student * s, Course * c);
 	bool verify_courses_completition(uint year, uint semestre, Student *stud, Course *course, Date *date);
+	void Department::processCourse(ifstream &f, uint &linenum);
 	void load_dept(string filename);
 	void save_dept();
 	friend ostream& operator<<(ostream& os, const Department & d);

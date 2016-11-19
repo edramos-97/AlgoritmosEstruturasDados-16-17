@@ -24,7 +24,7 @@ void clrscr(void)
 Student* read_student(ifstream &f,uint &linenum)
 {
 	string code, name, email, status, tutor, line;
-	double apcredits, credits;
+//	double apcredits, credits;
 
 	read_line(f,line,linenum);
 
@@ -55,6 +55,15 @@ Student* read_student(ifstream &f,uint &linenum)
 //	s->add_credits(credits);
 
 	return stud;
+}
+
+void readStudentInCourse(string &line, string &studCode, Date *date) {
+	studCode = line.substr(0, line.find(';'));
+	line.erase(0, line.find(';') + 1);
+
+	string dateStr = line.substr(0, line.find(';'));
+	line.erase(0, line.find(';') + 1);
+	date = new Date(dateStr);
 }
 
 Student* read_student(string &line)
@@ -104,7 +113,7 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	Tutor* t= new Tutor(code, name);
 	return t;
 }
-
+/*
 Course* read_course(ifstream &f, uint &linenum) {
 	string name, line, dateStr;
 	uint year, semestre;
@@ -154,7 +163,7 @@ Course* read_course(ifstream &f, uint &linenum) {
 	}
 
 	return course;
-}
+}*/
 
 void read_line(ifstream & f, string & line, uint &linenum)
 {

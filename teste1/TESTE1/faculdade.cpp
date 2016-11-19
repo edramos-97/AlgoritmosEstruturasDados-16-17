@@ -101,6 +101,65 @@ void Department::add_student(Student * x)
 	return;
 }
 
+void Department::processCourse(ifstream &f, uint &linenum) {
+	string name, line, dateStr;
+	uint year, semestre;
+	double credits;
+	Date *date = nullptr;
+
+	read_line(f, line, linenum);
+
+	if (line != "course_start")
+		throw corrupted_file(linenum, "expected course_start");
+
+	read_line(f, line, linenum);
+
+	name = (line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	year = stoul(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	semestre = stoul(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	credits = stod(line.substr(0, line.find(';')));
+
+	Course* course = new Course(year, semestre, credits, name);
+	read_line(f, line, linenum);
+
+	for (; line != "approved_students";) {
+		string studCode;
+		Student *originalStud = nullptr;
+		readStudentInCourse(line, studCode, date);
+		for (Student *stud : students) {
+			if (stud->get_code() == studCode) {
+				originalStud = stud;
+				break;
+			}
+		}
+		originalStud->enroll_course(course);
+		course->add_student(originalStud, date);
+		read_line(f, line, linenum);
+	}
+
+	read_line(f, line, linenum);
+	for (; line != "end_course";) {
+		string studCode;
+		Student *originalStud = nullptr;
+		readStudentInCourse(line, studCode, date);
+		for (Student *stud : students) {
+			if (stud->get_code() == studCode) {
+				originalStud = stud;
+				break;
+			}
+		}
+		originalStud->approve_course(course);
+		course->add_approved_student(originalStud, date);
+		read_line(f, line, linenum);
+	}
+}
+
 /**
 * @brief Reads a file containing Department info.
 * @param x Filename of a .txt file, no extension given (e.g. "Mieic" instead of "Mieic.txt").
@@ -150,8 +209,9 @@ void Department::load_dept(string x)
 		throw corrupted_file(linenum,"expected #courses_start");
 	
 	while (f.peek() != '#') {
-		Course* temp = read_course(f, linenum);
-		add_course(temp);
+		processCourse(f, linenum);
+	/*	Course* temp = read_course(f, linenum);
+		add_course(temp); */
 	}
 	read_line(f, line, linenum);
 	if (line != "#courses_end")

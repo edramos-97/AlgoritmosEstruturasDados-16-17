@@ -387,11 +387,17 @@ void enrollStudent(Department &dept) {
 
 	while (true) {
 		try {
-			cout << "Codigo do estudante: ";
+			cout << "Codigo do estudante (\"exit\" para sair): ";
 			cin >> studName;
+			if (studName == "exit") {
+				return;
+			}
 			stud = dept.getStudent(studName);
-			cout << "Nome da UC: ";
+			cout << "Nome da UC (\"exit\" para sair): ";
 			cin >> courseName;
+			if (courseName == "exit") {
+				return;
+			}
 			course = dept.getCourse(courseName);
 			if (!(dept.apply_for_course(stud, course))) {
 				system("pause");
