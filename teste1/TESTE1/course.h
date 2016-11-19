@@ -18,10 +18,10 @@ protected:
 	const uint year, semester;
 	const double credits;
 	string name;
-public:
 	vector<Student *> enrolled_students;
 	vector<Student *> approved_students;
 	vector<Date *> date_enrolled;
+public:
 	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits), name(name) {
 		if (year < 1 || year > 5)
 			throw value_out_of_range<uint, string>(year, "year");
@@ -40,6 +40,9 @@ public:
 	virtual const uint get_semestre() { return semester; };
 	virtual const double get_credits() { return credits; };
 	virtual const string get_name() { return name; };
+	vector<Student *> get_enrol_students() const;
+	vector<Student *> get_approv_students() const;
+	vector<Date *> Course::get_date_enrolled() const;
 	void print_enrolled() const;
 	void print_approved() const;
 	friend ostream& operator<<(ostream& os, const Course & c);

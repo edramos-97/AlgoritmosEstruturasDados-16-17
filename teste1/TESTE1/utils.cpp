@@ -174,35 +174,35 @@ void save_tutor(ofstream & f,Tutor* x)
 	f << x->get_name() << ';' << x->get_code()<< endl;
 }
 
-void save_course(ofstream & f, Course* x)
+void save_course(ofstream & f, Course* course)
 {
 	f << "course_start" << endl;
-	f << x->get_name() << ';'
-		<< x->get_year() << ';'
-		<< x->get_semestre() << ';'
-		<< x->get_credits() << endl;
-	for (uint it = 0; it < x->enrolled_students.size(); it++)
+	f << course->get_name() << ';'
+		<< course->get_year() << ';'
+		<< course->get_semestre() << ';'
+		<< course->get_credits() << endl;
+	for (uint studInd = 0; studInd < course->get_enrol_students().size(); studInd++)
 	{
-		save_student(f, x->enrolled_students[it]);
-		f << ';' << *(x->date_enrolled[it]) << endl;
+		save_student(f, course->get_enrol_students().at(studInd));
+		f << ';' << *(course->get_date_enrolled().at(studInd)) << endl;
 	}
-	f << "approved_students"<<endl;
-	for (auto x : x->approved_students) {
-		save_student(f, x);
+	f << "approved_students" << endl;
+	for (auto student : course->get_approv_students()) {
+		save_student(f, student);
 		f << endl;
 	}
-	f << "end_course"<<endl;
+	f << "end_course" << endl;
 }
 
 int search_for_student(vector<Course*> v, Student* t) {
 	int counter = 0;
-	for (auto x : v) {
-		if (check_duplicates<Student*>(x->approved_students, t))
+	for (auto course : v) {
+		if (check_duplicates<Student*>(course->get_approv_students(), t))
 		{
 			++counter;
 			continue;
 		}
-		else if (check_duplicates<Student*>(x->enrolled_students, t))
+		else if (check_duplicates<Student*>(course->get_enrol_students(), t))
 		{
 			++counter;
 			continue;

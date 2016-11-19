@@ -58,16 +58,16 @@ void Department::new_course(Course* x)
 *
 * An existing Course read from a text file is added to the Department vector of courses.
 */
-void Department::add_course(Course * x) {
-	new_course(x);
-	for (auto elem : x->approved_students)
+void Department::add_course(Course * course) {
+	new_course(course);
+	for (auto student : course->get_approv_students())
 	{
-		add_student(elem);
+		add_student(student);
 	}
 
-	for (auto elem : x->enrolled_students)
+	for (auto student : course->get_enrol_students())
 	{
-		add_student(elem);
+		add_student(student);
 	}
 }
 /**

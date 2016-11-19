@@ -166,7 +166,7 @@ void mainMenu(Department & dept)
 		cout << TAB << "2 - Novo Estudante" << endl;
 		cout << TAB << "3 - Informacao de Estudante" << endl;
 		cout << TAB << "4 - Informacao de UC" << endl;
-		cout << TAB << "5 - " << endl;
+		cout << TAB << "5 - Inscricao de Estudante" << endl;
 		cout << TAB << "6 - " << endl;
 		cout << TAB << "7 - " << endl;
 		cout << TAB << "0 - Sair" << endl << endl; //grava num ficheiro e sai definitvamente do programa
@@ -198,6 +198,7 @@ void mainMenu(Department & dept)
 			courseInfo(dept);
 			break;
 		case 5:
+			enrollStudent(dept);
 			break;
 		case 6:
 			break;
@@ -366,14 +367,28 @@ void courseInfo(const Department &dept) {
 	}
 	
 	cout << "Estudantes inscritos:\n";
-	for (Student *stud : course->enrolled_students) {
+	for (Student *stud : course->get_enrol_students()) {
 		cout << " - " << stud->get_code() << " | " << stud->get_name() << "\n";
 	}
 
 	cout << "Estudantes aprovados:\n";
-	for (Student *stud : course->approved_students) {
+	for (Student *stud : course->get_approv_students()) {
 		cout << " - " << stud->get_code() << " | " << stud->get_name() << "\n";
 	}
 
 	system("pause");
+}
+
+void enrollStudent(Department &dept) {
+	Student *stud;
+	Course *course;
+	string studName, courseName;
+	cout << "Codigo do estudante: ";
+	cin >> studName;
+	stud = dept.getStudent(studName);
+	cout << "Nome da UC: ";
+	cin >> courseName;
+	course = dept.getCourse(courseName);
+
+	//TODO
 }

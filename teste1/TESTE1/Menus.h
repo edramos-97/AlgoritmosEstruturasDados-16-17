@@ -17,3 +17,4 @@ void call_newtutor(Department &d);
 void call_newstudent(Department &d);
 void studentInfo(const Department &dept);
 void courseInfo(const Department &dept);
+void enrollStudent(Department &dept);

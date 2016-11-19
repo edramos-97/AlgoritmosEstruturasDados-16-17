@@ -68,6 +68,18 @@ void OptionalCourse::approve_student(Student x)
 	++openSlots;
 }
 
+vector<Student *> Course::get_enrol_students() const {
+	return enrolled_students;
+}
+
+vector<Student *> Course::get_approv_students() const {
+	return approved_students;
+}
+
+vector<Date *> Course::get_date_enrolled() const {
+	return date_enrolled;
+}
+
 ostream & operator<<(ostream & os, const Course & c)
 {
 	os << right << setw(6) << c.name << "::" << left << setw(4) << c.credits << endl;
