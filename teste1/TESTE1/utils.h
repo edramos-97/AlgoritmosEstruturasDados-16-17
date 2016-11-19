@@ -42,13 +42,7 @@ Student* read_student(string &line);
 *@return returns a pointer to the tutor created
 */
 Tutor* read_tutor(ifstream &f, uint &linenum);
-/**
-*@brief reads the information of a Course from the text file, used in Faculdade::load_dept
-*@param f ifstream that contains reference to the file
-*@param linenum number of the line being treated
-*@return returns a pointer to the course created
-*/
-Course* read_course(ifstream &f, uint &linenum);
+
 /**
 *@brief reads a line from the text file and puts it on a string, used in Faculdade::load_dept
 *@param f ifstream that contains reference to the file

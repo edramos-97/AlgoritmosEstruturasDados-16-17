@@ -24,7 +24,6 @@ void clrscr(void)
 Student* read_student(ifstream &f,uint &linenum)
 {
 	string code, name, email, status, tutor, line;
-//	double apcredits, credits;
 
 	read_line(f,line,linenum);
 
@@ -45,14 +44,7 @@ Student* read_student(ifstream &f,uint &linenum)
 	tutor = (line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-//	apcredits = stod(line.substr(0, line.find(';')));
-//	line.erase(0, line.find(';') + 1);
-
-//	credits = stod(line.substr(0, line.find(';')));
-
 	Student* stud = new Student(code, name, email, status, tutor);
-//	s->add_approved_credits(apcredits);
-//	s->add_credits(credits);
 
 	return stud;
 }
@@ -69,7 +61,6 @@ void readStudentInCourse(string &line, string &studCode, Date **date) {
 Student* read_student(string &line)
 {
 	string code, name, email, status, tutor;
-//	double approv_credits, credits;
 	
 	code = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
@@ -86,17 +77,7 @@ Student* read_student(string &line)
 	tutor = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
-/*	approv_credits = stod(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
-
-	credits = stod(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1); */
-
-
-
 	Student *stud = new Student(code, name, email, status, tutor);
-/*	stud->add_approved_credits(approv_credits);
-	stud->add_credits(credits); */
 
 	return stud;
 }
@@ -113,57 +94,6 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	Tutor* t= new Tutor(code, name);
 	return t;
 }
-/*
-Course* read_course(ifstream &f, uint &linenum) {
-	string name, line, dateStr;
-	uint year, semestre;
-	double credits;
-	Date *date;
-
-	read_line(f, line, linenum);
-
-	if (line != "course_start")
-		throw corrupted_file(linenum, "expected course_start");
-
-	read_line(f, line, linenum);
-
-	name = (line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
-
-	year = stoul(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
-
-	semestre = stoul(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
-
-	credits = stod(line.substr(0, line.find(';')));
-
-	Course* course = new Course(year, semestre, credits, name);
-	read_line(f, line, linenum);
-	
-	for (; line != "approved_students";) {
-		Student *copyStud = read_student(line);
-		Student *originalStud;
-
-		dateStr = line.substr(0, line.find(';'));
-		date = new Date(dateStr);
-		copyStud->enroll_course(course);
-		course->add_student(copyStud, date);
-		read_line(f, line, linenum);
-	}
-
-	read_line(f, line, linenum);
-	for (;line!="end_course";){
-		Student *stud = read_student(line);
-		dateStr = line.substr(0, line.find(';'));
-		date = new Date(dateStr);
-		stud->approve_course(course);
-		course->add_approved_student(stud, date);
-		read_line(f, line, linenum);
-	}
-
-	return course;
-}*/
 
 void read_line(ifstream & f, string & line, uint &linenum)
 {
@@ -177,9 +107,7 @@ void save_student(ofstream & f, Student* x)
 		<< x->get_name() << ';'
 		<< x->get_email() << ';'
 		<< x->get_status() << ';'
-		<< x->get_tutor();/* << ';'
-		<< x->get_appcredits() << ';'
-		<< x->get_credits();*/
+		<< x->get_tutor();
 }
 
 void save_tutor(ofstream & f,Tutor* x)

@@ -15,15 +15,6 @@ class Department {
 	vector<Tutor*> tutors;
 	vector<Student*> students;
 	vector<vector<vector<Course*>>> courses; //courses[semester][year][courseInd]
-	/*vector<Course*> courses_12;
-	vector<Course*> courses_21;
-	vector<Course*> courses_22;
-	vector<Course*> courses_31;
-	vector<Course*> courses_32;
-	vector<Course*> courses_41;
-	vector<Course*> courses_42;
-	vector<Course*> courses_51;
-	vector<Course*> courses_52;*/
 	int next_assign_tutor;
 	int next_assign_student;
 public:

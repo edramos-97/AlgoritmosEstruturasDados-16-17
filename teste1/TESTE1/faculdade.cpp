@@ -244,26 +244,6 @@ void Department::save_dept()
 	}
 	f << "#students_end" << endl;
 	f << "#courses_start" << endl;
-	/*for (auto x : courses_11)
-		save_course(f, x);
-	for (auto x : courses_12)
-		save_course(f, x);
-	for (auto x : courses_21)
-		save_course(f, x);
-	for (auto x : courses_22)
-		save_course(f, x);
-	for (auto x : courses_31)
-		save_course(f, x);
-	for (auto x : courses_32)
-		save_course(f, x);
-	for (auto x : courses_41)
-		save_course(f, x);
-	for (auto x : courses_42)
-		save_course(f, x);
-	for (auto x : courses_51)
-		save_course(f, x);
-	for (auto x : courses_52)
-		save_course(f, x);*/
 	for (auto x : courses)
 		for (auto y : x)
 			for (Course *course : y)
