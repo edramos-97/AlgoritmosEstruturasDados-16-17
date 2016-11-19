@@ -308,7 +308,21 @@ Student* Department::getStudent(const string &studCode) const {
 		}
 	}
 	
-	throw StudentNotFound();
+	throw StudentNotFound(studCode);
+}
+
+Course* Department::getCourse(const string &courseName) const {
+	for (size_t sem = 0; sem < courses.size(); ++sem) {
+		for (size_t year = 0; year < courses.at(sem).size(); ++year) {
+			for (size_t courseInd = 0; courseInd < courses.at(sem).at(year).size(); ++courseInd) {
+				if (courseName == courses.at(sem).at(year).at(courseInd)->get_name()) {
+					return courses.at(sem).at(year).at(courseInd);
+				}
+			}
+		}
+	}
+
+	throw CourseNotFound(courseName);
 }
 
 const vector<vector<vector<Course*>>> Department::get_courses() const {

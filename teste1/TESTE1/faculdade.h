@@ -14,7 +14,7 @@ class Department {
 	
 	vector<Tutor*> tutors;
 	vector<Student*> students;
-	vector<vector<vector<Course*>>> courses; //courses[semestre][year]
+	vector<vector<vector<Course*>>> courses; //courses[semester][year][courseInd]
 	/*vector<Course*> courses_12;
 	vector<Course*> courses_21;
 	vector<Course*> courses_22;
@@ -43,6 +43,7 @@ public:
 	int getNext_assigned_tutor(bool newTutor = false);
 	int getNext_assigned_student(bool newStudent = false);
 	Student* getStudent(const string &studCode) const;
+	Course* getCourse(const string &courseName) const;
 	void new_tutor(Tutor* x);
 	void new_student(Student* x);
 	void new_course(Course* x);

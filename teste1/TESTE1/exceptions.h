@@ -59,3 +59,15 @@ public:
 		return studentCode;
 	}
 };
+
+class CourseNotFound {
+	string courseName;
+public:
+	CourseNotFound() {}
+	CourseNotFound(string cName) {
+		courseName = cName;
+	}
+	string getCourseName() const {
+		return courseName;
+	}
+};

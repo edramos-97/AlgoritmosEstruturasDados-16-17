@@ -165,7 +165,7 @@ void mainMenu(Department & dept)
 		cout << TAB << "1 - Novo Tutor" << endl;
 		cout << TAB << "2 - Novo Estudante" << endl;
 		cout << TAB << "3 - Informacao de Estudante" << endl;
-		cout << TAB << "4 - " << endl;
+		cout << TAB << "4 - Informacao de UC" << endl;
 		cout << TAB << "5 - " << endl;
 		cout << TAB << "6 - " << endl;
 		cout << TAB << "7 - " << endl;
@@ -195,6 +195,7 @@ void mainMenu(Department & dept)
 			studentInfo(dept);
 			break;
 		case 4:
+			courseInfo(dept);
 			break;
 		case 5:
 			break;
@@ -324,7 +325,7 @@ void studentInfo(const Department &dept) {
 				return;
 			}
 			stud = dept.getStudent(studCode);
-			break;
+			break; 
 		}
 		catch (StudentNotFound(studCode)) {
 			continue;
@@ -332,13 +333,46 @@ void studentInfo(const Department &dept) {
 	}
 
 	cout << *stud << "\n";
-	cout << "Enrolled in:\n";
+	cout << "Inscrito em:\n";
 	for (Course *course : stud->get_enrol_courses()) {
 		cout << " - " << course->get_name() << "\n";
 	}
-	cout << "Approved in:\n";
+	cout << "Aprovado em:\n";
 	for (Course *course : stud->get_approv_courses()) {
 		cout << " - " << course->get_name() << "\n";
+	}
+
+	system("pause");
+}
+
+void courseInfo(const Department &dept) {
+	const Course *course;
+	string courseName;
+	
+	while (true) {
+		try {
+			clrscr();
+			cout << "Nome da UC (\"exit\" para sair): ";
+			cin >> courseName;
+			if (courseName == "exit") {
+				return;
+			}
+			course = dept.getCourse(courseName);
+			break;
+		}
+		catch (CourseNotFound(courseName)) {
+			continue;
+		}
+	}
+	
+	cout << "Estudantes inscritos:\n";
+	for (Student *stud : course->enrolled_students) {
+		cout << " - " << stud->get_code() << " | " << stud->get_name() << "\n";
+	}
+
+	cout << "Estudantes aprovados:\n";
+	for (Student *stud : course->approved_students) {
+		cout << " - " << stud->get_code() << " | " << stud->get_name() << "\n";
 	}
 
 	system("pause");
