@@ -311,17 +311,28 @@ void call_newstudent(Department &d)
 
 }
 
-void studentInfo(const Department &dept) {
-	clrscr();
-	
+void studentInfo(const Department &dept) {	
 	string studCode;
-	cout << "Codigo do estudante: ";
-	cin >> studCode;
-	const Student *stud = dept.getStudent(studCode); //TODO - Exception handling.
+	const Student *stud;
+	
+	while (true) {
+		try {
+			clrscr();
+			cout << "Codigo do estudante (\"exit\" para sair): ";
+			cin >> studCode;
+			if (studCode == "exit") {
+				return;
+			}
+			stud = dept.getStudent(studCode);
+			break;
+		}
+		catch (StudentNotFound(studCode)) {
+			continue;
+		}
+	}
 
 	cout << *stud << "\n";
 	cout << "Enrolled in:\n";
-	vector<Course *> enrol_courses = stud->get_enrol_courses();
 	for (Course *course : stud->get_enrol_courses()) {
 		cout << " - " << course->get_name() << "\n";
 	}

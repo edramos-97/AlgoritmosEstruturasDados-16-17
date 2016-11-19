@@ -308,9 +308,7 @@ Student* Department::getStudent(const string &studCode) const {
 		}
 	}
 	
-	return nullptr;
-//	TODO - Exception.
-//	throw StudentNotFound();
+	throw StudentNotFound();
 }
 
 const vector<vector<vector<Course*>>> Department::get_courses() const {

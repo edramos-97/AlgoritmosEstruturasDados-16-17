@@ -47,3 +47,15 @@ public:
 
 class date_not_valid {};
 class input_not_valid {};
+
+class StudentNotFound {
+	string studentCode;
+public:
+	StudentNotFound() {}
+	StudentNotFound(string studCode) {
+		studentCode = studCode;
+	}
+	string getStudCode() const {
+		return studentCode;
+	}
+};
