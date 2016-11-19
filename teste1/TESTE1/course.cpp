@@ -5,30 +5,34 @@
 
 using namespace std;
 
-void Course::add_student(Student *student)
+void Course::add_student(Student *student, Date *date)
 {
 	enrolled_students.push_back(student);
+	date_enrolled.push_back(date);
 }
 
-void Course::add_approved_student(Student *student)
+void Course::add_approved_student(Student *student, Date *date)
 {
 	approved_students.push_back(student);
+	date_approved.push_back(date);
 }
 
+/*
 void Course::add_date(Date *date)
 {
 	date_enrolled.push_back(date);
 }
+*/
 
-void Course::approve_student(Student x)
+void Course::approve_student(Student student, Date *date)
 {
-	auto it = find(enrolled_students.begin(), enrolled_students.end(), &x);
+	auto it = find(enrolled_students.begin(), enrolled_students.end(), &student);
 	if (it == enrolled_students.end())
-		throw not_in_container(x.get_code());
+		throw not_in_container(student.get_code());
 	else
 	{
 		enrolled_students.erase(it);
-		approved_students.push_back(&x);
+		approved_students.push_back(&student);
 	}
 }
 
@@ -36,16 +40,16 @@ void Course::print_enrolled() const
 {
 	for (uint i = 0; i < enrolled_students.size(); i++)
 	{
-		cout << *enrolled_students[i] << "Date of enrolment: " << *date_enrolled[i]
+		cout << *(enrolled_students.at(i)) << "Date of enrolment: " << *(date_enrolled.at(i))
 			<< "\n ||||||||||||||||||||||||||||\n\n";
 	}
 }
 
 void Course::print_approved() const
 {
-	for (auto x : approved_students)
+	for (Student *stud : approved_students)
 	{
-		cout << *x << "\n ||||||||||||||||||||||||||||\n\n";
+		cout << *stud << "\n ||||||||||||||||||||||||||||\n\n";
 	}
 }
 

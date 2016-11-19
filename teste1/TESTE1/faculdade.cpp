@@ -212,39 +212,40 @@ void Department::save_dept()
 *
 * Verifies if the student has completed or is enrolled in all previous years courses and if he is, he is going to be enrolled in the course specified.
 */
-bool Department::apply_for_course(Student * s, Course * c)
+bool Department::apply_for_course(Student *stud, Course *course)
 {
+	Date *date = new Date();
 	int result = 0;
-	switch (c->get_semestre()) {
+	switch (course->get_semestre()) {
 	case 1:
-		switch (c->get_year()) {
+		switch (course->get_year()) {
 		case 1:
-			c->add_student(s);
-			s->enroll_course(c);
+			course->add_student(stud, date);
+			stud->enroll_course(course);
 		case 2:
-			return verify_courses_completition(2, 1, s, c);
+			return verify_courses_completition(2, 1, stud, course, date);
 		case 3:
-			return verify_courses_completition(3, 1, s, c);
+			return verify_courses_completition(3, 1, stud, course, date);
 		case 4:
-			return verify_courses_completition(4, 1, s, c);
+			return verify_courses_completition(4, 1, stud, course, date);
 		case 5:
-			return verify_courses_completition(5, 1, s, c);
+			return verify_courses_completition(5, 1, stud, course, date);
 		default:
 			return false;
 		}
 	case 2:
-		switch (c->get_year()) {
+		switch (course->get_year()) {
 		case 1:
-			c->add_student(s);
-			s->enroll_course(c);
+			course->add_student(stud, date);
+			stud->enroll_course(course);
 		case 2:
-			return verify_courses_completition(2, 2, s, c);
+			return verify_courses_completition(2, 2, stud, course, date);
 		case 3:
-			return verify_courses_completition(3, 2, s, c);
+			return verify_courses_completition(3, 2, stud, course, date);
 		case 4:
-			return verify_courses_completition(4, 2, s, c);
+			return verify_courses_completition(4, 2, stud, course, date);
 		case 5:
-			return verify_courses_completition(5, 2, s, c);
+			return verify_courses_completition(5, 2, stud, course, date);
 		default:
 			return false;
 		}
@@ -282,10 +283,10 @@ ostream & operator<<(ostream & os, const Department & d)
 *
 * Verifies if the student has completed or is enrolled in all previous years courses.
 */
-bool Department::verify_courses_completition(uint year, uint semester, Student* s, Course * c) {
+bool Department::verify_courses_completition(uint year, uint semester, Student *stud, Course *course, Date *date) {
 	int result;
 	for (uint i = 0; i < (year-1); i++) {
-		result = search_for_student(courses[semester][i], s);
+		result = search_for_student(courses[semester][i], stud);
 		if (result != -1) {
 			cout << "Para se puder increver a esse curso o estudante tem primeiro que completar "
 				<< courses.at(semester).at(i).at(result)->get_name() << '.';
@@ -293,8 +294,8 @@ bool Department::verify_courses_completition(uint year, uint semester, Student* 
 		}
 		else
 		{
-			c->add_student(s);
-			s->enroll_course(c);
+			course->add_student(stud, date);
+			stud->enroll_course(course);
 			return true;
 		}
 	}

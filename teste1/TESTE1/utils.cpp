@@ -106,9 +106,10 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 }
 
 Course* read_course(ifstream &f,uint &linenum) {
-	string name, line, date;
+	string name, line, dateStr;
 	uint year, semestre;
 	double credits;
+	Date *date;
 
 	read_line(f, line, linenum);
 
@@ -128,28 +129,29 @@ Course* read_course(ifstream &f,uint &linenum) {
 
 	credits = stod(line.substr(0, line.find(';')));
 
-	Course* c= new Course(year, semestre, credits, name);
+	Course* course = new Course(year, semestre, credits, name);
 	read_line(f, line, linenum);
 	
 	for (; line != "approved_students";) {
 		Student *stud = read_student(line);
-		stud->enroll_course(c);
-		c->add_student(stud);
-		date = line.substr(0, line.find(';'));
-		Date *d = new Date(date);
-		c->add_date(d);
+		dateStr = line.substr(0, line.find(';'));
+		date = new Date(dateStr);
+		stud->enroll_course(course);
+		course->add_student(stud, date);
 		read_line(f, line, linenum);
 	}
 
 	read_line(f, line, linenum);
 	for (;line!="end_course";){
 		Student *stud = read_student(line);
-		stud->approve_course(c);
-		c->add_approved_student(stud);
+		dateStr = line.substr(0, line.find(';'));
+		date = new Date(dateStr);
+		stud->approve_course(course);
+		course->add_approved_student(stud, date);
 		read_line(f, line, linenum);
 	}
 
-	return c;
+	return course;
 }
 
 void read_line(ifstream & f, string & line, uint &linenum)

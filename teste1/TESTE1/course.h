@@ -21,6 +21,7 @@ protected:
 	vector<Student *> enrolled_students;
 	vector<Student *> approved_students;
 	vector<Date *> date_enrolled;
+	vector<Date *> date_approved;
 public:
 	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits), name(name) {
 		if (year < 1 || year > 5)
@@ -32,10 +33,10 @@ public:
 		if (name.size() < 3)
 			throw short_argument(name, "name");
 	};
-	void add_student(Student* x);
-	void add_approved_student(Student* x);
-	void add_date(Date* d);
-	virtual void approve_student(Student x);
+	void add_student(Student *stud, Date *date);
+	void add_approved_student(Student *stud, Date *date);
+//	void add_date(Date* d);
+	virtual void approve_student(Student x, Date *date);
 	virtual const uint get_year() { return year; };
 	virtual const uint get_semestre() { return semester; };
 	virtual const double get_credits() { return credits; };

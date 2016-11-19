@@ -383,13 +383,29 @@ void enrollStudent(Department &dept) {
 	Student *stud;
 	Course *course;
 	string studName, courseName;
-	cout << "Codigo do estudante: ";
-	cin >> studName;
-	stud = dept.getStudent(studName);
-	cout << "Nome da UC: ";
-	cin >> courseName;
-	course = dept.getCourse(courseName);
 
-	course->add_student(stud);
-	stud->enroll_course(course);
+	while (true) {
+		try {
+			cout << "Codigo do estudante: ";
+			cin >> studName;
+			stud = dept.getStudent(studName);
+			cout << "Nome da UC: ";
+			cin >> courseName;
+			course = dept.getCourse(courseName);
+			if (!(dept.apply_for_course(stud, course))) {
+				system("pause");
+				continue;
+			}
+			break;
+		}
+		catch (StudentNotFound(studName)) {
+			system("pause");
+			continue;
+		}
+		catch (CourseNotFound(courseName)) {
+			system("pause");
+			continue;
+		}
+	}
+	
 }

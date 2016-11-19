@@ -50,7 +50,7 @@ public:
 	void add_course(Course * x);
 	void add_student(Student* x);
 	bool apply_for_course(Student * s, Course * c);
-	bool verify_courses_completition(uint year, uint semestre, Student * s,Course* c);
+	bool verify_courses_completition(uint year, uint semestre, Student *stud, Course *course, Date *date);
 	void load_dept(string filename);
 	void save_dept();
 	friend ostream& operator<<(ostream& os, const Department & d);
