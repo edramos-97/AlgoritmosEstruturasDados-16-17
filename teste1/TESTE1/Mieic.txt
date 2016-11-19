@@ -15,6 +15,7 @@ approved_students
 end_course
 course_start
 MNUM;2;1;4.5
+st201505779;19/11/2016
 approved_students
 end_course
 #courses_end
