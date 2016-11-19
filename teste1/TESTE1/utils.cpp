@@ -57,13 +57,13 @@ Student* read_student(ifstream &f,uint &linenum)
 	return stud;
 }
 
-void readStudentInCourse(string &line, string &studCode, Date *date) {
+void readStudentInCourse(string &line, string &studCode, Date **date) {
 	studCode = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
 	string dateStr = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
-	date = new Date(dateStr);
+	*date = new Date(dateStr);
 }
 
 Student* read_student(string &line)

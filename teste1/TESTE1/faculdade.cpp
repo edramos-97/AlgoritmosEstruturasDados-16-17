@@ -103,7 +103,7 @@ void Department::add_student(Student * x)
 
 void Department::processCourse(ifstream &f, uint &linenum) {
 	string name, line, dateStr;
-	uint year, semestre;
+	uint year, semester;
 	double credits;
 	Date *date = nullptr;
 
@@ -120,18 +120,18 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	year = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-	semestre = stoul(line.substr(0, line.find(';')));
+	semester = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
 	credits = stod(line.substr(0, line.find(';')));
 
-	Course* course = new Course(year, semestre, credits, name);
+	Course* course = new Course(year, semester, credits, name);
 	read_line(f, line, linenum);
 
 	for (; line != "approved_students";) {
 		string studCode;
 		Student *originalStud = nullptr;
-		readStudentInCourse(line, studCode, date);
+		readStudentInCourse(line, studCode, &date);
 		for (Student *stud : students) {
 			if (stud->get_code() == studCode) {
 				originalStud = stud;
@@ -147,7 +147,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	for (; line != "end_course";) {
 		string studCode;
 		Student *originalStud = nullptr;
-		readStudentInCourse(line, studCode, date);
+		readStudentInCourse(line, studCode, &date);
 		for (Student *stud : students) {
 			if (stud->get_code() == studCode) {
 				originalStud = stud;
@@ -158,6 +158,8 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 		course->add_approved_student(originalStud, date);
 		read_line(f, line, linenum);
 	}
+
+	courses.at(semester - 1).at(year - 1).push_back(course);
 }
 
 /**
@@ -264,8 +266,8 @@ void Department::save_dept()
 		save_course(f, x);*/
 	for (auto x : courses)
 		for (auto y : x)
-			for (auto c : y)
-				save_course(f, c);
+			for (Course *course : y)
+				save_course(f, course);
 	f << "#courses_end" << endl;
 	f.close();
 }
