@@ -38,35 +38,43 @@ void Department::new_tutor(Tutor* x)
 
 /**
 * @brief Adds a Course to the Department.
-* @param x Previously created Course to add.
+* @param c Previously created Course to add.
 *
 * Adds a Previously created Course pointer to the Department vector of Course.
 */
-void Department::new_course(Course* x)
+void Department::new_course(Course* c)
 {
-	uint year, semestre;
+	uint year, semester;
 
-	year = x->get_year();
-	semestre = x->get_semestre();
+	year = c->get_year();
+	semester = c->get_semestre();
 
-	courses.at(semestre-1).at(year-1).push_back(x);
+	courses.at(semester-1).at(year-1).push_back(c);
 }
 
 /**
 * @brief Adds an existent course to the Department.
-* @param x Previously read course to add.
+* @param course Previously read course to add.
 *
 * An existing Course read from a text file is added to the Department vector of courses.
 */
-void Department::add_course(Course * course) {
+void Department::add_course(Course *course) {
 	new_course(course);
-	for (auto student : course->get_approv_students())
+	for (Student *student : course->get_approv_students())
 	{
+		if (check_duplicates<Student *>(students, student)) {
+			student->approve_course(course);
+			continue;
+		}
 		add_student(student);
 	}
 
-	for (auto student : course->get_enrol_students())
+	for (Student *student : course->get_enrol_students())
 	{
+		if (check_duplicates<Student *>(students, student)) {
+			student->enroll_course(course);
+			continue;
+		}
 		add_student(student);
 	}
 }
@@ -126,6 +134,17 @@ void Department::load_dept(string x)
 	if (line != "#tutors_end")
 		throw corrupted_file(linenum,"expected #tutors_end");
 	
+	read_line(f, line, linenum);
+	if (line != "#students_start")
+		throw corrupted_file(linenum, "expected #students_start");
+	while (f.peek() != '#') {
+		Student* temp = read_student(f, linenum);
+		add_student(temp);
+	}
+	read_line(f, line, linenum);
+	if (line != "#students_end")
+		throw corrupted_file(linenum, "expected #students_end");
+
 	read_line(f,line, linenum);
 	if (line != "#courses_start")
 		throw corrupted_file(linenum,"expected #courses_start");
@@ -137,21 +156,7 @@ void Department::load_dept(string x)
 	read_line(f, line, linenum);
 	if (line != "#courses_end")
 		throw corrupted_file(linenum, "expected #courses_end");
-	read_line(f, line, linenum);
-	if (line != "#students_start")
-		throw corrupted_file(linenum,"expected #students_start");
-	while (f.peek() != '#') {
-		Student* temp = read_student(f, linenum);
-		if (students.size() != 0) {
-			if (check_duplicates<Student*>(students, temp))
-				continue;
-		}
-			
-		add_student(temp);
-	}
-	read_line(f, line, linenum);
-	if (line != "#students_end")
-		throw corrupted_file(linenum,"expected #students_end");
+	
 	f.close();
 }
 
@@ -170,6 +175,12 @@ void Department::save_dept()
 	for (auto x : tutors)
 		save_tutor(f, x);
 	f << "#tutors_end" << endl;
+	f << "#students_start" << endl;
+	for (auto x : students) {
+		save_student(f, x);
+		f << endl;
+	}
+	f << "#students_end" << endl;
 	f << "#courses_start" << endl;
 	/*for (auto x : courses_11)
 		save_course(f, x);
@@ -196,12 +207,6 @@ void Department::save_dept()
 			for (auto c : y)
 				save_course(f, c);
 	f << "#courses_end" << endl;
-	f << "#students_start" << endl;
-	for (auto x : students) {
-		save_student(f, x);
-		f << endl;
-	}
-	f << "#students_end" << endl;
 	f.close();
 }
 

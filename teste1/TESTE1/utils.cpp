@@ -45,22 +45,22 @@ Student* read_student(ifstream &f,uint &linenum)
 	tutor = (line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-	apcredits = stod(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
+//	apcredits = stod(line.substr(0, line.find(';')));
+//	line.erase(0, line.find(';') + 1);
 
-	credits = stod(line.substr(0, line.find(';')));
+//	credits = stod(line.substr(0, line.find(';')));
 
-	Student* s=new Student(code, name, email, status, tutor);
-	s->add_approved_credits(apcredits);
-	s->add_credits(credits);
+	Student* stud = new Student(code, name, email, status, tutor);
+//	s->add_approved_credits(apcredits);
+//	s->add_credits(credits);
 
-	return s;
+	return stud;
 }
 
 Student* read_student(string &line)
 {
 	string code, name, email, status, tutor;
-	double approv_credits, credits;
+//	double approv_credits, credits;
 	
 	code = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
@@ -77,17 +77,17 @@ Student* read_student(string &line)
 	tutor = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
-	approv_credits = stod(line.substr(0, line.find(';')));
+/*	approv_credits = stod(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
 	credits = stod(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
+	line.erase(0, line.find(';') + 1); */
 
 
 
 	Student *stud = new Student(code, name, email, status, tutor);
-	stud->add_approved_credits(approv_credits);
-	stud->add_credits(credits);
+/*	stud->add_approved_credits(approv_credits);
+	stud->add_credits(credits); */
 
 	return stud;
 }
@@ -105,7 +105,7 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	return t;
 }
 
-Course* read_course(ifstream &f,uint &linenum) {
+Course* read_course(ifstream &f, uint &linenum) {
 	string name, line, dateStr;
 	uint year, semestre;
 	double credits;
@@ -133,11 +133,13 @@ Course* read_course(ifstream &f,uint &linenum) {
 	read_line(f, line, linenum);
 	
 	for (; line != "approved_students";) {
-		Student *stud = read_student(line);
+		Student *copyStud = read_student(line);
+		Student *originalStud;
+
 		dateStr = line.substr(0, line.find(';'));
 		date = new Date(dateStr);
-		stud->enroll_course(course);
-		course->add_student(stud, date);
+		copyStud->enroll_course(course);
+		course->add_student(copyStud, date);
 		read_line(f, line, linenum);
 	}
 
@@ -166,9 +168,9 @@ void save_student(ofstream & f, Student* x)
 		<< x->get_name() << ';'
 		<< x->get_email() << ';'
 		<< x->get_status() << ';'
-		<< x->get_tutor() << ';'
+		<< x->get_tutor();/* << ';'
 		<< x->get_appcredits() << ';'
-		<< x->get_credits();
+		<< x->get_credits();*/
 }
 
 void save_tutor(ofstream & f,Tutor* x)
@@ -218,10 +220,10 @@ int search_for_student(vector<Course*> v, Student* t) {
 	return -1;
 }
 
-template<typename T>bool check_duplicates(vector<T> v, T arg)
+template<typename T>
+bool check_duplicates(vector<T> v, T arg)
 {
-	for (auto x : v)
-	{
+	for (auto x : v) {
 		if (x->get_name() == arg->get_name() || x->get_code() == arg->get_code())
 			return true;
 	}

@@ -35,8 +35,8 @@ public:
 		vector<vector<Course*>>v1(5, vector<Course*>());
 		courses.push_back(v1);
 		courses.push_back(v1);
-		next_assign_tutor=1;
-		next_assign_student=1;
+		next_assign_tutor = 1;
+		next_assign_student = 1;
 	};
 	
 	string get_name() const { return name; };

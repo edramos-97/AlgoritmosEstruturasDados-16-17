@@ -379,6 +379,7 @@ void courseInfo(const Department &dept) {
 	system("pause");
 }
 
+//TODO - Recommendation if not possible to apply to Optional Course.
 void enrollStudent(Department &dept) {
 	Student *stud;
 	Course *course;
