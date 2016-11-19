@@ -31,7 +31,6 @@ public:
 	*@param name of the person
 	*/
 	Person(string code, string name);
-
 	/**
 	*@brief virtual fuction that returns the name of a Person
 	*@return string with the name
@@ -172,11 +171,16 @@ public:
 	*@param x pointer to the Tutor to assign
 	*/
 	void assign_tutor(Tutor * x);
-
-
+	/**
+	*@brief Assigns a student to a course
+	*@param c course to assign
+	*/
 	void enroll_course(Course *c);
 
-
+	/**
+	*@brief If student passed the course removes it from the enrolled courses and goes to approved courses
+	*@param c course to assign
+	*/
 	void approve_course(Course *c);
 
 	/**

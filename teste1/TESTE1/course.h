@@ -1,3 +1,9 @@
+/**
+* @file person.h
+* @author AEDA T3GE
+* @title Class Course
+* @brief Classes used to store information of Course or optional course
+*/
 #pragma once
 
 #include <string>
@@ -23,28 +29,70 @@ protected:
 	vector<Date *> date_enrolled;
 	vector<Date *> date_approved;
 public:
-	Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits), name(name) {
-		if (year < 1 || year > 5)
-			throw value_out_of_range<uint, string>(year, "year");
-		if (semester < 1 || semester > 2)
-			throw value_out_of_range<uint, string>(semester, "semestre");
-		if (credits < 1 || credits > 30)
-			throw value_out_of_range<double, string>(credits, "credits");
-		if (name.size() < 3)
-			throw short_argument(name, "name");
-	};
-	void add_student(Student *stud, Date *date);
-	void add_approved_student(Student *stud, Date *date);
-	virtual void approve_student(Student x, Date *date);
-	virtual const uint get_year() { return year; };
-	virtual const uint get_semestre() { return semester; };
-	virtual const double get_credits() { return credits; };
-	virtual const string get_name() { return name; };
-	vector<Student *> get_enrol_students() const;
-	vector<Student *> get_approv_students() const;
-	vector<Date *> Course::get_date_enrolled() const;
-	void print_enrolled() const;
-	void print_approved() const;
+	/**
+	*@brief Constructor of virtual class course
+	*@param year wich year corresponds the course from 1 to 5
+	*@param semester wich semester corresponds the course 1/2
+	*@param credits how much credits it gives to the students
+	*@param name name of the course
+	*/
+	Course(uint year, uint semester, double credits, string name);
+	/**
+	*@brief adds student to the course
+	*@param x Student to add
+	*/
+	virtual void add_student(Student *stud, Date *date);
+	/**
+	*@brief adds student to the course approved vector
+	*@param x Student to add
+	*/
+	virtual void add_approved_student(Student *stud, Date *date);
+	/**
+	*@brief virtual function, approves a stundent on the course, removes from vector enrolled students and puts the student on approved students
+	*@param x students to approve
+	*/
+	virtual void approve_student(Student *x);
+	/**
+	*@brief virtual function, gets curricular year that a student is suppoded to take the course
+	*/
+	virtual const uint get_year();
+	/**
+	*@brief virtual function, gets semester that a student is suppoded to take the course
+	*/
+	virtual const uint get_semestre();
+	/**
+	*@brief virtual function, gets how much credits is worth the course
+	*/
+	virtual const double get_credits();
+	/**
+	*@brief virtual function, gets name of the course
+	*/
+	virtual const string get_name();
+	/**
+	*@brief virtual function, gets vector with the enrolled students
+	*/
+	virtual vector<Student *> get_enrol_students() const;
+	/**
+	*@brief virtual function, gets vector with the approved students
+	*/
+	virtual vector<Student *> get_approv_students() const;
+	/**
+	*@brief virtual function, gets vector with the dates of assignment of the students to the course
+	*/
+	virtual vector<Date *> get_date_enrolled() const;
+	/**
+	*@brief virtual function, prints enrolled students
+	*/
+	virtual void print_enrolled() const;
+	/**
+	*@brief virtual function, prints approved students
+	*/
+	virtual void print_approved() const;
+	/**
+	@brief Operator << for Course
+	@param os ostream&
+	@param c Course object to use the operator
+	*/
 	friend ostream& operator<<(ostream& os, const Course & c);
 };
 
@@ -55,11 +103,36 @@ private:
 	uint openSlots;
 	string scientificArea;
 public:
-	OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name) : Course(year, semester, credits, name), openSlots(openSlots) {
-	};
-	string get_scientificArea() const { return scientificArea; };
-	uint get_openSlots() const { return openSlots; };
-	void add_student(Student x);
-	void approve_student(Student x);
+	/**
+	*@brief Constructor of sub-class Optional Course
+	*@param year wich year corresponds the course from 1 to 5
+	*@param semester wich semester corresponds the course 1/2
+	*@param credits how much credits it gives to the students
+	*@param name name of the course
+	*/
+	OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name, string scientificArea);
+	/**
+	*@brief gets scientficArea of the OptionalCourse
+	*/
+	string get_scientificArea() const;
+	/**
+	*@brief gets how much open slots the course has
+	*/
+	uint get_openSlots() const;
+	/**
+	*@brief adds student to the course
+	*@param x Student to add
+	*/
+	void add_student(Student *x);
+	/**
+	*@brief virtual function, approves a stundent on the course, removes from vector enrolled students and puts the student on approved students
+	*@param x students to approve
+	*/
+	void approve_student(Student *x);
+	/**
+	@brief Operator << for optionalCourse
+	@param os ostream&
+	@param c Course object to use the operator
+	*/
 	friend ostream& operator<<(ostream& os, const OptionalCourse & c);
 };

@@ -287,10 +287,10 @@ void call_newstudent(Department &d)
 		status_str = "Trabalhador Estudante";
 		break;
 	case 2:
-		status_str = "Estudante";
+		status_str = "Ordinario";
 		break;
 	case 3:
-		status_str = "Atleta Estudante";
+		status_str = "Atleta ";
 		break;
 	default:
 		cerr << "O input nao e valido. Tente novamente " << endl << endl;
