@@ -390,5 +390,6 @@ void enrollStudent(Department &dept) {
 	cin >> courseName;
 	course = dept.getCourse(courseName);
 
-	//TODO
+	course->add_student(stud);
+	stud->enroll_course(course);
 }

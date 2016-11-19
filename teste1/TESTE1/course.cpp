@@ -5,19 +5,19 @@
 
 using namespace std;
 
-void Course::add_student(Student* x)
+void Course::add_student(Student *student)
 {
-	enrolled_students.push_back(x);
+	enrolled_students.push_back(student);
 }
 
-void Course::add_approved_student(Student* x)
+void Course::add_approved_student(Student *student)
 {
-	approved_students.push_back(x);
+	approved_students.push_back(student);
 }
 
-void Course::add_date(Date * d)
+void Course::add_date(Date *date)
 {
-	date_enrolled.push_back(d);
+	date_enrolled.push_back(date);
 }
 
 void Course::approve_student(Student x)
