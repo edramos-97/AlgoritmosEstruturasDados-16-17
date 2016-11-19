@@ -60,7 +60,7 @@ Student* read_student(ifstream &f,uint &linenum)
 Student* read_student(string &line)
 {
 	string code, name, email, status, tutor;
-	double apcredits, credits;
+	double approv_credits, credits;
 	
 	code = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
@@ -77,7 +77,7 @@ Student* read_student(string &line)
 	tutor = line.substr(0, line.find(';'));
 	line.erase(0, line.find(';') + 1);
 
-	apcredits = stod(line.substr(0, line.find(';')));
+	approv_credits = stod(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
 	credits = stod(line.substr(0, line.find(';')));
@@ -85,11 +85,11 @@ Student* read_student(string &line)
 
 
 
-	Student* s= new Student(code, name, email, status, tutor);
-	s->add_approved_credits(apcredits);
-	s->add_credits(credits);
+	Student *stud = new Student(code, name, email, status, tutor);
+	stud->add_approved_credits(approv_credits);
+	stud->add_credits(credits);
 
-	return s;
+	return stud;
 }
 
 Tutor* read_tutor(ifstream &f,uint &linenum) {

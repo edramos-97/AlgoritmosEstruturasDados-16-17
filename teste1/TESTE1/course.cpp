@@ -17,13 +17,6 @@ void Course::add_approved_student(Student *student, Date *date)
 	date_approved.push_back(date);
 }
 
-/*
-void Course::add_date(Date *date)
-{
-	date_enrolled.push_back(date);
-}
-*/
-
 void Course::approve_student(Student student, Date *date)
 {
 	auto it = find(enrolled_students.begin(), enrolled_students.end(), &student);

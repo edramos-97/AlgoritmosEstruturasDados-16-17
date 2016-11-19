@@ -6,17 +6,18 @@ Raul Vidal;tu199703569
 #courses_start
 course_start
 AEDA;2;1;7.5
-st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;0;15/3/2015
+st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;7.5;15/3/2015
 approved_students
 end_course
 course_start
 MNUM;2;1;4.5
-st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569;0;0;30/1/2016
-st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;0;19/11/2016
+st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569;0;4.5;30/1/2016
+st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;4.5;19/11/2016
 approved_students
 end_course
 #courses_end
 #students_start
-st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;0
-st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569;0;0
+st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;7.5
+st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569;0;4.5
+st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569;0;4.5
 #students_end

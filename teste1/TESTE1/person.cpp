@@ -73,24 +73,27 @@ void Student::add_approved_credits(double x) {
 void Student::add_credits(double x) { credits += x; }
 void Student::assign_tutor(Tutor * x) { tutor = x->get_code(); }
 
-void Student::enroll_course(Course *c) {
-	enrolled_courses.push_back(c);
+void Student::enroll_course(Course *course) {
+	enrolled_courses.push_back(course);
+	credits += course->get_credits();
 }
 
-void Student::approve_course(Course *c) {
+void Student::approve_course(Course *course) {
 	for (vector<Course *>::iterator it = enrolled_courses.begin(); it != enrolled_courses.end(); ++it) {
-		if (*it == c)
+		if (*it == course)
 			enrolled_courses.erase(it);
 	}
-	approved_courses.push_back(c);
+	approved_courses.push_back(course);
+	credits -= course->get_credits();
+	approved_credits += course->get_credits();
 }
 
-ostream & operator<<(ostream & os, const Student & s)
+ostream & operator<<(ostream &os, const Student &stud)
 {
-	os << s.code << " || " << s.name << " || " << s.email << endl <<
-		"Status: " << s.status << endl <<
-		"Tutor: " << s.tutor << endl <<
-		"Completed credits: " << s.approved_credits << endl <<
-		"Credits currently enrolled for: " << s.credits;
+	os << stud.code << " || " << stud.name << " || " << stud.email << endl <<
+		"Status: " << stud.status << endl <<
+		"Tutor: " << stud.tutor << endl <<
+		"Completed credits: " << stud.approved_credits << endl <<
+		"Credits currently enrolled for: " << stud.credits;
 	return os;
 }
