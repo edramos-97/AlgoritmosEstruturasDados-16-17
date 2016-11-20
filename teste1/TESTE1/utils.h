@@ -22,7 +22,7 @@ void clrscr();
 *@brief reads the information of a student from the text file, used in Faculdade::load_dept
 *@param f ifstream that contains reference to the file
 *@param linenum number of the line being treated
-*@return returns a pointer to the student created
+*@return returns a pointer to the student created 
 */
 Student* read_student(ifstream &f, uint &linenum);
 
