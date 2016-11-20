@@ -340,6 +340,11 @@ bool Department::apply_for_course(Student *stud, Course *course)
 		return false;
 	}
 
+	if (stud->get_credits() + course->get_credits() >= 75) {
+		cerr << "Inscricao nao e possivel, o estudante " << stud->get_code() << " ficaria com " << stud->get_credits() + course->get_credits() << " creditos inscritos (maximo = 75).\n";
+		return false;
+	}
+
 	if (check_duplicates<Student *>(course->get_enrol_students(), stud)) {
 		cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja esta inscrito em " << course->get_name() << ".\n";
 		return false;
@@ -525,6 +530,7 @@ ostream & operator<<(ostream & os, const Department & d)
 
 	return os;
 }
+
 /**
 * @brief Verifies if it is possible for the student to apply for the given course.
 * @param year The year of the Course specified.
@@ -567,7 +573,7 @@ Student* Department::getStudent(const string &studCode) const {
 		}
 	}
 
-	throw exception_or_error("O estudante com o codigo (" + studCode + ") nao foi encontrado");
+	throw exception_or_error("O estudante com o codigo " + studCode + " nao foi encontrado");
 }
 
 Course* Department::getCourse(const string &courseName) const {
