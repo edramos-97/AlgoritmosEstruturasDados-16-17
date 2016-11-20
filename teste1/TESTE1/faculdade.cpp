@@ -311,6 +311,17 @@ bool Department::apply_for_course(Student *stud, Course *course)
 	Date *date = new Date();
 	int result = 0;
 	bool success;
+
+	if (check_duplicates<Student *>(course->get_enrol_students(), stud)) {
+		cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja esta inscrito em " << course->get_name() << ".\n";
+		return false;
+	}
+
+	if (check_duplicates<Student *>(course->get_approv_students(), stud)) {
+		cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja foi aprovado a " << course->get_name() << ".\n";
+		return false;
+	}
+
 	switch (course->get_semestre()) {
 	case 1:
 		switch (course->get_year()) {

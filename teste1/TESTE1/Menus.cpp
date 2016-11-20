@@ -320,6 +320,7 @@ void enrollStudent(Department &dept) {
 
 	while (true) {
 		try {
+			clrscr();
 			cout << "Codigo do estudante (\"exit\" para sair): ";
 			cin >> studName;
 			if (studName == "exit") {
@@ -334,7 +335,7 @@ void enrollStudent(Department &dept) {
 			course = dept.getCourse(courseName);
 			if (!(dept.apply_for_course(stud, course))) {
 				system("pause");
-				continue;
+				return;
 			}
 			break;
 		}
