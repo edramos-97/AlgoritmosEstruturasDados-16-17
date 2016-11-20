@@ -176,6 +176,8 @@ void call_newtutor(Department &D) {
 	try {
 		Tutor *T = new Tutor(cod, name);
 		D.new_tutor(T);
+		cout << "Tutor com o nome " << name << " criado com sucesso. O seu código é " << cod << endl;
+		system("PAUSE");
 	}
 	catch (exception_or_error x) {
 		cerr << x.get_reason() << ". Tente novamente!\n";
@@ -233,6 +235,9 @@ void call_newstudent(Department &d)
 	try {
 		Student *st = new Student(cod, name, cod + "@fe.up.pt", status_str);
 		d.add_student(st);
+		cout << "Estudante com o nome " << name << " criado com sucesso. O seu codigo e " << cod 
+			<< ". Para mais informacoes use o sistema"<< endl;
+		system("PAUSE");
 	}
 	catch (exception_or_error x) {
 		cerr << x.get_reason() << ". Tente novamente!\n";
@@ -367,6 +372,8 @@ void approveStudent(Department &dept) {
 			}
 			course = dept.getCourse(courseName);
 			dept.approve_student(stud, course);
+			cout << "Estudante com o codigo " << studName << " foi aprovado ao curso " << courseName << " com sucesso!!" << endl;
+			system("PAUSE");
 			break;
 		}
 		catch (exception_or_error x) {
