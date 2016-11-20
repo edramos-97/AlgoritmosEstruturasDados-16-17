@@ -28,7 +28,7 @@ Date::Date(string dateStr){
 	pos = dateStr.find('/');
 	
 	if (pos == -1)
-		throw date_not_valid();
+		throw exception_or_error("Data nao tem o formato DD/MM/YY");
 		
 	tmp = dateStr.substr(0, pos);
 	day = stoi(tmp);
@@ -36,7 +36,7 @@ Date::Date(string dateStr){
 	pos = dateStr.find('/');
 	
 	if (pos == -1)
-		throw date_not_valid();
+		throw exception_or_error("Data nao tem o formato DD/MM/YY");
 	
 	tmp = dateStr.substr(0, pos);
 	month = stoi(tmp);
@@ -46,7 +46,7 @@ Date::Date(string dateStr){
 	Date currentyear;
 
 	if (month > 12 || day > maxmonthday(month)||year<1970||year>currentyear.getYear())
-		throw date_not_valid();	
+		throw exception_or_error("Data nao tem o formato DD/MM/YY");
 }
 
 int Date::getDay() const{

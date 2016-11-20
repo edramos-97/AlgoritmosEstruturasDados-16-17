@@ -22,7 +22,7 @@ public:
 	Department(string name): name(name)
 	{
 		if (name.size() < 3)
-			throw short_argument(name, "Nome para a faculdade demasiado pequeno : \"");
+			throw exception_or_error("Nome para a faculdade demasiado pequeno (" + name + ")");
 		vector<vector<Course*>>v1(5, vector<Course*>());
 		courses.push_back(v1);
 		courses.push_back(v1);

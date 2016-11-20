@@ -10,13 +10,13 @@ using namespace std;
 *********************************/
 Course::Course(uint year, uint semester, double credits, string name) : year(year), semester(semester), credits(credits), name(name) {
 	if (year < 1 || year > 5)
-		throw value_out_of_range<uint, string>(year, "year");
+		throw exception_or_error("Ano curricular invalido(" + to_string(year) + ")");
 	if (semester < 1 || semester > 2)
-		throw value_out_of_range<uint, string>(semester, "semestre");
+		throw exception_or_error("Semestre invalido(" + to_string(semester) + ")");
 	if (credits < 1 || credits > 30)
-		throw value_out_of_range<double, string>(credits, "credits");
+		throw exception_or_error("Numero de creditos invalido (" + to_string(credits) + ")");
 	if (name.size() < 3)
-		throw short_argument(name, "name");
+		throw exception_or_error("Nome para o curso invalido (" + name + ")");
 }
 
 void Course::add_student(Student *student, Date *date)
@@ -33,17 +33,29 @@ void Course::add_approved_student(Student *student, Date *date)
 }
 
 
-//TODO - Date.
+//TODO - Date. //done i think needs testing
 void Course::approve_student(Student *student, Date *date)
 {
-	auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
+	size_t i;
+	for (i = 0; i < enrolled_students.size();i++) {
+		if (enrolled_students.at(i)->get_code() == student->get_code()) {
+			enrolled_students.erase(enrolled_students.begin()+i);
+			date_enrolled.erase(date_enrolled.begin() + i);
+			approved_students.push_back(student);
+			date_approved.push_back(date);
+			return;
+		}
+	}
+	throw exception_or_error("O estudante com o codigo (" + student->get_code() + ") nao foi encontrado");
+	return;
+	/*auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
 	if (it == enrolled_students.end())
 		throw StudentNotFound(student->get_code());
 	else
 	{
 		enrolled_students.erase(it);
 		approved_students.push_back(student);
-	}
+	}*/
 }
 
 const uint Course::get_year() { return year; }
@@ -120,15 +132,19 @@ void OptionalCourse::add_student(Student *student, Date *date)
 
 void OptionalCourse::approve_student(Student *student, Date *date)
 {
-	auto it = find(enrolled_students.begin(), enrolled_students.end(), student);
-	if (it == enrolled_students.end())
-		throw not_in_container(student->get_code());
-	else
-	{
-		enrolled_students.erase(it);
-		approved_students.push_back(student);
+	size_t i;
+	for (i = 0; i < enrolled_students.size();i++) {
+		if (enrolled_students.at(i)->get_code() == student->get_code()) {
+			enrolled_students.erase(enrolled_students.begin() + i);
+			date_enrolled.erase(date_enrolled.begin() + i);
+			approved_students.push_back(student);
+			date_approved.push_back(date);
+			++openSlots;
+			return;
+		}
 	}
-	++openSlots;
+	throw exception_or_error("O estudante com o codigo (" + student->get_code() + ") nao foi encontrado");
+	return;
 }
 
 ostream & operator<<(ostream & os, const OptionalCourse & c)

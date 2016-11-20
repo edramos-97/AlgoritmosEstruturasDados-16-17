@@ -6,9 +6,9 @@
 
 Person::Person(string code, string name) : code(code), name(name) {
 	if (name.size() < 3)
-		throw short_argument(name, "Nome que tentou atribuir a esta pessoa é demasiado pequeno");
+		throw exception_or_error("Nome que tentou atribuir a esta pessoa é demasiado pequeno (" +  name  + ")");
 	if (code.length() != 11)
-		throw short_argument(code, "Codigo de aluno ou tutor invalido");
+		throw exception_or_error("Codigo de aluno ou tutor invalido (" + code + ")");
 }
 
 /*********************************
@@ -16,7 +16,7 @@ Person::Person(string code, string name) : code(code), name(name) {
 *********************************/
 Tutor::Tutor(string code, string name) : Person(code, name) {
 	if (code.at(0) != 't' || code.at(1) != 'u')
-		throw short_argument(code, "Codigo de tutor invalido");
+		throw exception_or_error("Codigo de tutor invalido(" + code + ")");
 }
 
 string Tutor::get_name() const { return name; }
@@ -40,14 +40,14 @@ Student::Student(string code, string name, string email, string status, string t
 	approved_credits = 0;
 	credits = 0;
 	if (code.at(0) != 's' || code.at(1) != 't')
-		throw short_argument(code, "Codigo de student invalido");
+		throw exception_or_error("Codigo de estudante invalido(" + code + ")");
 }
 
 Student::Student(string code, string name, string email, string status) : Person(code, name), email(email), status(status) {
 	approved_credits = 0;
 	credits = 0;
 	if (code.at(0) != 's' || code.at(1) != 't')
-		throw short_argument(code, "Codigo de student invalido");
+		throw exception_or_error("Codigo de estudante invalido(" + code + ")");
 }
 
 string Student::get_name() const { return name; }
@@ -88,7 +88,7 @@ void Student::approve_course(Course *course) {
 		}
 	}
 	if (!found) {
-		throw CourseNotFound(course->get_name());
+		throw exception_or_error("Curso nao foi encontrado(" + course->get_name() + ")");
 	}
 	approved_courses.push_back(course);
 	credits -= course->get_credits();

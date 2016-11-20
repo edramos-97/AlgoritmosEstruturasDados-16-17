@@ -113,7 +113,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	read_line(f, line, linenum);
 
 	if (line != "main_course_start" && line != "opt_course_start")
-		throw corrupted_file(linenum, "expected course_start");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha "+to_string(linenum));
 
 	if (line == "opt_course_start")
 		isOptional = true;
@@ -213,7 +213,7 @@ void Department::load_dept(string x)
 	ifstream f;
 	f.open(filename);
 	if (!f.is_open()) {
-		throw file_not_open(x);
+		throw exception_or_error("O ficheiro " +  x + " nao foi encontrado verifique se o mesmo existe ou esta em local adequado");
 	}
 	read_line(f, line, linenum);
 	this->next_assign_tutor = stoi(line);
@@ -223,7 +223,7 @@ void Department::load_dept(string x)
 	
 	read_line(f, line, linenum);
 	if (line != "#tutors_start") {
-		throw corrupted_file(linenum, "expected #tutors_start");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #tutors_start");
 	}
 	while (f.peek() != '#') {
 		new_tutor(read_tutor(f, linenum));
@@ -231,29 +231,29 @@ void Department::load_dept(string x)
 	read_line(f, line, linenum);
 
 	if (line != "#tutors_end")
-		throw corrupted_file(linenum,"expected #tutors_end");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #tutors_end");
 	
 	read_line(f, line, linenum);
 	if (line != "#students_start")
-		throw corrupted_file(linenum, "expected #students_start");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_start");
 	while (f.peek() != '#') {
 		Student* temp = read_student(f, linenum);
 		add_student(temp);
 	}
 	read_line(f, line, linenum);
 	if (line != "#students_end")
-		throw corrupted_file(linenum, "expected #students_end");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_end");
 
 	read_line(f,line, linenum);
 	if (line != "#courses_start")
-		throw corrupted_file(linenum,"expected #courses_start");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #courses_start");
 	
 	while (f.peek() != '#') {
 		processCourse(f, linenum);
 	}
 	read_line(f, line, linenum);
 	if (line != "#courses_end")
-		throw corrupted_file(linenum, "expected #courses_end");
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #courses_end");;
 	
 	f.close();
 }
@@ -292,6 +292,7 @@ void Department::approve_student(Student *stud, Course *course) {
 	Date *date = new Date();
 	stud->approve_course(course);
 	course->approve_student(stud, date);
+
 }
 
 /**
@@ -419,7 +420,7 @@ Student* Department::getStudent(const string &studCode) const {
 		}
 	}
 	
-	throw StudentNotFound(studCode);
+	throw exception_or_error("O estudante com o codigo (" + studCode + ") nao foi encontrado");
 }
 
 Course* Department::getCourse(const string &courseName) const {
@@ -433,7 +434,7 @@ Course* Department::getCourse(const string &courseName) const {
 		}
 	}
 
-	throw CourseNotFound(courseName);
+	throw exception_or_error("O curso com o nome (" +courseName +" não foi encontrado");
 }
 
 const vector<vector<vector<Course*>>> Department::get_courses() const {

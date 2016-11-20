@@ -12,9 +12,11 @@ bool Menu_department() {
 	cout << "Escolha uma opcao: ";
 	cin >> option;
 
-	if (!cin.good())
-		throw input_not_valid();
-
+	if (!cin.good()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		throw exception_or_error("O input nao e valido");
+	}
 	switch (option) {
 	case 1:
 	{
@@ -30,13 +32,8 @@ bool Menu_department() {
 			mainMenu(D);
 			return true;
 		}
-		catch (input_not_valid) {
-			cerr << "Essa faculdade ja existe. Tente novamente\n";
-			system("PAUSE");
-			clrscr();
-		}
-		catch (short_argument x) {
-			cerr << x.get_info() <<  x.get_arg()<< "\"" << ". Tente novamente!\n";
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente\n";
 			system("PAUSE");
 			clrscr();
 		}
@@ -59,14 +56,9 @@ bool Menu_department() {
 			mainMenu(D);
 			return true;
 		}
-		catch (file_not_open x)
+		catch (exception_or_error x)
 		{
-			cerr << "Nao existe nenhum ficheiro com o nome: \"" << x.get_info() << "\". Tente novamente!\n";
-			system("PAUSE");
-			clrscr();
-		}
-		catch (short_argument x) {
-			cerr << x.get_info() << ". Tente novamente!\n";
+			cerr << x.get_reason() << ". Tente novamente!\n";
 			system("PAUSE");
 			clrscr();
 		}
@@ -154,7 +146,7 @@ Department newDepartment(string name) {
 	
 	f.open(name + ".txt");
 	if (f.is_open())
-		throw input_not_valid();
+		throw exception_or_error("O input nao e valido");
 	
 	Department D(name);
 
@@ -184,7 +176,11 @@ void call_newtutor(Department &D) {
 		Tutor *T = new Tutor(cod, name);
 		D.new_tutor(T);
 	}
-	catch (...) {}
+	catch (exception_or_error x) {
+		cerr << x.get_reason() << ". Tente novamente!\n";
+		system("PAUSE");
+		clrscr();
+	}
 	return;
 }
 
@@ -232,11 +228,15 @@ void call_newstudent(Department &d)
 		cod = '0' + cod;
 	}
 	cod = "st" + cod;
+	
 	try {
 		Student *st = new Student(cod, name, cod + "@fe.up.pt", status_str);
 		d.add_student(st);
 	}
-	catch (...) {
+	catch (exception_or_error x) {
+		cerr << x.get_reason() << ". Tente novamente!\n";
+		system("PAUSE");
+		clrscr();
 	}
 
 }
@@ -256,8 +256,10 @@ void studentInfo(const Department &dept) {
 			stud = dept.getStudent(studCode);
 			break; 
 		}
-		catch (StudentNotFound(studCode)) {
-			continue;
+		catch(exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente!\n";
+			system("PAUSE");
+			clrscr();
 		}
 	}
 
@@ -289,8 +291,10 @@ void courseInfo(const Department &dept) {
 			course = dept.getCourse(courseName);
 			break;
 		}
-		catch (CourseNotFound(courseName)) {
-			continue;
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente!\n";
+			system("PAUSE");
+			clrscr();
 		}
 	}
 	
@@ -333,13 +337,10 @@ void enrollStudent(Department &dept) {
 			}
 			break;
 		}
-		catch (StudentNotFound(studName)) {
-			system("pause");
-			continue;
-		}
-		catch (CourseNotFound(courseName)) {
-			system("pause");
-			continue;
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente!\n";
+			system("PAUSE");
+			clrscr();
 		}
 	}
 }
@@ -366,13 +367,10 @@ void approveStudent(Department &dept) {
 			dept.approve_student(stud, course);
 			break;
 		}
-		catch (StudentNotFound(studName)) {
-			system("pause");
-			continue;
-		}
-		catch (CourseNotFound(courseName)) {
-			system("pause");
-			continue;
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente!\n";
+			system("PAUSE");
+			clrscr();
 		}
 	}
 }

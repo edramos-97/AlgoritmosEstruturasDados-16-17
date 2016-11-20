@@ -7,6 +7,7 @@
 #include "exceptions.h"
 #include "faculdade.h"
 #include "course.h"
+#include <cstdlib>
 #undef max
 
 using namespace std;
