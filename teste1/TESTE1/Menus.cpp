@@ -323,7 +323,6 @@ void courseInfo(const Department &dept) {
 	system("pause");
 }
 
-//TODO - Recommendation if not possible to apply to Optional Course.
 void enrollStudent(Department &dept) {
 	Student *stud;
 	Course *course;
@@ -344,9 +343,20 @@ void enrollStudent(Department &dept) {
 				return;
 			}
 			course = dept.getCourse(courseName);
-			if (!(dept.apply_for_course(stud, course))) {
-				system("pause");
-				continue;
+
+			bool isOptional = (!(dynamic_cast<OptionalCourse *>(course) == NULL));
+
+			if (!isOptional) {
+				if (!(dept.apply_for_course(stud, course))) {
+					system("pause");
+					continue;
+				}
+			}
+			else {
+				if (!(dept.apply_for_course(stud, (OptionalCourse *)course))) {
+					system("pause");
+					continue;
+				}
 			}
 			continue;
 		}
@@ -365,6 +375,7 @@ void approveStudent(Department &dept) {
 
 	while (true) {
 		try {
+			clrscr();
 			cout << "Codigo do estudante (\"exit\" para sair): ";
 			cin >> studName;
 			if (studName == "exit") {
@@ -384,8 +395,7 @@ void approveStudent(Department &dept) {
 		}
 		catch (exception_or_error x) {
 			cerr << x.get_reason() << ". Tente novamente!\n";
-			system("PAUSE");
-			clrscr();
+			system("PAUSE");			
 		}
 	}
 }

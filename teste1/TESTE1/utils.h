@@ -59,27 +59,40 @@ void read_line(ifstream &f, string &line, uint &linenum);
 */
 template<typename T>bool check_duplicates(vector<T> v,T arg);
 /**
-*@brief saves the information of an object type student in the textfile, used in Faculdade::save_dept
+*@brief saves the information of an object of type student in the textfile, used in Faculdade::save_dept
 *@param f ifstream that contains reference to the file
 *@param x student to save
 */
 void save_student(ofstream &f,Student* x);
 /**
-*@brief saves the information of an object type tutor in the textfile, used in Faculdade::save_dept
+*@brief saves the information of an object of type tutor in the textfile, used in Faculdade::save_dept
 *@param f ifstream that contains reference to the file
 *@param x tutor to save
 */
 void save_tutor(ofstream &f,Tutor * x);
 /**
-*@brief saves the information of an object type tutor in the textfile, used in Faculdade::save_dept
+*@brief saves the information of an object of type tutor in the textfile, used in Faculdade::save_dept
 *@param f ifstream that contains reference to the file
 *@param x tutor to save
 */
 void save_course(ofstream &f,Course * x);
 /**
+*@brief saves the information of an object type external course in the textfile, used in Faculdade::save_dept
+*@param f ifstream that contains reference to the file
+*@param x external course to save
+*/
+void save_external(ofstream & f, Course * x);
+/**
 *@brief 
 *@param v Vector of courses
 *@param t student to find
-*returns 
+*@return  
 */
 int search_for_student(vector<Course*> v, Student * t);
+/**
+*@brief reads a line from the text file open in faculdade::load_dept and creates an external course
+*@param f ifstream that contains reference to the file
+*@param linenum number of the line being treated
+*@return returns a pointer to an external course
+*/
+Course * read_external(ifstream &f, uint &linenum);

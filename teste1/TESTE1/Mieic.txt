@@ -1,5 +1,9 @@
 199703569
 201505789
+#external_courses_start
+MEC;2;1;6;Automacao Industrial
+MEC2;2;2;6;Interaccao e Multimedia
+#external_courses_end
 #tutors_start
 Raul Vidal;tu199703569
 Tutor 1;tu000000001
@@ -39,6 +43,10 @@ approved_students
 st000000019;1/1/2010
 st000000020;1/1/2010
 st201505789;1/1/2010
+end_course
+opt_course_start
+TEST;1;1;6;0;Automacao Industrial
+approved_students
 end_course
 main_course_start
 AOCO;1;1;6
@@ -149,11 +157,11 @@ st000000020;1/1/2010
 end_course
 main_course_start
 FISI2;2;1;6
-st201505779;1/1/2010
 st201505789;1/1/2010
 approved_students
 st000000019;1/1/2010
 st000000020;1/1/2010
+st201505779;20/11/2016
 end_course
 main_course_start
 AEDA;2;1;7.5

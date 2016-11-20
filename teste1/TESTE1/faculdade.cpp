@@ -103,6 +103,11 @@ void Department::add_student(Student * x)
 	return;
 }
 
+void Department::add_external(Course * x)
+{
+	external_courses.push_back(x);
+}
+
 void Department::processCourse(ifstream &f, uint &linenum) {
 	bool isOptional = false;
 	Course *course = nullptr;
@@ -224,6 +229,18 @@ void Department::load_dept(string x)
 	this->next_assign_student = stoi(line);
 
 	read_line(f, line, linenum);
+	if (line != "#external_courses_start") {
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #external_courses_start");
+	}
+	while (f.peek() != '#') {
+		add_external(read_external(f,linenum));
+	}
+	read_line(f, line, linenum);
+
+	if (line != "#external_courses_end")
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #external_courses_end");
+
+	read_line(f, line, linenum);
 	if (line != "#tutors_start") {
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #tutors_start");
 	}
@@ -271,6 +288,10 @@ void Department::save_dept()
 	ofstream f(name + ".txt");
 	f << this->next_assign_tutor << "\n";
 	f << this->next_assign_student << "\n";
+	f << "#external_courses_start" << endl;
+	for (auto x : external_courses)
+		save_external(f, x);
+	f << "#external_courses_end" << endl;
 	f << "#tutors_start" << endl;
 	for (auto x : tutors)
 		save_tutor(f, x);
@@ -315,7 +336,7 @@ bool Department::apply_for_course(Student *stud, Course *course)
 	bool success;
 
 	if (stud->get_credits() >= 75) {
-		cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja esta inscrito com " << stud->get_credits() << " creditos (maximo = 75).\n";
+		cerr << "Inscricao nao e possivel, o estudante " << stud->get_code() << " ja esta inscrito com " << stud->get_credits() << " creditos (maximo = 75).\n";
 		return false;
 	}
 
@@ -387,6 +408,103 @@ bool Department::apply_for_course(Student *stud, Course *course)
 	return success;
 }
 
+bool Department::apply_for_course(Student * stud, OptionalCourse * course)
+{
+	{
+		Date *date = new Date();
+		int result = 0;
+		vector<string> area;
+		bool success;
+
+		if (stud->get_credits() >= 75) {
+			cerr << "Inscricao nao e possivel, o estudante " << stud->get_code() << " ja esta inscrito com " << stud->get_credits() << " creditos (maximo = 75).\n";
+			return false;
+		}
+
+		if (check_duplicates<Student *>(course->get_enrol_students(), stud)) {
+			cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja esta inscrito em " << course->get_name() << ".\n";
+			return false;
+		}
+
+		if (check_duplicates<Student *>(course->get_approv_students(), stud)) {
+			cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja foi aprovado a " << course->get_name() << ".\n";
+			return false;
+		}
+
+		if (course->get_openSlots()<=0) {
+			cerr << "Inscricao nao e possivel, o curso \"" << course->get_name() << "\" nao tem mais vagas disponiveis.\n";
+			area = search_sci_area(course->get_scientificArea());
+			if (area.empty())
+				cout << "Nao foram encontradas outros cursos com a mesma area cientifica de " << course->get_name() << "." << endl;
+			else {
+				cout << "Existem as seguintes cadeiras com a mesma area cientifica:\n";
+				for (auto x : area) {
+					cout << TAB << x << endl;
+				}
+			}
+			return false;
+		}
+
+		switch (course->get_semestre()) {
+		case 1:
+			switch (course->get_year()) {
+			case 1:
+				course->add_student(stud, date);
+				stud->enroll_course(course, date);
+				success = true;
+				break;
+			case 2:
+				success = verify_courses_completition(2, 1, stud, course, date);
+				break;
+			case 3:
+				success = verify_courses_completition(3, 1, stud, course, date);
+				break;
+			case 4:
+				success = verify_courses_completition(4, 1, stud, course, date);
+				break;
+			case 5:
+				success = verify_courses_completition(5, 1, stud, course, date);
+			default:
+				success = false;
+				break;
+			}
+			break;
+		case 2:
+			switch (course->get_year()) {
+			case 1:
+				course->add_student(stud, date);
+				stud->enroll_course(course, date);
+				success = true;
+				break;
+			case 2:
+				success = verify_courses_completition(2, 2, stud, course, date);
+				break;
+			case 3:
+				success = verify_courses_completition(3, 2, stud, course, date);
+				break;
+			case 4:
+				success = verify_courses_completition(4, 2, stud, course, date);
+				break;
+			case 5:
+				success = verify_courses_completition(5, 2, stud, course, date);
+				break;
+			default:
+				success = false;
+				break;
+			}
+			break;
+		default:
+			success = false;
+			break;
+		}
+		if (!success) {
+			delete date;
+		}
+		return success;
+	}
+	
+}
+
 ostream & operator<<(ostream & os, const Department & d)
 {
 	os << d.name << endl
@@ -433,6 +551,15 @@ bool Department::verify_courses_completition(uint year, uint semester, Student *
 
 }
 
+vector<string> Department::search_sci_area(string area)
+{
+	vector<string> v;
+	for(auto x: external_courses)
+		if(x->get_scientificArea()==area)
+			v.push_back(x->get_name());
+	return v;
+}
+
 Student* Department::getStudent(const string &studCode) const {
 	for (size_t studInd = 0; studInd < students.size(); ++studInd) {
 		if (studCode == students.at(studInd)->get_code()) {
@@ -454,7 +581,7 @@ Course* Department::getCourse(const string &courseName) const {
 		}
 	}
 
-	throw exception_or_error("O curso com o nome (" + courseName + " não foi encontrado");
+	throw exception_or_error("O curso com o nome \"" + courseName + "\" nao foi encontrado");
 }
 
 const vector<vector<vector<Course*>>> Department::get_courses() const {

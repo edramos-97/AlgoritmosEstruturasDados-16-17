@@ -95,6 +95,32 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	return t;
 }
 
+Course * read_external(ifstream & f, uint & linenum)
+{
+	string name, area, line;
+	double credits;
+	uint year, semestre;
+
+	read_line(f, line, linenum);
+	name = (line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	year = stoul(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	semestre = stoul(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	credits = stod(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	area = (line.substr(0, line.find(';')));
+	
+	OptionalCourse* c = new OptionalCourse(year,semestre,credits,0,name,area);
+
+	return c;
+}
+
 void read_line(ifstream & f, string & line, uint &linenum)
 {
 	getline(f, line);
@@ -144,6 +170,10 @@ void save_course(ofstream & f, Course* course)
 			';' << *(course->get_date_approved().at(studInd)) << endl;
 	}
 	f << "end_course" << endl;
+}
+
+void save_external(ofstream & f, Course* x) {
+	f << x->get_name() << ';' << x->get_year() << ';' << x->get_semestre() << ';' << x->get_credits() << ';' << x->get_scientificArea() << endl;
 }
 
 int search_for_student(vector<Course*> v, Student* t) {

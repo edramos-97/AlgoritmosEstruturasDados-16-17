@@ -14,7 +14,8 @@ class Department {
 	
 	vector<Tutor*> tutors;
 	vector<Student*> students;
-	vector<vector<vector<Course*>>> courses; //courses[semester][year][courseInd]
+	vector<vector<vector<Course*>>> courses; //courses[semester][year][courseInfo]
+	vector<Course*> external_courses;
 	int next_assign_tutor;
 	int next_assign_student;
 public:
@@ -40,9 +41,12 @@ public:
 	void new_course(Course* x);
 //	void add_course(Course * x);
 	void add_student(Student* x);
+	void add_external(Course* x);
 	void approve_student(Student *stud, Course *course);
-	bool apply_for_course(Student * s, Course * c);
+	bool apply_for_course(Student * stud, Course * course);
+	bool apply_for_course(Student * stud, OptionalCourse * course);
 	bool verify_courses_completition(uint year, uint semestre, Student *stud, Course *course, Date *date);
+	vector<string> search_sci_area(string scientific_area);
 	void Department::processCourse(ifstream &f, uint &linenum);
 	void load_dept(string filename);
 	void save_dept();
