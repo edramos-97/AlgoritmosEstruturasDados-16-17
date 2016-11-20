@@ -314,6 +314,11 @@ bool Department::apply_for_course(Student *stud, Course *course)
 	int result = 0;
 	bool success;
 
+	if (stud->get_credits() >= 75) {
+		cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja esta inscrito com " << stud->get_credits() << " creditos (maximo = 75).\n";
+		return false;
+	}
+
 	if (check_duplicates<Student *>(course->get_enrol_students(), stud)) {
 		cerr << "Inscricao nao e possivel, estudante " << stud->get_code() << " ja esta inscrito em " << course->get_name() << ".\n";
 		return false;
@@ -416,8 +421,8 @@ bool Department::verify_courses_completition(uint year, uint semester, Student *
 	for (uint i = 0; i < (year - 1); i++) {
 		result = search_for_student(courses.at(semester - 1).at(i), stud);
 		if (result != -1) {
-			cout << "Para se puder increver a esse curso o estudante tem primeiro que completar "
-				<< courses.at(semester - 1).at(i).at(result)->get_name() << '.';
+			cout << "Para se puder increver a essa UC o estudante tem de se inscrever em "
+				<< courses.at(semester - 1).at(i).at(result)->get_name() << ".\n";
 			return false;
 		}
 	}

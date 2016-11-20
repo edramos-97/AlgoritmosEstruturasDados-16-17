@@ -5,8 +5,8 @@ bool Menu_department() {
 	string filename; //without .txt
 
 	cout << BIG_TAB << "Bem vindo!" << endl << endl;
-	cout << TAB << "1 - Criar uma nova faculdade" << endl;
-	cout << TAB << "2 - Importar uma faculdade ja existente" << endl;
+	cout << TAB << "1 - Criar um novo curso" << endl;
+	cout << TAB << "2 - Importar um curso ja existente" << endl;
 	cout << TAB << "0 - Sair" << endl << endl;
 	
 	cout << "Escolha uma opcao: ";
@@ -21,9 +21,10 @@ bool Menu_department() {
 	case 1:
 	{
 		try {
-			cout << "\nPara voltar atras insira \"exit\"\nInsira o nome da nova faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
+			cout << "\nPara voltar atras insira \"exit\"\n"
+				<< "Insira o nome do novo curso: ";
 			cin >> filename;
-			if (filename == "exit") {//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
+			if (filename == "exit") {
 				clrscr();
 				return false;
 			}
@@ -45,7 +46,7 @@ bool Menu_department() {
 		try
 		{
 			cout << "Para voltar atras insira \"exit\"\n"
-				<< "Insira o nome do ficheiro que contem as informacoes da faculdade: "; //escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
+				<< "Insira o nome do ficheiro que contem as informacoes do curso: "; //escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
 			cin >> filename;
 			if (filename == "exit") {
 				clrscr();
@@ -345,9 +346,9 @@ void enrollStudent(Department &dept) {
 			course = dept.getCourse(courseName);
 			if (!(dept.apply_for_course(stud, course))) {
 				system("pause");
-				return;
+				continue;
 			}
-			break;
+			continue;
 		}
 		catch (exception_or_error x) {
 			cerr << x.get_reason() << ". Tente novamente!\n";
