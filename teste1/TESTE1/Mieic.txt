@@ -91,7 +91,6 @@ approved_students
 end_course
 main_course_start
 TCOM;2;1;6
-st201505779;20/11/2016
 approved_students
 end_course
 main_course_start
@@ -104,7 +103,6 @@ approved_students
 end_course
 main_course_start
 AEDA;2;1;7.5
-st201505779;20/11/2016
 approved_students
 end_course
 main_course_start
@@ -209,7 +207,6 @@ approved_students
 end_course
 opt_course_start
 AGRS;4;2;6;1;Sistemas Operativos e Redes
-st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
