@@ -269,14 +269,17 @@ void studentInfo(const Department &dept) {
 		}
 	}
 
+	clrscr();
 	cout << *stud << "\n";
 	cout << "Inscrito em:\n";
-	for (Course *course : stud->get_enrol_courses()) {
-		cout << " - " << course->get_name() << "\n";
+	for (size_t courseInd = 0; courseInd < stud->get_enrol_courses().size(); ++courseInd) {
+		Course *course = stud->get_enrol_courses().at(courseInd);
+		cout << " - " << course->get_name() << " | " << *(stud->get_enrol_dates().at(courseInd)) << "\n";
 	}
 	cout << "Aprovado em:\n";
-	for (Course *course : stud->get_approv_courses()) {
-		cout << " - " << course->get_name() << "\n";
+	for (size_t courseInd = 0; courseInd < stud->get_approv_courses().size(); ++courseInd) {
+		Course *course = stud->get_approv_courses().at(courseInd);
+		cout << " - " << course->get_name() << " | " << *(stud->get_approv_dates().at(courseInd)) << "\n";
 	}
 
 	system("pause");
@@ -305,13 +308,15 @@ void courseInfo(const Department &dept) {
 	}
 	
 	cout << "Estudantes inscritos:\n";
-	for (Student *stud : course->get_enrol_students()) {
-		cout << " - " << stud->get_code() << " | " << stud->get_name() << "\n";
+	for (size_t studInd = 0; studInd < course->get_enrol_students().size(); ++studInd) {
+		Student *stud = course->get_enrol_students().at(studInd);
+		cout << " - " << stud->get_code() << " | " << stud->get_name() << " | " << *(course->get_date_enrolled().at(studInd)) << "\n";
 	}
 
 	cout << "Estudantes aprovados:\n";
-	for (Student *stud : course->get_approv_students()) {
-		cout << " - " << stud->get_code() << " | " << stud->get_name() << "\n";
+	for (size_t studInd = 0; studInd < course->get_approv_students().size(); ++studInd) {
+		Student *stud = course->get_approv_students().at(studInd);
+		cout << " - " << stud->get_code() << " | " << stud->get_name() << " | " << *(course->get_date_approved().at(studInd)) << "\n";
 	}
 
 	system("pause");

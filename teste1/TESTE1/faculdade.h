@@ -38,7 +38,7 @@ public:
 	void new_tutor(Tutor* x);
 	void new_student(Student* x);
 	void new_course(Course* x);
-	void add_course(Course * x);
+//	void add_course(Course * x);
 	void add_student(Student* x);
 	void approve_student(Student *stud, Course *course);
 	bool apply_for_course(Student * s, Course * c);

@@ -64,6 +64,14 @@ vector<Course *> Student::get_approv_courses() const {
 	return approved_courses;
 }
 
+vector<Date *> Student::get_enrol_dates() const {
+	return enrolled_dates;
+}
+
+vector<Date *> Student::get_approv_dates() const {
+	return approved_dates;
+}
+
 double Student::get_appcredits() const { return approved_credits; }
 double Student::get_credits() const { return credits; }
 void Student::add_approved_credits(double x) {
@@ -73,12 +81,13 @@ void Student::add_approved_credits(double x) {
 void Student::add_credits(double x) { credits += x; }
 void Student::assign_tutor(Tutor * x) { tutor = x->get_code(); }
 
-void Student::enroll_course(Course *course) {
+void Student::enroll_course(Course *course, Date *date) {
 	enrolled_courses.push_back(course);
+	enrolled_dates.push_back(date);
 	credits += course->get_credits();
 }
 
-void Student::approve_course(Course *course) {
+void Student::approve_course(Course *course, Date *date) {
 	bool found = false;
 	for (vector<Course *>::iterator it = enrolled_courses.begin(); it != enrolled_courses.end(); ++it) {
 		if (*it == course) {
@@ -89,6 +98,7 @@ void Student::approve_course(Course *course) {
 	}
 
 	approved_courses.push_back(course);
+	approved_dates.push_back(date);
 	if (found) {
 		credits -= course->get_credits();
 	}
@@ -100,7 +110,7 @@ ostream & operator<<(ostream &os, const Student &stud)
 	os << stud.code << " || " << stud.name << " || " << stud.email << endl <<
 		"Status: " << stud.status << endl <<
 		"Tutor: " << stud.tutor << endl <<
-		"Completed credits: " << stud.approved_credits << endl <<
-		"Credits currently enrolled for: " << stud.credits;
+		"Creditos aprovados: " << stud.approved_credits << endl <<
+		"Creditos inscritos: " << stud.credits;
 	return os;
 }

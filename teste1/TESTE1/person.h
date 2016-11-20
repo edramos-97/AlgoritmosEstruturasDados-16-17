@@ -11,6 +11,7 @@
 #include <string>
 #include "exceptions.h"
 #include "course.h"
+#include "Date.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class Person;
 class Tutor;
 class Student;
 class Course;
+class Date;
 
 class Person {
 protected:
@@ -84,7 +86,8 @@ private:
 	double approved_credits, credits;
 	vector<Course *> enrolled_courses;
 	vector<Course *> approved_courses;
-
+	vector<Date *> enrolled_dates;
+	vector<Date *> approved_dates;
 public:
 	/**
 	*@brief Constructor of the class Student
@@ -144,6 +147,12 @@ public:
 	//TODO - Docs.
 	vector<Course *> get_approv_courses() const;
 
+	//TODO - Docs.
+	vector<Date *> get_enrol_dates() const;
+
+	//TODO - Docs.
+	vector<Date *> get_approv_dates() const;
+
 	/**
 	*@brief returns the number of approved credits
 	*/
@@ -175,13 +184,13 @@ public:
 	*@brief Assigns a student to a course
 	*@param c course to assign
 	*/
-	void enroll_course(Course *c);
+	void enroll_course(Course *course, Date *date);
 
 	/**
 	*@brief If student passed the course removes it from the enrolled courses and goes to approved courses
 	*@param c course to assign
 	*/
-	void approve_course(Course *c);
+	void approve_course(Course *course, Date *date);
 
 	/**
 	@brief Operator << for Student

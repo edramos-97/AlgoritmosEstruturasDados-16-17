@@ -38,18 +38,18 @@ void Department::new_tutor(Tutor* x)
 
 /**
 * @brief Adds a Course to the Department.
-* @param c Previously created Course to add.
+* @param course Previously created Course to add.
 *
 * Adds a Previously created Course pointer to the Department vector of Course.
 */
-void Department::new_course(Course* c)
+void Department::new_course(Course* course)
 {
 	uint year, semester;
 
-	year = c->get_year();
-	semester = c->get_semestre();
+	year = course->get_year();
+	semester = course->get_semestre();
 
-	courses.at(semester - 1).at(year - 1).push_back(c);
+	courses.at(semester - 1).at(year - 1).push_back(course);
 }
 
 /**
@@ -58,6 +58,7 @@ void Department::new_course(Course* c)
 *
 * An existing Course read from a text file is added to the Department vector of courses.
 */
+/*
 void Department::add_course(Course *course) {
 	new_course(course);
 	for (Student *student : course->get_approv_students())
@@ -77,7 +78,8 @@ void Department::add_course(Course *course) {
 		}
 		add_student(student);
 	}
-}
+}*/
+
 /**
 * @brief Adds an existent student to the Department.
 * @param x Previously read student to add.
@@ -156,11 +158,11 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 		}
 
 		if (!isOptional) {
-			originalStud->enroll_course(course);
+			originalStud->enroll_course(course, date);
 			course->add_student(originalStud, date);
 		}
 		else {
-			originalStud->enroll_course(optCourse);
+			originalStud->enroll_course(optCourse, date);
 			optCourse->add_student(originalStud, date);
 		}
 
@@ -180,11 +182,11 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 		}
 
 		if (!isOptional) {
-			originalStud->approve_course(course);
+			originalStud->approve_course(course, date);
 			course->add_approved_student(originalStud, date);
 		}
 		else {
-			originalStud->approve_course(optCourse);
+			originalStud->approve_course(optCourse, date);
 			optCourse->add_approved_student(originalStud, date);
 		}
 
@@ -294,7 +296,7 @@ void Department::save_dept()
 
 void Department::approve_student(Student *stud, Course *course) {
 	Date *date = new Date();
-	stud->approve_course(course);
+	stud->approve_course(course, date);
 	course->approve_student(stud, date);
 
 }
@@ -327,7 +329,7 @@ bool Department::apply_for_course(Student *stud, Course *course)
 		switch (course->get_year()) {
 		case 1:
 			course->add_student(stud, date);
-			stud->enroll_course(course);
+			stud->enroll_course(course, date);
 			success = true;
 			break;
 		case 2:
@@ -350,7 +352,7 @@ bool Department::apply_for_course(Student *stud, Course *course)
 		switch (course->get_year()) {
 		case 1:
 			course->add_student(stud, date);
-			stud->enroll_course(course);
+			stud->enroll_course(course, date);
 			success = true;
 			break;
 		case 2:
@@ -421,7 +423,7 @@ bool Department::verify_courses_completition(uint year, uint semester, Student *
 	}
 
 	course->add_student(stud, date);
-	stud->enroll_course(course);
+	stud->enroll_course(course, date);
 	return true;
 
 }
