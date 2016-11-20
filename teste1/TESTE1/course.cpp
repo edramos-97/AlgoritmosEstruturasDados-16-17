@@ -15,8 +15,8 @@ Course::Course(uint year, uint semester, double credits, string name) : year(yea
 		throw exception_or_error("Semestre invalido(" + to_string(semester) + ")");
 	if (credits < 1 || credits > 30)
 		throw exception_or_error("Numero de creditos invalido (" + to_string(credits) + ")");
-	if (name.size() < 3)
-		throw exception_or_error("Nome para o curso invalido (" + name + ")");
+	if (name.size() < 2)
+		throw exception_or_error("Nome para a UC invalido (" + name + ")");
 }
 
 void Course::add_student(Student *student, Date *date)

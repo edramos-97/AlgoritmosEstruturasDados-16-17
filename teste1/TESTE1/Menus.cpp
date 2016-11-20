@@ -44,9 +44,10 @@ bool Menu_department() {
 	{
 		try
 		{
-			cout << "Para voltar atras insira \"exit\"\nInsira o nome do ficheiro que contem as informacoes da faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
+			cout << "Para voltar atras insira \"exit\"\n"
+				<< "Insira o nome do ficheiro que contem as informacoes da faculdade: "; //escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
 			cin >> filename;
-			if (filename == "exit") {//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
+			if (filename == "exit") {
 				clrscr();
 				return false;
 			}
