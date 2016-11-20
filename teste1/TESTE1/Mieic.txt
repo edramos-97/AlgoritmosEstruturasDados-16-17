@@ -126,7 +126,7 @@ st000000020;1/1/2010
 approved_students
 end_course
 opt_course_start
-Cadeira31;4;1;6;0;robotica
+Cadeira31;4;1;6;4294967294;robotica
 st000000019;1/1/2010
 st000000020;1/1/2010
 approved_students
@@ -215,12 +215,12 @@ Cadeira37;4;2;6;1;Teste
 approved_students
 end_course
 opt_course_start
-Cadeira38;4;2;6;0;Teste
+Cadeira38;4;2;6;4294967295;Teste
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-APSI;4;2;6;95;Multimedia
+APSI;4;2;6;93;Multimedia
 st000000019;1/1/2010
 st000000020;1/1/2010
 approved_students
