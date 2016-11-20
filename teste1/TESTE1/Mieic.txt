@@ -322,7 +322,7 @@ st000000020;1/1/2010
 approved_students
 end_course
 opt_course_start
-APSI;4;2;6;100;Interacção e Multimédia
+APSI;4;2;6;100;Interaccao e Multimedia
 approved_students
 end_course
 opt_course_start
@@ -335,7 +335,7 @@ st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-CPAR;4;2;6;2;Programação
+CPAR;4;2;6;2;Programacao
 st000000001;1/1/2010
 st000000002;1/1/2010
 approved_students
@@ -350,7 +350,7 @@ st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-DJCO;4;2;6;30;Interacção e Multimédia
+DJCO;4;2;6;30;Interaccao e Multimedia
 st000000019;1/1/2010
 approved_students
 end_course
@@ -359,27 +359,27 @@ ERSS;4;2;6;2;Engenharia de Software
 approved_students
 end_course
 opt_course_start
-GOLO;4;2;6;30;Métodos Quantitativos e Gestão
+GOLO;4;2;6;30;Metodos Quantitativos e Gestao
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-LAPD;4;2;6;30;Sistemas de Informação
+LAPD;4;2;6;30;Sistemas de Informacao
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-MARK;4;2;6;30;Métodos Quantitativos e Gestão
+MARK;4;2;6;30;Metodos Quantitativos e Gestao
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-MSSI;4;2;6;30;Inteligência Artificial
+MSSI;4;2;6;30;Inteligencia Artificial
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-MNSE;4;2;6;30;Interacção e Multimédia
+MNSE;4;2;6;30;Interaccao e Multimedia
 st000000019;1/1/2010
 approved_students
 end_course
@@ -389,32 +389,32 @@ st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-SSEN;4;2;6;30;Automação Industrial
+SSEN;4;2;6;30;Automacao Industrial
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-SCRI;4;2;6;30;Automação Industrial
+SCRI;4;2;6;30;Automacao Industrial
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-SETR;4;2;6;30;Automação Industrial
+SETR;4;2;6;30;Automacao Industrial
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-SGEO;4;2;6;30;Sistemas de Informação
+SGEO;4;2;6;30;Sistemas de Informacao
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-SINS;4;2;6;30;Automação Industrial
+SINS;4;2;6;30;Automacao Industrial
 st000000019;1/1/2010
 approved_students
 end_course
 opt_course_start
-TBDA;4;2;6;30;Sistemas de Informação
+TBDA;4;2;6;30;Sistemas de Informacao
 st000000019;1/1/2010
 approved_students
 end_course
