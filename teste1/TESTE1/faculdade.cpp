@@ -1,5 +1,18 @@
 #include "faculdade.h"
 
+Department::Department(string name) : name(name)
+{
+	if (name.size() < 3)
+		throw exception_or_error("Nome para a faculdade demasiado pequeno (" + name + ")");
+	vector<vector<Course*>>v1(5, vector<Course*>());
+	courses.push_back(v1);
+	courses.push_back(v1);
+	next_assign_tutor = 1;
+	next_assign_student = 1;
+}
+
+string Department::get_name() const { return name; }
+
 int Department::getNext_assigned_tutor(bool newTutor) {
 	if (newTutor)
 		++next_assign_tutor;

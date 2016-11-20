@@ -37,7 +37,6 @@ public:
 	*@param name Name of the course
 	*/
 	Course(uint year, uint semester, double credits, string name);
-
 	/**
 	*@brief Enrolls student in the course
 	*@param stud Student to enroll

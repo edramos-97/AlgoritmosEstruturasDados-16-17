@@ -1,6 +1,6 @@
 /**
 * @file Date.h
-* @author AEDA T3GE
+* @author AEDA T4GE
 * @title Date
 * @brief Definition of Class that handles all dates in this project
 */

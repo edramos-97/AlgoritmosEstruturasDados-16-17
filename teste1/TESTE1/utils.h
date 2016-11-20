@@ -1,6 +1,6 @@
 /**
 * @file utils.h
-* @author AEDA T3GE
+* @author AEDA T4GE
 * @title Utilitie Functions
 * @brief Utilitie functions and definitions to help in the development of this project
 */

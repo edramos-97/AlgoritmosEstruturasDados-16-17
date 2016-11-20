@@ -1,6 +1,6 @@
 /**
 * @file person.h
-* @author AEDA T3GE
+* @author AEDA T4GE
 * @title Class Person and Subclasses Stundent and Tutor
 * @brief Classes used to store information of a Student or a Tutor
 */
