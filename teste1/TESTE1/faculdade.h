@@ -1,5 +1,5 @@
 /**
-* @file person.h
+* @file faculdade.h
 * @author AEDA T4GE
 * @title Class Department
 * @brief Classe used to store all the information

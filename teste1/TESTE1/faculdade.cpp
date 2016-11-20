@@ -25,12 +25,7 @@ int Department::getNext_assigned_student(bool newStudent) {
 	return next_assign_student;
 }
 
-/**
-* @brief Adds a new Student to the Department.
-* @param x Previously created Student to add.
-*
-* Adds a Previously created Student pointer to the Department vector of students and assigns a Tutor to given student.
-*/
+
 void Department::new_student(Student* x)
 {
 	sort(tutors.begin(), tutors.end());
@@ -38,23 +33,13 @@ void Department::new_student(Student* x)
 	students.push_back(x);
 	tutors[0]->add_student(x);
 }
-/**
-* @brief Adds a Tutor to the Department.
-* @param x Previously created Tutor to add.
-*
-* Adds a Previously created Tutor pointer to the Department vector of Tutors.
-*/
+
 void Department::new_tutor(Tutor* x)
 {
 	tutors.push_back(x);
 }
 
-/**
-* @brief Adds a Course to the Department.
-* @param course Previously created Course to add.
-*
-* Adds a Previously created Course pointer to the Department vector of Course.
-*/
+
 void Department::new_course(Course* course)
 {
 	uint year, semester;
@@ -65,40 +50,7 @@ void Department::new_course(Course* course)
 	courses.at(semester - 1).at(year - 1).push_back(course);
 }
 
-/**
-* @brief Adds an existent course to the Department.
-* @param course Previously read course to add.
-*
-* An existing Course read from a text file is added to the Department vector of courses.
-*/
-/*
-void Department::add_course(Course *course) {
-	new_course(course);
-	for (Student *student : course->get_approv_students())
-	{
-		if (check_duplicates<Student *>(students, student)) {
-			student->approve_course(course);
-			continue;
-		}
-		add_student(student);
-	}
 
-	for (Student *student : course->get_enrol_students())
-	{
-		if (check_duplicates<Student *>(students, student)) {
-			student->enroll_course(course);
-			continue;
-		}
-		add_student(student);
-	}
-}*/
-
-/**
-* @brief Adds an existent student to the Department.
-* @param x Previously read student to add.
-*
-* An existing Student read from a text file is added to the Department vector of students.
-*/
 void Department::add_student(Student * x)
 {
 	if (x->get_tutor().empty()) {
@@ -220,12 +172,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 
 }
 
-/**
-* @brief Reads a file containing Department info.
-* @param x Filename of a .txt file, no extension given (e.g. "Mieic" instead of "Mieic.txt").
-*
-* Reads from a text file tutors into the Department's tutors vector, courses into the Department's corresponding courses[semestre][year] vector and students into the Department's students vector.
-*/
+
 void Department::load_dept(string x)
 {
 	string filename = x + ".txt", line;
@@ -290,12 +237,6 @@ void Department::load_dept(string x)
 	f.close();
 }
 
-/**
-* @brief Saves to a text file the Department's info.
-* @param filename Filename of a .txt file, extension given (e.g. "Mieic.txt" instead of "Mieic").
-*
-* Saves to a text file the Department's tutors, courses and students.
-*/
 void Department::save_dept()
 {
 	ofstream f(name + ".txt");
@@ -335,13 +276,7 @@ void Department::approve_student(Student *stud, Course *course) {
 
 }
 
-/**
-* @brief Verifies if it is possible for the student to apply for the given course and enrolls him.
-* @param s The student that is applying for a Course.
-* @param c The course to which a student is applying.
-*
-* Verifies if the student has completed or is enrolled in all previous years courses and if he is, he is going to be enrolled in the course specified.
-*/
+
 bool Department::apply_for_course(Student *stud, Course *course)
 {
 	Date *date = new Date();
@@ -544,15 +479,7 @@ ostream & operator<<(ostream & os, const Department & d)
 	return os;
 }
 
-/**
-* @brief Verifies if it is possible for the student to apply for the given course.
-* @param year The year of the Course specified.
-* @param semester The semester of the course specified.
-* @param s The student that is applying for a Course.
-* @param c The course to which a student is applying.
-*
-* Verifies if the student has completed or is enrolled in all previous years courses.
-*/
+
 bool Department::verify_courses_completition(uint year, uint semester, Student *stud, Course *course, Date *date) {
 	int result;
 	for (uint i = 0; i < (year - 1); i++) {
