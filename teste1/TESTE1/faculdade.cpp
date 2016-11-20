@@ -49,7 +49,7 @@ void Department::new_course(Course* c)
 	year = c->get_year();
 	semester = c->get_semestre();
 
-	courses.at(semester-1).at(year-1).push_back(c);
+	courses.at(semester - 1).at(year - 1).push_back(c);
 }
 
 /**
@@ -108,12 +108,12 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	Date *date = nullptr;
 	string name, line, dateStr, scientificArea;
 	uint year, semester, openSlots;
-	double credits;	
+	double credits;
 
 	read_line(f, line, linenum);
 
 	if (line != "main_course_start" && line != "opt_course_start")
-		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha "+to_string(linenum));
+		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum));
 
 	if (line == "opt_course_start")
 		isOptional = true;
@@ -154,7 +154,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 				break;
 			}
 		}
-		
+
 		if (!isOptional) {
 			originalStud->enroll_course(course);
 			course->add_student(originalStud, date);
@@ -163,7 +163,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 			originalStud->enroll_course(optCourse);
 			optCourse->add_student(originalStud, date);
 		}
-		
+
 		read_line(f, line, linenum);
 	}
 
@@ -187,7 +187,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 			originalStud->approve_course(optCourse);
 			optCourse->add_approved_student(originalStud, date);
 		}
-		
+
 		read_line(f, line, linenum);
 	}
 
@@ -197,7 +197,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	else {
 		courses.at(semester - 1).at(year - 1).push_back(optCourse);
 	}
-	
+
 }
 
 /**
@@ -209,18 +209,18 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 void Department::load_dept(string x)
 {
 	string filename = x + ".txt", line;
-	uint linenum=0;
+	uint linenum = 0;
 	ifstream f;
 	f.open(filename);
 	if (!f.is_open()) {
-		throw exception_or_error("O ficheiro " +  x + " nao foi encontrado verifique se o mesmo existe ou esta em local adequado");
+		throw exception_or_error("O ficheiro " + x + " nao foi encontrado verifique se o mesmo existe ou esta em local adequado");
 	}
 	read_line(f, line, linenum);
 	this->next_assign_tutor = stoi(line);
 
 	read_line(f, line, linenum);
 	this->next_assign_student = stoi(line);
-	
+
 	read_line(f, line, linenum);
 	if (line != "#tutors_start") {
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #tutors_start");
@@ -232,7 +232,7 @@ void Department::load_dept(string x)
 
 	if (line != "#tutors_end")
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #tutors_end");
-	
+
 	read_line(f, line, linenum);
 	if (line != "#students_start")
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_start");
@@ -244,17 +244,17 @@ void Department::load_dept(string x)
 	if (line != "#students_end")
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_end");
 
-	read_line(f,line, linenum);
+	read_line(f, line, linenum);
 	if (line != "#courses_start")
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #courses_start");
-	
+
 	while (f.peek() != '#') {
 		processCourse(f, linenum);
 	}
 	read_line(f, line, linenum);
 	if (line != "#courses_end")
 		throw exception_or_error("O ficheiro está corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #courses_end");;
-	
+
 	f.close();
 }
 
@@ -266,7 +266,7 @@ void Department::load_dept(string x)
 */
 void Department::save_dept()
 {
-	ofstream f(name+".txt");
+	ofstream f(name + ".txt");
 	f << this->next_assign_tutor << "\n";
 	f << this->next_assign_student << "\n";
 	f << "#tutors_start" << endl;
@@ -280,10 +280,14 @@ void Department::save_dept()
 	}
 	f << "#students_end" << endl;
 	f << "#courses_start" << endl;
-	for (auto x : courses)
-		for (auto y : x)
-			for (Course *course : y)
-				save_course(f, course);
+	for (size_t year = 0; year < courses.at(0).size(); ++year) {
+		for (Course *course : courses.at(0).at(year))
+			save_course(f, course);
+		for (Course *course : courses.at(1).at(year))
+			save_course(f, course);
+	}
+
+
 	f << "#courses_end" << endl;
 	f.close();
 }
@@ -367,9 +371,9 @@ bool Department::apply_for_course(Student *stud, Course *course)
 
 ostream & operator<<(ostream & os, const Department & d)
 {
-		os << d.name << endl
-		<< "Number of Students: " << d.students.size()<< endl
-		<< "Number of Tutors: " << d.tutors.size()<<endl
+	os << d.name << endl
+		<< "Number of Students: " << d.students.size() << endl
+		<< "Number of Tutors: " << d.tutors.size() << endl
 		<< "Number of courses: " <<
 		(d.courses[0][0].size() +
 			d.courses[0][1].size() +
@@ -383,7 +387,7 @@ ostream & operator<<(ostream & os, const Department & d)
 			d.courses[1][4].size())
 		<< endl;
 
-		return os;
+	return os;
 }
 /**
 * @brief Verifies if it is possible for the student to apply for the given course.
@@ -396,7 +400,7 @@ ostream & operator<<(ostream & os, const Department & d)
 */
 bool Department::verify_courses_completition(uint year, uint semester, Student *stud, Course *course, Date *date) {
 	int result;
-	for (uint i = 0; i < (year-1); i++) {
+	for (uint i = 0; i < (year - 1); i++) {
 		result = search_for_student(courses.at(semester - 1).at(i), stud);
 		if (result != -1) {
 			cout << "Para se puder increver a esse curso o estudante tem primeiro que completar "
@@ -419,7 +423,7 @@ Student* Department::getStudent(const string &studCode) const {
 			return students.at(studInd);
 		}
 	}
-	
+
 	throw exception_or_error("O estudante com o codigo (" + studCode + ") nao foi encontrado");
 }
 
@@ -434,7 +438,7 @@ Course* Department::getCourse(const string &courseName) const {
 		}
 	}
 
-	throw exception_or_error("O curso com o nome (" +courseName +" não foi encontrado");
+	throw exception_or_error("O curso com o nome (" + courseName + " não foi encontrado");
 }
 
 const vector<vector<vector<Course*>>> Department::get_courses() const {
