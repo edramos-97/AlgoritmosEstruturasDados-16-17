@@ -147,7 +147,7 @@ void save_course(ofstream & f, Course* course)
 }
 
 int search_for_student(vector<Course*> v, Student* t) {
-	int counter = 0;
+	int counter = -1;
 	for (auto course : v) {
 		if (check_duplicates<Student*>(course->get_approv_students(), t))
 		{

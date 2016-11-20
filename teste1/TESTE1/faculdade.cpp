@@ -418,14 +418,12 @@ bool Department::verify_courses_completition(uint year, uint semester, Student *
 				<< courses.at(semester - 1).at(i).at(result)->get_name() << '.';
 			return false;
 		}
-		else
-		{
-			course->add_student(stud, date);
-			stud->enroll_course(course);
-			return true;
-		}
 	}
-	return false;
+
+	course->add_student(stud, date);
+	stud->enroll_course(course);
+	return true;
+
 }
 
 Student* Department::getStudent(const string &studCode) const {

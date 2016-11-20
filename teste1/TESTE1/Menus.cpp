@@ -21,7 +21,7 @@ bool Menu_department() {
 	case 1:
 	{
 		try {
-			cout << "Para voltar atras insira \"exit\"\nInsira o nome da nova faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
+			cout << "\nPara voltar atras insira \"exit\"\nInsira o nome da nova faculdade: ";//escrevi aqui o que fazer, nao se preocupem com o que esta escrito isso está bem que já verifiquei
 			cin >> filename;
 			if (filename == "exit") {//    É melhor por isto em cada um acho eu. Penso que retorna true mas verifiquem
 				clrscr();
@@ -321,7 +321,7 @@ void enrollStudent(Department &dept) {
 	while (true) {
 		try {
 			clrscr();
-			cout << "Codigo do estudante (\"exit\" para sair): ";
+			cout << "\nCodigo do estudante (\"exit\" para sair): ";
 			cin >> studName;
 			if (studName == "exit") {
 				return;
