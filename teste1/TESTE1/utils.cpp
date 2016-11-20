@@ -130,7 +130,7 @@ void save_course(ofstream & f, Course* course)
 		<< course->get_semestre() << ';'
 		<< course->get_credits();
 	if (isOptional) {
-		f << ';' << course->get_openSlots() << ';'
+		f << ';' << course->get_maxSlots() << ';'
 			<< course->get_scientificArea();
 	}
 	f << endl;

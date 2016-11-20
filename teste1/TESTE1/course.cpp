@@ -115,11 +115,13 @@ ostream & operator<<(ostream & os, const Course & c)
 /*********************************
 *CLASS Optional Course
 *********************************/
-OptionalCourse::OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name,
-	string scientificArea) : Course(year, semester, credits, name), openSlots(openSlots), scientificArea(scientificArea) {
+OptionalCourse::OptionalCourse(uint year, uint semester, double credits, uint maxSlots, string name,
+	string scientificArea) : Course(year, semester, credits, name), maxSlots(maxSlots), openSlots(maxSlots), scientificArea(scientificArea) {
 }
 
 string OptionalCourse::get_scientificArea() const { return scientificArea; }
+
+uint OptionalCourse::get_maxSlots() const { return maxSlots; }
 
 uint OptionalCourse::get_openSlots() const { return openSlots; }
 

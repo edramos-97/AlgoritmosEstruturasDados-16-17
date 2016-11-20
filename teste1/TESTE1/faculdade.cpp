@@ -107,7 +107,7 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	OptionalCourse *optCourse = nullptr;
 	Date *date = nullptr;
 	string name, line, dateStr, scientificArea;
-	uint year, semester, openSlots;
+	uint year, semester, maxSlots;
 	double credits;
 
 	read_line(f, line, linenum);
@@ -136,10 +136,10 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 	}
 	else {
 		line.erase(0, line.find(';') + 1);
-		openSlots = stoul(line.substr(0, line.find(';')));
+		maxSlots = stoul(line.substr(0, line.find(';')));
 		line.erase(0, line.find(';') + 1);
 		scientificArea = line.substr(0, line.find(';'));
-		optCourse = new OptionalCourse(year, semester, credits, openSlots, name, scientificArea);
+		optCourse = new OptionalCourse(year, semester, credits, maxSlots, name, scientificArea);
 	}
 
 	read_line(f, line, linenum);

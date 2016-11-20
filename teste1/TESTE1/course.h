@@ -99,6 +99,11 @@ public:
 	/**
 	*@brief Declared to be used on OptionalCourse. Do not invoke.
 	*/
+	virtual uint get_maxSlots() const { cerr << "Invoked Course::get_maxSlots()\n"; return 0; };
+
+	/**
+	*@brief Declared to be used on OptionalCourse. Do not invoke.
+	*/
 	virtual string get_scientificArea() const { cerr << "Invoked Course::get_scientificArea()\n"; return "NULL"; };
 
 	/**
@@ -118,6 +123,7 @@ public:
 
 class OptionalCourse : public Course {
 private:
+	const uint maxSlots;
 	uint openSlots;
 	string scientificArea;
 public:
@@ -128,12 +134,15 @@ public:
 	*@param credits how much credits it gives to the students
 	*@param name name of the course
 	*/
-	OptionalCourse(uint year, uint semester, double credits, uint openSlots, string name, string scientificArea);
+	OptionalCourse(uint year, uint semester, double credits, uint maxSlots, string name, string scientificArea);
 
 	/**
 	*@brief gets scientficArea of the OptionalCourse
 	*/
 	string get_scientificArea() const;
+
+	//TODO - Docs.
+	uint get_maxSlots() const;
 
 	/**
 	*@brief gets how much open slots the course has
