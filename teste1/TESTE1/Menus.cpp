@@ -411,15 +411,20 @@ void approveStudent(Department &dept) {
 	}
 }
 
-void enrollInClass(Department &dept) {
+void m_enrollInClass(Department &dept) {
 	clrscr();
-	cout << "Codigo do estudante: ";
 	string studCode;
+	uint year;
+	cout << "Codigo do estudante: ";
 	cin >> studCode;
+	cout << "Ano: ";
+	cin >> year;
 
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	Student *stud = dept.getStudent(studCode);
+
+	dept.enrollInClass(stud, year);
 }
 
 void m_createClass(Department &dept) {
@@ -433,6 +438,7 @@ void m_createClass(Department &dept) {
 	dept.createClass(year, slots);
 }
 
+//TODO
 void m_delClass(Department &dept) {
 
 }
@@ -458,7 +464,7 @@ void classManagement(Department &dept) {
 
 		switch (option) {
 		case 1:
-			enrollInClass(dept);
+			m_enrollInClass(dept);
 			break;
 		case 2:
 			m_createClass(dept);

@@ -12,6 +12,7 @@ class Class;
 
 class ClassQueue {
 public:
+	ClassQueue(uint year);
 	Class* getMostVacantClass() const;
 	void createClass(uint year, uint slots);
 	void removeMostVacantClass();
@@ -20,6 +21,7 @@ public:
 private:
 	priority_queue<Class *> classes;
 	set<uint> ids;
+	uint year;
 
 	uint getNewId() const;
 };

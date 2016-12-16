@@ -1,6 +1,10 @@
 #include "Class.h"
 #include <stack>
 
+ClassQueue::ClassQueue(uint year) {
+	this->year = year;
+}
+
 Class* ClassQueue::getMostVacantClass() const {
 	return classes.top();
 }
@@ -45,6 +49,9 @@ void ClassQueue::removeClass(uint id) {
 }
 
 void ClassQueue::addStudent(Student *stud) {
+	if (classes.empty()) {
+		throw NoClasses(year);
+	}
 	classes.top()->enrollStudent(stud);
 }
 
@@ -64,7 +71,7 @@ void Class::enrollStudent(Student *stud) {
 }
 
 uint Class::getOpenSlots() const {
-	return slots - studs.size();
+	return slots - (uint) studs.size();
 }
 
 uint Class::getId() const {

@@ -9,6 +9,11 @@ Department::Department(string name) : name(name)
 	courses.push_back(v1);
 	next_assign_tutor = 1;
 	next_assign_student = 1;
+
+	for (uint year = 1; year <= 5; ++year) {
+		ClassQueue *cq = new ClassQueue(year);
+		queues.push_back(cq);
+	}
 }
 
 string Department::get_name() const { return name; }
@@ -535,5 +540,9 @@ const vector<vector<vector<Course*>>> Department::get_courses() const {
 }
 
 void Department::createClass(uint year, uint slots) {
-	queues.at(year - 1).createClass(year, slots);
+	queues.at(year - 1)->createClass(year, slots);
+}
+
+void Department::enrollInClass(Student *stud, uint year) {
+	queues.at(year - 1)->addStudent(stud);
 }

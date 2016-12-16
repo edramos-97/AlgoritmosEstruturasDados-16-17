@@ -31,3 +31,11 @@ public:
 	NoSlots(uint year) { this->year = year; }
 	uint getYear() const { return year;	}
 };
+
+class NoClasses {
+public:
+	NoClasses(uint year) { this->year = year; }
+	uint getYear() const { return year; }
+private:
+	uint year;
+};

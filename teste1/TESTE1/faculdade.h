@@ -27,7 +27,7 @@ class Department {
 	int next_assign_tutor;
 	int next_assign_student;
 
-	vector<ClassQueue> queues = vector<ClassQueue>(5);
+	vector<ClassQueue *> queues;
 //	vector<priority_queue<Class *>> queues = vector<priority_queue<Class *>>(5);
 public:
 	/**
@@ -149,4 +149,6 @@ public:
 	const vector<vector<vector<Course*>>> get_courses() const;
 
 	void createClass(uint year, uint slots);
+
+	void enrollInClass(Student *stud, uint year);
 };
