@@ -25,6 +25,9 @@ public:
 	string get_reason() { return reason; };
 };
 
-
-
-
+class NoSlots {
+	uint year;
+public:
+	NoSlots(uint year) { this->year = year; }
+	uint getYear() const { return year;	}
+};

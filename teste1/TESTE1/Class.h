@@ -12,9 +12,11 @@ class Class;
 
 class ClassQueue {
 public:
-	Class* top() const;
+	Class* getMostVacantClass() const;
 	void createClass(uint year, uint slots);
-	void pop();
+	void removeMostVacantClass();
+	void removeClass(uint id);
+	void addStudent(Student *stud);
 private:
 	priority_queue<Class *> classes;
 	set<uint> ids;
@@ -25,7 +27,7 @@ private:
 class Class {
 public:
 	Class(uint id, uint year, uint slots);
-	bool enrollStudent(Student *stud);
+	void enrollStudent(Student *stud);
 	uint getOpenSlots() const;
 	uint getId() const;
 
