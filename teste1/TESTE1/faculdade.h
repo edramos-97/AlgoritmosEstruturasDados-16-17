@@ -6,9 +6,12 @@
 */
 #pragma once
 
+#include "Class.h"
 #include "course.h"
 #include "person.h"
 #include "utils.h"
+#include <queue>
+#include <set>
 #include <fstream>
 #include <algorithm>
 
@@ -23,6 +26,9 @@ class Department {
 	vector<Course*> external_courses;
 	int next_assign_tutor;
 	int next_assign_student;
+
+	vector<ClassQueue> queues = vector<ClassQueue>(5);
+//	vector<priority_queue<Class *>> queues = vector<priority_queue<Class *>>(5);
 public:
 	/**
 	*@brief Constructor of class department
@@ -108,12 +114,14 @@ public:
 	*@return returns true if that student was approved else false
 	*/
 	bool verify_courses_completition(uint year, uint semestre, Student *stud, Course *course, Date *date);
+
 	/**
 	*@brief look for optional courses with the same scientific area specified on a param
 	*@param scientific_area scientific are to look for
 	*@return returns a vector with the name of the optional courses found
 	*/
 	vector<string> search_sci_area(string scientific_area);
+
 	/**
 	*@brief reads a course from the textfile
 	*@param f reference to the file
@@ -139,4 +147,6 @@ public:
 	@brief returns all courses of the department
 	*/
 	const vector<vector<vector<Course*>>> get_courses() const;
+
+	void createClass(uint year, uint slots);
 };

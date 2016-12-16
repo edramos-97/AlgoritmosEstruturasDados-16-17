@@ -533,3 +533,7 @@ Course* Department::getCourse(const string &courseName) const {
 const vector<vector<vector<Course*>>> Department::get_courses() const {
 	return courses;
 }
+
+void Department::createClass(uint year, uint slots) {
+	queues.at(year - 1).createClass(year, slots);
+}

@@ -1,4 +1,7 @@
 #include "Menus.h"
+#include "faculdade.h"
+
+void classManagement(Department &dept);
 
 bool Menu_department() {
 	unsigned short option;
@@ -93,6 +96,8 @@ void mainMenu(Department & dept)
 		cout << TAB << "4 - Informacao de UC" << endl;
 		cout << TAB << "5 - Inscricao de Estudante" << endl;
 		cout << TAB << "6 - Aprovacao de Estudante" << endl;
+		cout << TAB << "7 - " << endl;
+		cout << TAB << "8 - Gestao de Turmas" << endl;
 		cout << TAB << "0 - Sair" << endl << endl; //grava num ficheiro e sai definitvamente do programa
 
 		cout << "Escolha uma opcao: ";
@@ -126,6 +131,12 @@ void mainMenu(Department & dept)
 			break;
 		case 6:
 			approveStudent(dept);
+			break;
+		case 7:
+			//TODO
+			break;
+		case 8:
+			classManagement(dept);
 			break;
 		case 0:
 			dept.save_dept();
@@ -396,6 +407,67 @@ void approveStudent(Department &dept) {
 		catch (exception_or_error x) {
 			cerr << x.get_reason() << ". Tente novamente!\n";
 			system("PAUSE");			
+		}
+	}
+}
+
+void enrollInClass(Department &dept) {
+	clrscr();
+	cout << "Codigo do estudante: ";
+	string studCode;
+	cin >> studCode;
+
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	Student *stud = dept.getStudent(studCode);
+}
+
+void m_createClass(Department &dept) {
+	uint year, slots;
+
+	cout << "Ano (1-5): ";
+	cin >> year;
+	cout << "Vagas: ";
+	cin >> slots;
+
+	dept.createClass(year, slots);
+}
+
+void m_delClass(Department &dept) {
+
+}
+
+void classManagement(Department &dept) {
+	while (true) {
+		clrscr();
+		cout << "1 - Atribuir Estudante" << "\n";
+		cout << "2 - Criar Turma" << "\n";
+		cout << "3 - Eliminar Turma" << "\n";
+		cout << "0 - Retornar" << "\n\n";
+
+		cout << "Opcao: ";
+		int option;
+		cin >> option;
+
+		if (cin.bad()) {
+			cin.clear();
+			continue;
+		}
+		
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		switch (option) {
+		case 1:
+			enrollInClass(dept);
+			break;
+		case 2:
+			m_createClass(dept);
+			break;
+		case 3:
+			m_delClass(dept);
+			break;
+		case 0:
+			return;
 		}
 	}
 }

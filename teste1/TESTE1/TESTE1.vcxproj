@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Class.cpp" />
     <ClCompile Include="course.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="faculdade.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Class.h" />
     <ClInclude Include="course.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="exceptions.h" />
