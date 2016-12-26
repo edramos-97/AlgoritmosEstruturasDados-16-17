@@ -143,7 +143,7 @@ void Student::approve_course(Course *course, Date *date) {
 ostream & operator<<(ostream &os, const Student &stud)
 {
 	os << stud.code << " || " << stud.name << " || " << stud.email << endl;
-	os << "Status: ";
+	os << "Estatuto: ";
 	if (stud.hasInterrupted()) {
 		os << "Curso interrompido";
 	}

@@ -95,14 +95,9 @@ void mainMenu(Department & dept)
 		cout << BIG_TAB << "Menu Principal" << endl << endl;
 		cout << TAB << "1 - Gestao de Tutores" << endl;
 		cout << TAB << "2 - Gestao de Estudantes" << endl;
-//		cout << TAB << "1 - Novo Tutor" << endl;
-//		cout << TAB << "2 - Novo Estudante" << endl;
-//		cout << TAB << "3 - Informacao de Estudante" << endl;
-		cout << TAB << "4 - Informacao de UC" << endl;
-		cout << TAB << "5 - Inscricao de Estudante" << endl;
-		cout << TAB << "6 - Aprovacao de Estudante" << endl;
-		cout << TAB << "7 - " << endl;
-		cout << TAB << "8 - Gestao de Turmas" << endl;
+		cout << TAB << "3 - Informacao de UC" << endl;
+		cout << TAB << "4 - Gestao de Turmas" << endl;
+		cout << TAB << "5 - " << endl;
 		cout << TAB << "0 - Sair" << endl << endl; //grava num ficheiro e sai definitvamente do programa
 
 		cout << "Escolha uma opcao: ";
@@ -128,21 +123,9 @@ void mainMenu(Department & dept)
 			studentManagement(dept);
 			break;
 		case 3:
-			studentInfo(dept);
-			break;
-		case 4:
 			courseInfo(dept);
 			break;
-		case 5:
-			enrollStudent(dept);
-			break;
-		case 6:
-			approveStudent(dept);
-			break;
-		case 7:
-			//TODO
-			break;
-		case 8:
+		case 4:
 			classManagement(dept);
 			break;
 		case 0:
@@ -211,6 +194,8 @@ void studentManagement(Department &dept) {
 		cout << TAB << "1 - Novo Estudante" << endl;
 		cout << TAB << "2 - Modificar Estudante" << endl;
 		cout << TAB << "3 - Informacao de Estudante" << endl;
+		cout << TAB << "4 - Inscricao de Estudante" << endl;
+		cout << TAB << "5 - Aprovacao de Estudante" << endl;
 		cout << TAB << "0 - Sair" << endl << endl;
 
 		cout << "Escolha uma opcao: ";
@@ -234,6 +219,12 @@ void studentManagement(Department &dept) {
 			break;
 		case 3:
 			studentInfo(dept);
+			break;
+		case 4:
+			enrollStudent(dept);
+			break;
+		case 5:
+			approveStudent(dept);
 			break;
 		case 0:
 			exitFunc = true;
@@ -313,7 +304,7 @@ void studentChange(Department &dept) {
 	while (true) {
 		try {
 			clrscr();
-			cout << "Codigo do tutor (\"exit\" para sair): ";
+			cout << "Codigo do estudante (\"exit\" para sair): ";
 			cin >> studCode;
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -338,7 +329,7 @@ void studentChange(Department &dept) {
 		cout << TAB << "Modificar:" << endl;
 		cout << TAB << "1 - Nome" << endl;
 		cout << TAB << "2 - Email" << endl;
-		cout << TAB << "3 - Status" << endl;
+		cout << TAB << "3 - Estatuto" << endl;
 		cout << TAB << "0 - Sair" << endl << endl;
 
 		cout << "Escolha uma opcao: ";
@@ -357,14 +348,17 @@ void studentChange(Department &dept) {
 		string newName, newEmail, newStatus;
 		switch (option) {
 		case 1:
+			cout << "Novo nome: ";
 			getline(cin, newName);
 			stud->setName(newName);
 			break;
 		case 2:
+			cout << "Novo e-mail: ";
 			getline(cin, newEmail);
 			stud->setEmail(newEmail);
 			break;
 		case 3:
+			cout << "Novo estatuto: ";
 			getline(cin, newStatus);
 			stud->setStatus(newStatus);
 			break;
@@ -627,12 +621,12 @@ void approveStudent(Department &dept) {
 			}
 			course = dept.getCourse(courseName);
 			dept.approve_student(stud, course);
-			cout << "Estudante com o codigo " << studName << " foi aprovado ao curso " << courseName << " com sucesso!!" << endl;
+			cout << "Estudante com o codigo " << studName << " foi aprovado ao curso " << courseName << " com sucesso." << endl;
 			system("PAUSE");
 			break;
 		}
 		catch (exception_or_error x) {
-			cerr << x.get_reason() << ". Tente novamente!\n";
+			cerr << x.get_reason() << ". Tente novamente.\n";
 			system("PAUSE");			
 		}
 	}

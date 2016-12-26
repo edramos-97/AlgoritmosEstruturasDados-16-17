@@ -295,6 +295,11 @@ void Department::approve_student(Student *stud, Course *course) {
 
 bool Department::apply_for_course(Student *stud, Course *course)
 {
+	if (stud->hasFinished()) {
+		cout << "Estudante ja terminou o curso.\n";
+		return false;
+	}
+
 	Date *date = new Date();
 	int result = 0;
 	bool success;
