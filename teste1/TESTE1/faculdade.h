@@ -172,4 +172,6 @@ public:
 	void createClass(uint year, uint slots);
 
 	void enrollInClass(Student *stud, uint year);
+
+	void deleteClass(uint year, uint id);
 };

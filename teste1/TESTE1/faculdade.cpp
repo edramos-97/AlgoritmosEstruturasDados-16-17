@@ -588,3 +588,7 @@ void Department::createClass(uint year, uint slots) {
 void Department::enrollInClass(Student *stud, uint year) {
 	queues.at(year - 1)->addStudent(stud);
 }
+
+void Department::deleteClass(uint year, uint id) {
+	queues.at(year - 1)->removeClass(id);
+}

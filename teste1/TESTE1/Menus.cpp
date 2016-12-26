@@ -659,9 +659,14 @@ void m_createClass(Department &dept) {
 	dept.createClass(year, slots);
 }
 
-//TODO
 void m_delClass(Department &dept) {
+	uint classYear, classId;
+	cout << "Ano da turma: ";
+	cin >> classYear;
+	cout << "ID da turma: ";
+	cin >> classId;
 
+	dept.deleteClass(classYear, classId);
 }
 
 void classManagement(Department &dept) {
