@@ -12,8 +12,6 @@ Tutor 2;tu000000002
 #students_start
 st201505779;Eduardo Ramos;st201505779@fe.up.pt;ordinario;tu199703569
 st201505789;Paulo Ribeiro;st201505789@fe.up.pt;atleta;tu199703569
-st000000001;Estudante 0;st000000001@fe.up.pt;Ordinario;tu000000001
-st000000002;Estudante 1;st000000002@fe.up.pt;Ordinario;tu000000001
 st000000003;Estudante 2;st000000003@fe.up.pt;Ordinario;tu000000002
 st000000004;Estudante 3;st000000004@fe.up.pt;Ordinario;tu199703569
 st000000005;Estudante 4;st000000005@fe.up.pt;Ordinario;tu000000001
@@ -32,6 +30,8 @@ st000000017;Estudante 16;st000000017@fe.up.pt;Ordinario;tu000000001
 st000000018;Estudante 17;st000000018@fe.up.pt;Ordinario;tu000000002
 st000000019;Estudante 18;st000000019@fe.up.pt;Ordinario;tu199703569
 st000000020;Estudante 19;st000000020@fe.up.pt;Ordinario;tu000000002
+st000000001;Estudante 0;st000000001@fe.up.pt;Ordinario;I
+st000000002;Estudante 1;st000000002@fe.up.pt;Ordinario;C
 #students_end
 #courses_start
 main_course_start

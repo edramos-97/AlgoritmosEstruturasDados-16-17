@@ -37,13 +37,17 @@ bool Tutor::operator< (const Tutor &t) const {
 *********************************/
 
 Student::Student(string code, string name, string email, string status, string tutor) : Person(code, name), email(email), status(status), tutor(tutor) {
+	interrupted = false;
+	finished = false;
 	approved_credits = 0;
 	credits = 0;
 	if (code.at(0) != 's' || code.at(1) != 't')
 		throw exception_or_error("Codigo de estudante invalido(" + code + ")");
 }
 
-Student::Student(string code, string name, string email, string status) : Person(code, name), email(email), status(status) {
+Student::Student(string code, string name, string email, string status, bool interrupted, bool fin) : Person(code, name), email(email), status(status) {
+	this->interrupted = interrupted;
+	finished = fin;
 	approved_credits = 0;
 	credits = 0;
 	if (code.at(0) != 's' || code.at(1) != 't')
@@ -55,6 +59,8 @@ string Student::get_code() const { return code; }
 string Student::get_email() const { return email; }
 string Student::get_status() const { return status; }
 string Student::get_tutor() const { return tutor; }
+bool Student::hasInterrupted() const { return interrupted; }
+bool Student::hasFinished() const { return finished; }
 
 vector<Course *> Student::get_enrol_courses() const {
 	return enrolled_courses;

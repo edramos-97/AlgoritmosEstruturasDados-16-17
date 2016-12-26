@@ -56,21 +56,25 @@ void Department::new_course(Course* course)
 }
 
 
-void Department::add_student(Student * x)
+void Department::add_student(Student *x)
 {
-	if (x->get_tutor().empty()) {
-		new_student(x);
-		return;
+	if (x->hasInterrupted() || x->hasFinished()) {
+		stoppedStuds.insert(x);
 	}
-
-	for (auto t : tutors) {
-		if (t->get_code() == x->get_tutor()) {
-			students.push_back(x);
-			t->add_student(x);
+	else {
+		if (x->get_tutor().empty()) {
+			new_student(x);
 			return;
 		}
+
+		for (auto t : tutors) {
+			if (t->get_code() == x->get_tutor()) {
+				students.push_back(x);
+				t->add_student(x);
+				return;
+			}
+		}
 	}
-	return;
 }
 
 void Department::add_external(Course * x)
@@ -256,8 +260,12 @@ void Department::save_dept()
 		save_tutor(f, x);
 	f << "#tutors_end" << endl;
 	f << "#students_start" << endl;
-	for (auto x : students) {
-		save_student(f, x);
+	for (Student *stud : students) {
+		save_student(f, stud);
+		f << endl;
+	}
+	for (Student *stud : stoppedStuds) {
+		save_student(f, stud);
 		f << endl;
 	}
 	f << "#students_end" << endl;
@@ -268,7 +276,6 @@ void Department::save_dept()
 		for (Course *course : courses.at(1).at(year))
 			save_course(f, course);
 	}
-
 
 	f << "#courses_end" << endl;
 	f.close();

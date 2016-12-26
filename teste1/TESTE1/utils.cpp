@@ -24,9 +24,10 @@ void clrscr(void)
 Student* read_student(ifstream &f,uint &linenum)
 {
 	string code, name, email, status, tutor, line;
+	bool interrupted = false, finished = false;
+	Student* stud;
 
 	read_line(f,line,linenum);
-
 
 
 	code = (line.substr(0, line.find(';')));
@@ -41,10 +42,20 @@ Student* read_student(ifstream &f,uint &linenum)
 	status = (line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-	tutor = (line.substr(0, line.find(';')));
+	string temp = (line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
-
-	Student* stud = new Student(code, name, email, status, tutor);
+	if (temp == "I") {
+		interrupted = true;
+		stud = new Student(code, name, email, status, interrupted, finished);
+	}
+	else if (temp == "C") {
+		finished = true;
+		stud = new Student(code, name, email, status, interrupted, finished);
+	}
+	else {
+		tutor = temp;
+		stud = new Student(code, name, email, status, tutor);
+	}
 
 	return stud;
 }
@@ -132,8 +143,17 @@ void save_student(ofstream & f, Student* x)
 	f << x->get_code() << ';'
 		<< x->get_name() << ';'
 		<< x->get_email() << ';'
-		<< x->get_status() << ';'
-		<< x->get_tutor();
+		<< x->get_status() << ';';
+	if (x->hasInterrupted()) {
+		f << "I";
+	}
+	else if (x->hasFinished()) {
+		f << "C";
+	}
+	else {
+		f << x->get_tutor();
+
+	}
 }
 
 void save_tutor(ofstream & f,Tutor* x)

@@ -215,7 +215,7 @@ void call_newstudent(Department &d)
 	if (!cin.good()) {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cerr << "O input nao e valido. Tente novamente " << endl << endl;
+		cerr << "O input nao e valido. Tente novamente." << endl << endl;
 		system("PAUSE");
 		clrscr();
 		return;
@@ -232,7 +232,7 @@ void call_newstudent(Department &d)
 		status_str = "Atleta ";
 		break;
 	default:
-		cerr << "O input nao e valido. Tente novamente " << endl << endl;
+		cerr << "O input nao e valido. Tente novamente." << endl << endl;
 		system("PAUSE");
 		clrscr();
 		return;
@@ -245,7 +245,7 @@ void call_newstudent(Department &d)
 	cod = "st" + cod;
 	
 	try {
-		Student *st = new Student(cod, name, cod + "@fe.up.pt", status_str);
+		Student *st = new Student(cod, name, cod + "@fe.up.pt", status_str, false, false);
 		d.add_student(st);
 		cout << "Estudante com o nome " << name << " criado com sucesso. O seu codigo e " << cod 
 			<< ". Para mais informacoes use o sistema"<< endl;

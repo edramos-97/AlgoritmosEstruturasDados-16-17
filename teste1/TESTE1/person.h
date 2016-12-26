@@ -82,6 +82,7 @@ public:
 
 class Student : public Person {
 private:
+	bool interrupted, finished;
 	string email, status, tutor;
 	double approved_credits, credits;
 	vector<Course *> enrolled_courses;
@@ -106,7 +107,7 @@ public:
 	*@param email of the student
 	*@param status of the student (if it's "Trabalhador Estudante", "Ordinário" etc.)
 	*/
-	Student(string code, string name, string email, string status);
+	Student(string code, string name, string email, string status, bool interrupted, bool finished);
 
 	/**
 	*@brief virtual fuction that returns the name of a Student
@@ -137,6 +138,9 @@ public:
 	*@return string with the code of a tutor
 	*/
 	string get_tutor() const;
+
+	bool hasInterrupted() const;
+	bool hasFinished() const;
 
 	/**
 	*@brief Function that returns a vector with the courses the student is enrolled

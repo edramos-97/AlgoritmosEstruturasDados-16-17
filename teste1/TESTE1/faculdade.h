@@ -12,6 +12,7 @@
 #include "utils.h"
 #include <queue>
 #include <set>
+#include <unordered_set>
 #include <fstream>
 #include <algorithm>
 
@@ -19,6 +20,7 @@
 #define NEW_STUDENT true
 
 class Department {
+private:
 	string name;
 	vector<Tutor*> tutors;
 	vector<Student*> students;
@@ -29,20 +31,24 @@ class Department {
 
 	vector<ClassQueue *> queues;
 //	vector<priority_queue<Class *>> queues = vector<priority_queue<Class *>>(5);
+	unordered_set<Student *> stoppedStuds; // For students who interrupted or finished the degree.
 public:
 	/**
 	*@brief Constructor of class department
-	*@param name name of the department
+	*@param name Name of the department
 	*/
 	Department(string name);
+
 	/**
-	*@brief returns the name of the department
+	*@brief Returns the name of the department
 	*/
 	string get_name() const;
+
 	/**
-	*@brief returns the number on the code of the next tutor
+	*@brief Returns the number on the code of the next tutor
 	*/
 	int getNext_assigned_tutor(bool newTutor = false);
+
 	/**
 	*@brief returns the number on the code of the next tutor
 	*/
@@ -65,25 +71,29 @@ public:
 	*/
 	void new_tutor(Tutor *tutor);
 	/**
-	*@brief adds a student without tutor to the department
-	*@param stud pointer to the student to add
+	*@brief Adds a student without tutor to the department
+	*@param stud Pointer to the student to add
 	*/
 	void new_student(Student *stud);
+
 	/**
-	*@brief adds a course to the department
-	*@param course pointer to the course to add
+	*@brief Adds a course to the department
+	*@param course Pointer to the course to add
 	*/
 	void new_course(Course *course);
+
 	/**
 	*@brief adds a student to the department
 	*@param stud pointer to the student to add
 	*/
 	void add_student(Student *stud);
+
 	/**
-	*@brief adds an optional course to the department
-	*@param course pointer to the course to add
+	*@brief Adds an optional course to the department
+	*@param course Pointer to the course to add
 	*/
 	void add_external(Course *course);
+
 	/**
 	*@brief approves a student if enrolled in a specfied course
 	*@param course pointer to the course to appove the student
