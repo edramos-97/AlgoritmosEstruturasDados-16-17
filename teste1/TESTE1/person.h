@@ -44,6 +44,8 @@ public:
 	*@return string with the code
 	*/
 	virtual string get_code() const = 0;
+
+	virtual void setName(string newName) = 0;
 };
 
 class Tutor : public Person {
@@ -68,6 +70,9 @@ public:
 	*@return string with the code
 	*/
 	string get_code() const;
+
+	void setName(string newName);
+
 	/**
 	*@brief Tutor has a vector of students mentored by him, adds a student to this vector
 	*@param x Pointer to the student to add
@@ -78,6 +83,13 @@ public:
 	*@param t Tutor to compare with
 	*/
 	bool operator< (const Tutor &t) const;
+
+	/**
+	@brief Operator << for Tutor
+	@param os ostream&
+	@param tutor Tutor object to send to os
+	*/
+	friend ostream& operator<<(ostream &os, const Tutor &tutor);
 };
 
 class Student : public Person {
@@ -167,6 +179,12 @@ public:
 	*/
 	double get_credits() const;
 
+	void resumeDegree();
+
+	void setName(string newName);
+	void setEmail(string newEmail);
+	void setStatus(string newStatus);
+
 	/**
 	*@brief If a course is complered add credits of the respective course to approved credits of the student
 	*@param x number of credits to add
@@ -180,10 +198,11 @@ public:
 	void add_credits(double x);
 
 	/**
-	*@brief Assigns a mentor for the stundent
-	*@param x pointer to the Tutor to assign
+	*@brief Assigns a tutor to the student
+	*@param tut Pointer to the Tutor to assign
 	*/
-	void assign_tutor(Tutor * x);
+	void assign_tutor(Tutor *tut);
+	
 	/**
 	*@brief Assigns a student to a course
 	*@param c course to assign

@@ -1,7 +1,12 @@
 #include "Menus.h"
 #include "faculdade.h"
 
+void tutorManagement(Department &dept);
+void studentManagement(Department &dept);
 void classManagement(Department &dept);
+void tutorNameChange(Department &dept);
+void tutorInfo(const Department &dept);
+void studentChange(Department &dept);
 
 bool Menu_department() {
 	unsigned short option;
@@ -83,16 +88,16 @@ bool Menu_department() {
 void mainMenu(Department & dept)
 {
 	unsigned short option;
-	bool exit_program=false;
+	bool exit_program = false;
 	 //without .txt
 	while (!exit_program)
 	{
-
-
 		cout << BIG_TAB << "Menu Principal" << endl << endl;
-		cout << TAB << "1 - Novo Tutor" << endl;
-		cout << TAB << "2 - Novo Estudante" << endl;
-		cout << TAB << "3 - Informacao de Estudante" << endl;
+		cout << TAB << "1 - Gestao de Tutores" << endl;
+		cout << TAB << "2 - Gestao de Estudantes" << endl;
+//		cout << TAB << "1 - Novo Tutor" << endl;
+//		cout << TAB << "2 - Novo Estudante" << endl;
+//		cout << TAB << "3 - Informacao de Estudante" << endl;
 		cout << TAB << "4 - Informacao de UC" << endl;
 		cout << TAB << "5 - Inscricao de Estudante" << endl;
 		cout << TAB << "6 - Aprovacao de Estudante" << endl;
@@ -115,10 +120,12 @@ void mainMenu(Department & dept)
 		//chamam uma funcao que apenas vai corrigir o erro e chamar a função que se quer!!!
 		switch (option) {
 		case 1:
-			call_newtutor(dept);
+			clrscr();
+			tutorManagement(dept);
 			break;
 		case 2:
-			call_newstudent(dept);
+			clrscr();
+			studentManagement(dept);
 			break;
 		case 3:
 			studentInfo(dept);
@@ -151,6 +158,226 @@ void mainMenu(Department & dept)
 	return;
 }
 
+void tutorManagement(Department &dept) {
+	unsigned short option;
+	bool exitFunc = false;
+
+	while (exitFunc == false) {
+		cout << BIG_TAB << "Gestao de Tutores" << endl << endl;
+		cout << TAB << "1 - Novo Tutor" << endl;
+		cout << TAB << "2 - Modificar Tutor" << endl;
+		cout << TAB << "3 - Informacao de Tutor" << endl;
+		cout << TAB << "0 - Sair" << endl << endl;
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		switch (option) {
+		case 1:
+			call_newtutor(dept);
+			break;
+		case 2:
+			tutorNameChange(dept);
+			break;
+		case 3:
+			tutorInfo(dept);
+			break;
+		case 0:
+			exitFunc = true;
+			break;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+		}
+		clrscr();
+	}
+}
+
+void studentManagement(Department &dept) {
+	unsigned short option;
+	bool exitFunc = false;
+
+	while (exitFunc == false) {
+		cout << BIG_TAB << "Gestao de Estudantes" << endl << endl;
+		cout << TAB << "1 - Novo Estudante" << endl;
+		cout << TAB << "2 - Modificar Estudante" << endl;
+		cout << TAB << "3 - Informacao de Estudante" << endl;
+		cout << TAB << "0 - Sair" << endl << endl;
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		switch (option) {
+		case 1:
+			call_newstudent(dept);
+			break;
+		case 2:
+			studentChange(dept);
+			break;
+		case 3:
+			studentInfo(dept);
+			break;
+		case 0:
+			exitFunc = true;
+			break;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+		}
+		clrscr();
+	}
+}
+
+void tutorNameChange(Department &dept) {
+	string tutorCode, newName;
+	Tutor *tutor;
+
+	while (true) {
+		try {
+			clrscr();
+			cout << "Codigo do tutor (\"exit\" para sair): ";
+			cin >> tutorCode;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			
+			if (tutorCode == "exit") {
+				return;
+			}
+			tutor = dept.getTutor(tutorCode);
+			break;
+		}
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente.\n";
+			system("pause");
+			clrscr();
+		}
+	}
+
+	cout << *tutor << "\n\n";
+
+	cout << "Novo nome do tutor: ";
+	getline(cin, newName);
+
+	tutor->setName(newName);
+}
+
+void tutorInfo(const Department &dept) {
+	string tutorCode;
+	const Tutor *tutor;
+
+	while (true) {
+		try {
+			clrscr();
+			cout << "Codigo do tutor (\"exit\" para sair): ";
+			cin >> tutorCode;
+			if (tutorCode == "exit") {
+				return;
+			}
+			tutor = dept.getTutor(tutorCode);
+			break;
+		}
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente.\n";
+			system("pause");
+			clrscr();
+		}
+	}
+
+	clrscr();
+	cout << *tutor << "\n";
+
+	system("pause");
+}
+
+void studentChange(Department &dept) {
+	string studCode;
+	Student *stud;
+
+	while (true) {
+		try {
+			clrscr();
+			cout << "Codigo do tutor (\"exit\" para sair): ";
+			cin >> studCode;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			if (studCode == "exit") {
+				return;
+			}
+			stud = dept.getStudent(studCode);
+			break;
+		}
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente.\n";
+			system("pause");
+			clrscr();
+		}
+	}
+
+	unsigned short option;
+	bool exitFunc = false;
+
+	while (exitFunc == false) {
+		cout << BIG_TAB << "Alteracao de Estudante" << endl << endl;
+		cout << TAB << "Modificar:" << endl;
+		cout << TAB << "1 - Nome" << endl;
+		cout << TAB << "2 - Email" << endl;
+		cout << TAB << "3 - Status" << endl;
+		cout << TAB << "0 - Sair" << endl << endl;
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		if (!cin.good()) {
+			cin.clear();
+		//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		string newName, newEmail, newStatus;
+		switch (option) {
+		case 1:
+			getline(cin, newName);
+			stud->setName(newName);
+			break;
+		case 2:
+			getline(cin, newEmail);
+			stud->setEmail(newEmail);
+			break;
+		case 3:
+			getline(cin, newStatus);
+			stud->setStatus(newStatus);
+			break;
+		case 0:
+			exitFunc = true;
+			break;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+		}
+		clrscr();
+	}
+}
 
 Department newDepartment(string name) {
 	ifstream f;
@@ -274,8 +501,8 @@ void studentInfo(const Department &dept) {
 			stud = dept.getStudent(studCode);
 			break; 
 		}
-		catch(exception_or_error x) {
-			cerr << x.get_reason() << ". Tente novamente!\n";
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente.\n";
 			system("PAUSE");
 			clrscr();
 		}

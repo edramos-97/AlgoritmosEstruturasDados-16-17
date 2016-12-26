@@ -28,8 +28,17 @@ void Tutor::add_student(Student* x)
 	students.push_back(x);
 }
 
+void Tutor::setName(string newName) {
+	name = newName;
+}
+
 bool Tutor::operator< (const Tutor &t) const {
 	return students.size() < t.students.size();
+}
+
+ostream& operator<<(ostream &os, const Tutor &tutor) {
+	os << tutor.code << " || " << tutor.name;
+	return os;
 }
 
 /*********************************
@@ -80,6 +89,26 @@ vector<Date *> Student::get_approv_dates() const {
 
 double Student::get_appcredits() const { return approved_credits; }
 double Student::get_credits() const { return credits; }
+
+void Student::resumeDegree() {
+	if (!interrupted) {
+		throw exception_or_error("resumeDegree(): Degree wasn't interrupted\n");
+	}
+	interrupted = false;
+}
+
+void Student::setName(string newName) {
+	name = newName;
+}
+
+void Student::setEmail(string newEmail) {
+	email = newEmail;
+}
+
+void Student::setStatus(string newStatus) {
+	status = newStatus;
+}
+
 void Student::add_approved_credits(double x) {
 	approved_credits += x;
 	credits -= x; // right? se foi aprovado retiramos dos creditos que esta inscrito...
@@ -113,8 +142,18 @@ void Student::approve_course(Course *course, Date *date) {
 
 ostream & operator<<(ostream &os, const Student &stud)
 {
-	os << stud.code << " || " << stud.name << " || " << stud.email << endl <<
-		"Status: " << stud.status << endl <<
+	os << stud.code << " || " << stud.name << " || " << stud.email << endl;
+	os << "Status: ";
+	if (stud.hasInterrupted()) {
+		os << "Curso interrompido";
+	}
+	else if (stud.hasFinished()) {
+		os << "Curso terminado";
+	}
+	else {
+		os << stud.status;
+	}
+	os << endl <<
 		"Tutor: " << stud.tutor << endl <<
 		"Creditos aprovados: " << stud.approved_credits << endl <<
 		"Creditos inscritos: " << stud.credits;

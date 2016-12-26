@@ -31,12 +31,16 @@ int Department::getNext_assigned_student(bool newStudent) {
 }
 
 
-void Department::new_student(Student* x)
+void Department::new_student(Student* stud)
 {
+	assignTutor(stud);
+	students.push_back(stud);
+}
+
+void Department::assignTutor(Student *stud) {
 	sort(tutors.begin(), tutors.end());
-	x->assign_tutor(tutors[0]);
-	students.push_back(x);
-	tutors[0]->add_student(x);
+	stud->assign_tutor(tutors[0]);
+	tutors[0]->add_student(stud);
 }
 
 void Department::new_tutor(Tutor* x)
@@ -370,6 +374,11 @@ bool Department::apply_for_course(Student *stud, Course *course)
 	if (!success) {
 		delete date;
 	}
+	else if (stud->hasInterrupted()) {
+		stud->resumeDegree();
+		assignTutor(stud);
+	}
+
 	return success;
 }
 
@@ -465,6 +474,11 @@ bool Department::apply_for_course(Student * stud, OptionalCourse * course)
 		if (!success) {
 			delete date;
 		}
+		else if (stud->hasInterrupted()) {
+			stud->resumeDegree();
+			assignTutor(stud);
+		}
+
 		return success;
 	}
 	
@@ -525,7 +539,23 @@ Student* Department::getStudent(const string &studCode) const {
 		}
 	}
 
+	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
+		if (studCode == (*it)->get_code()) {
+			return *it;
+		}
+	}
+
 	throw exception_or_error("O estudante com o codigo " + studCode + " nao foi encontrado");
+}
+
+Tutor* Department::getTutor(const string &tutorCode) const {
+	for (size_t tutInd = 0; tutInd < tutors.size(); ++tutInd) {
+		if (tutorCode == tutors.at(tutInd)->get_code()) {
+			return tutors.at(tutInd);
+		}
+	}
+
+	throw exception_or_error("O tutor com o codigo " + tutorCode + " nao foi encontrado");
 }
 
 Course* Department::getCourse(const string &courseName) const {

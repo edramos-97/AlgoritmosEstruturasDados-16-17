@@ -10,9 +10,6 @@ using namespace std;
 
 #undef max  //To use numeric_limits<streamsize>::max()
 
-
-
-
 int main() {
 	bool stop_program = false;
 	while (!stop_program) {

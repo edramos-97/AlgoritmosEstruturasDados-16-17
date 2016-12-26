@@ -53,12 +53,21 @@ public:
 	*@brief returns the number on the code of the next tutor
 	*/
 	int getNext_assigned_student(bool newStudent = false);
+
 	/**
-	*@brief returns a student given a student code
-	*@param studCode code of the student to look
-	*@return returns a pointer to the student you were looking
+	*@brief Returns a student given a student code
+	*@param studCode Code of the wanted student
+	*@return Returns a pointer to the wanted student
 	*/
 	Student* getStudent(const string &studCode) const;
+
+	/**
+	*@brief Returns a tutor given a tor code
+	*@param tutorCode Code of the wanted tutor
+	*@return Returns a pointer to the wanted tutor
+	*/
+	Tutor* getTutor(const string &tutorCode) const;
+
 	/**
 	*@brief returns a course given a name
 	*@param courseName name of the course 
@@ -75,6 +84,8 @@ public:
 	*@param stud Pointer to the student to add
 	*/
 	void new_student(Student *stud);
+
+	void assignTutor(Student *stud);
 
 	/**
 	*@brief Adds a course to the department
