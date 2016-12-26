@@ -592,3 +592,17 @@ void Department::enrollInClass(Student *stud, uint year) {
 void Department::deleteClass(uint year, uint id) {
 	queues.at(year - 1)->removeClass(id);
 }
+
+//TODO: Readability.
+void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
+	vector<Student *> intStuds;
+	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
+		if ((*it)->hasInterrupted()) {
+			intStuds.push_back(*it);
+		}
+	}
+	sort(intStuds.begin(), intStuds.end(), comp);
+	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
+		cout << *intStuds.at(ind) << "\n\n";
+	}
+}

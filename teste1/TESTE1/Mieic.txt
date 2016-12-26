@@ -19,18 +19,18 @@ st000000006;Estudante 5;st000000006@fe.up.pt;Ordinario;tu000000002
 st000000007;Estudante 6;st000000007@fe.up.pt;Ordinario;tu199703569
 st000000008;Estudante 7;st000000008@fe.up.pt;Ordinario;tu000000001
 st000000009;Estudante 8;st000000009@fe.up.pt;Ordinario;tu000000002
-st000000010;Estudante 9;st000000010@fe.up.pt;Ordinario;tu000000002
 st000000011;Estudante 10;st000000011@fe.up.pt;Ordinario;tu000000001
 st000000012;Estudante 11;st000000012@fe.up.pt;Ordinario;tu000000001
 st000000013;Estudante 12;st000000013@fe.up.pt;Ordinario;tu199703569
 st000000014;Estudante 13;st000000014@fe.up.pt;Ordinario;tu000000001
-st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;tu000000002
 st000000016;Estudante 15;st000000016@fe.up.pt;Ordinario;tu199703569
 st000000017;Estudante 16;st000000017@fe.up.pt;Ordinario;tu000000001
 st000000018;Estudante 17;st000000018@fe.up.pt;Ordinario;tu000000002
 st000000019;Estudante 18;st000000019@fe.up.pt;Ordinario;tu199703569
 st000000020;Estudante 19;st000000020@fe.up.pt;Ordinario;tu000000002
 st000000001;Joao Moreno;st000000001@fe.up.pt;Ordinario;tu199703569
+st000000010;Hans Rudel;st000000010@fe.up.pt;Ordinario;I
+st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
 st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 #students_end
 #courses_start

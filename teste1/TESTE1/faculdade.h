@@ -174,4 +174,6 @@ public:
 	void enrollInClass(Student *stud, uint year);
 
 	void deleteClass(uint year, uint id);
+
+	void listIntStuds(bool comp(Student *s1, Student *s2)) const;
 };

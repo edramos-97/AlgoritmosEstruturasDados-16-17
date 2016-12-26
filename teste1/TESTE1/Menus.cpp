@@ -7,6 +7,8 @@ void classManagement(Department &dept);
 void tutorNameChange(Department &dept);
 void tutorInfo(const Department &dept);
 void studentChange(Department &dept);
+void m_listStudents(const Department &dept);
+void m_listIntStuds(const Department &dept);
 
 bool Menu_department() {
 	unsigned short option;
@@ -194,8 +196,9 @@ void studentManagement(Department &dept) {
 		cout << TAB << "1 - Novo Estudante" << endl;
 		cout << TAB << "2 - Modificar Estudante" << endl;
 		cout << TAB << "3 - Informacao de Estudante" << endl;
-		cout << TAB << "4 - Inscricao de Estudante" << endl;
-		cout << TAB << "5 - Aprovacao de Estudante" << endl;
+		cout << TAB << "4 - Listar Estudantes" << endl;
+		cout << TAB << "5 - Inscricao de Estudante" << endl;
+		cout << TAB << "6 - Aprovacao de Estudante" << endl;
 		cout << TAB << "0 - Sair" << endl << endl;
 
 		cout << "Escolha uma opcao: ";
@@ -221,9 +224,12 @@ void studentManagement(Department &dept) {
 			studentInfo(dept);
 			break;
 		case 4:
-			enrollStudent(dept);
+			m_listStudents(dept);
 			break;
 		case 5:
+			enrollStudent(dept);
+			break;
+		case 6:
 			approveStudent(dept);
 			break;
 		case 0:
@@ -518,6 +524,106 @@ void studentInfo(const Department &dept) {
 	system("pause");
 }
 
+void m_listStudents(const Department &dept) {
+	clrscr();
+	unsigned short option;
+	bool exitFunc = false;
+
+	while (exitFunc == false) {
+		cout << TAB << "Listar Estudantes:\n";
+		cout << "1 - Com curso em progresso\n";
+		cout << "2 - Com curso interrompido\n";
+		cout << "3 - Com curso terminado\n";
+		cout << "4 - Todos\n";
+		cout << "0 - Sair\n\n";
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		switch (option) {
+		case 1:
+			//TODO
+			break;
+		case 2:
+			m_listIntStuds(dept);
+			break;
+		case 3:
+		//	m_listFinishedStuds(dept);
+			break;
+		case 4:
+			break;
+		case 0:
+			exitFunc = true;
+			break;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+		}
+		clrscr();
+	}
+}
+
+bool studAlphabetical(Student *s1, Student *s2) {
+	return (s1->get_name() < s2->get_name());
+}
+
+bool studCrescentCode(Student *s1, Student *s2) {
+	return (s1->get_code() < s2->get_code());
+}
+
+void m_listIntStuds(const Department &dept) {
+	clrscr();
+	unsigned short option;
+	bool exitFunc = false;
+
+	while (exitFunc == false) {
+		cout << TAB << "Listar Estudantes Com Curso Interrompido:\n";
+		cout << "1 - Por ordem alfabetica\n";
+		cout << "2 - Por ordem crescente de codigo\n";
+		cout << "0 - Sair\n\n";
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+		clrscr();
+
+		switch (option) {
+		case 1:
+			dept.listIntStuds(studAlphabetical);
+			system("pause");
+			break;
+		case 2:
+			dept.listIntStuds(studCrescentCode);
+			system("pause");
+			break;
+		case 0:
+			exitFunc = true;
+			break;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+		}
+		clrscr();
+	}
+}
+
 void courseInfo(const Department &dept) {
 	const Course *course;
 	string courseName;
@@ -534,7 +640,7 @@ void courseInfo(const Department &dept) {
 			break;
 		}
 		catch (exception_or_error x) {
-			cerr << x.get_reason() << ". Tente novamente!\n";
+			cerr << x.get_reason() << ". Tente novamente.\n";
 			system("PAUSE");
 			clrscr();
 		}
