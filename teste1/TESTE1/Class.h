@@ -10,7 +10,7 @@ using namespace std;
 
 class Class;
 
-/*class ClassQueue {
+class ClassQueue {
 public:
 	ClassQueue(uint year);
 	Class* getMostVacantClass() const;
@@ -24,35 +24,22 @@ private:
 	uint year;
 
 	uint getNewId() const;
-};*/
+};
 
 class Class {
+public:
+	Class(uint id, uint year, uint slots);
+	void enrollStudent(Student *stud);
+	uint getOpenSlots() const;
+	uint getId() const;
+
 private:
 	uint id;
 	uint year;
 	const uint slots;
 	vector<Student *> studs;
-	bool operator < (Class &c);
-public:
-	/**
-	*@brief Constructor of class Class
-	*@param year year of the Class
-	*@param slots number of slots per course
-	*/
-	Class(uint id ,uint year, uint slots);
-	/**
-	*@brief adds a students to the class with the most open slots
-	*@param stud pointer to the student
-	*/
-	int enrollStudent(Student *stud);
-	/**
-	*@brief gets the value of open slots of a class
-	*@return returns the value of open slots of a class
-	*/
-	uint getOpenSlots() const;
-	uint getId() const;
 };
 
-
+bool operator < (Class &c1, Class &c2);
 
 #endif

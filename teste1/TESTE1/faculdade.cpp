@@ -10,10 +10,10 @@ Department::Department(string name) : name(name)
 	next_assign_tutor = 1;
 	next_assign_student = 1;
 
-	/*for (uint year = 1; year <= 5; ++year) {
+	for (uint year = 1; year <= 5; ++year) {
 		ClassQueue *cq = new ClassQueue(year);
 		queues.push_back(cq);
-	}*/
+	}
 }
 
 string Department::get_name() const { return name; }
@@ -581,44 +581,34 @@ const vector<vector<vector<Course*>>> Department::get_courses() const {
 	return courses;
 }
 
-void Department::createClass(uint year, uint slots,uint id) {
-	Class * new_class = new Class(id, year, slots);
-	classes.at(year - 1).push(new_class);
+void Department::createClass(uint year, uint slots) {
+	queues.at(year - 1)->createClass(year, slots);
 }
 
 void Department::enrollInClass(Student *stud, uint year) {
-
-	Class * temp = classes[year - 1].top();
-	temp->enrollStudent(stud);
-	classes[year - 1].pop();
-	classes[year - 1].push(temp);
-	return;
+	queues.at(year - 1)->addStudent(stud);
 }
 
-int Department::deleteClass(uint year, uint id) {
-	bool success = false;
-	stack<Class *> temp_s;
-	classes.at(year - 1);
-	while (!classes.at(year - 1).empty()) {
-		if (classes.at(year - 1).top()->getId() == id) {
-			delete classes.at(year - 1).top();
-			classes.at(year - 1).pop();
-			success = true;
-		}
-		temp_s.push(classes.at(year - 1).top());
-		classes.at(year - 1).pop();
-	}
-	while (!temp_s.empty()) {
-		classes.at(year - 1).push(temp_s.top());
-		temp_s.pop();
-	}
-	if (success)
-		return 0;
-	return 1;
-
+void Department::deleteClass(uint year, uint id) {
+	queues.at(year - 1)->removeClass(id);
 }
 
-//TODO: Readability.
+//TODO: Align separating ||.
+void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const {
+	vector<Student *> intStuds;
+	for (auto it = students.begin(); it != students.end(); ++it) {
+		intStuds.push_back(*it);
+	}
+	sort(intStuds.begin(), intStuds.end(), comp);
+	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
+		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados"
+			<< " || " << intStuds.at(ind)->get_credits() << " creditos inscritos" << endl;
+		//	cout << *intStuds.at(ind) << "\n\n";
+	}
+}
+
+//TODO: Align separating ||.
 void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	vector<Student *> intStuds;
 	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
@@ -628,24 +618,24 @@ void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	}
 	sort(intStuds.begin(), intStuds.end(), comp);
 	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
-		cout << *intStuds.at(ind) << "\n\n";
+		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados"<< endl;
+	//	cout << *intStuds.at(ind) << "\n\n";
 	}
 }
 
-Class * Department::find_class_id(uint year, uint id)
-{
-	stack<Class *> temp_s;
-	priority_queue<Class*> temp_q = classes.at(year - 1);
-	while (!temp_q.empty()) {
-		if (temp_q.top()->getId() == id) {
-			return temp_q.top();
+//TODO: Align separating ||.
+void Department::listFinishedStuds(bool comp(Student *s1, Student *s2)) const {
+	vector<Student *> intStuds;
+	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
+		if ((*it)->hasFinished()) {
+			intStuds.push_back(*it);
 		}
-		temp_s.push(temp_q.top());
-		temp_q.pop();
 	}
-	while (!temp_s.empty()) {
-		temp_q.push(temp_s.top());
-		temp_s.pop();
+	sort(intStuds.begin(), intStuds.end(), comp);
+	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
+		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados" << endl;
+		//	cout << *intStuds.at(ind) << "\n\n";
 	}
-	return nullptr;
 }
