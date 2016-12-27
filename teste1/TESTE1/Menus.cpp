@@ -11,6 +11,7 @@ void m_listStudents(const Department &dept);
 void m_listCurrentStuds(const Department &dept);
 void m_listIntStuds(const Department &dept);
 void m_listFinishedStuds(const Department &dept);
+void m_listAllStuds(const Department &dept);
 
 bool Menu_department() {
 	unsigned short option;
@@ -562,6 +563,7 @@ void m_listStudents(const Department &dept) {
 			m_listFinishedStuds(dept);
 			break;
 		case 4:
+			m_listAllStuds(dept);
 			break;
 		case 0:
 			exitFunc = true;
@@ -710,6 +712,66 @@ void m_listFinishedStuds(const Department &dept) {
 			cerr << "O input nao e valido. Tente novamente." << endl << endl;
 			system("PAUSE");
 		}
+		clrscr();
+	}
+}
+
+void m_listAllStuds(const Department &dept) {
+	clrscr();
+	unsigned short option;
+	bool exitFunc = false;
+	bool(*comp)(Student*, Student*) = nullptr;
+
+	while (exitFunc == false) {
+		cout << TAB << "Listar Todos Os Estudantes:\n";
+		cout << "1 - Por ordem alfabetica\n";
+		cout << "2 - Por ordem crescente de codigo\n";
+		cout << "0 - Sair\n\n";
+
+		cout << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+		clrscr();
+
+		switch (option) {
+		case 1:
+			comp = studAlphabetical;
+			break;
+		case 2:
+			comp = studCrescentCode;
+			system("pause");
+			break;
+		case 0:
+			exitFunc = true;
+			clrscr();
+			continue;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		if (comp == nullptr) {
+			throw exception_or_error("m_listAllStuds(): comp uninitialized");
+		}
+
+		cout << "Curso em progresso:\n";
+		dept.listCurrentStuds(comp);
+		cout << "Curso interrompido:\n";
+		dept.listIntStuds(comp);
+		cout << "Curso terminado:\n";
+		dept.listFinishedStuds(comp);
+		system("pause");
+
 		clrscr();
 	}
 }

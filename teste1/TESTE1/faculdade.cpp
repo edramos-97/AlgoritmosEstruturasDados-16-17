@@ -619,7 +619,7 @@ void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	sort(intStuds.begin(), intStuds.end(), comp);
 	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
 		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
-			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados" << endl;
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados"<< endl;
 	//	cout << *intStuds.at(ind) << "\n\n";
 	}
 }
