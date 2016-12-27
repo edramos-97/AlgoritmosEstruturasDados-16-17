@@ -907,14 +907,33 @@ void m_enrollInClass(Department &dept) {
 }
 
 void m_createClass(Department &dept) {
-	uint year, slots;
+	uint year, slots, id;
+	bool open=false;
 
 	cout << "Ano (1-5): ";
 	cin >> year;
 	cout << "Vagas: ";
 	cin >> slots;
+	cout << "ID da turma(1-9): ";
+	cin >> id;
 
-	dept.createClass(year, slots);
+	while (id > 9 || id < 1|| !open ) {
+		clrscr();
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "ID invalido!\n";
+		cout << "ID da turma(1-9)(zero para sair): ";
+		cin >> id;
+		if (id == 0)
+		{
+			clrscr();
+			cout << endl << TAB << "Operacao interrompida!\n";
+			system("pause");
+			return;
+		}
+	}
+
+	dept.createClass(year, slots, id);
 }
 
 void m_delClass(Department &dept) {
@@ -924,7 +943,8 @@ void m_delClass(Department &dept) {
 	cout << "ID da turma: ";
 	cin >> classId;
 
-	dept.deleteClass(classYear, classId);
+	if (dept.deleteClass(classYear, classId))
+		cout << "Não foi encontrada uma turma do ano " << classYear << " com o ID " << classId << ". Operacao nao realizada";
 }
 
 void classManagement(Department &dept) {
@@ -933,7 +953,7 @@ void classManagement(Department &dept) {
 		cout << "1 - Atribuir Estudante" << "\n";
 		cout << "2 - Criar Turma" << "\n";
 		cout << "3 - Eliminar Turma" << "\n";
-		cout << "0 - Retornar" << "\n\n";
+		cout << "0 - Sair" << "\n\n";
 
 		cout << "Opcao: ";
 		int option;

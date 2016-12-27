@@ -10,10 +10,10 @@ Department::Department(string name) : name(name)
 	next_assign_tutor = 1;
 	next_assign_student = 1;
 
-	for (uint year = 1; year <= 5; ++year) {
+	/*for (uint year = 1; year <= 5; ++year) {
 		ClassQueue *cq = new ClassQueue(year);
 		queues.push_back(cq);
-	}
+	}*/
 }
 
 string Department::get_name() const { return name; }
@@ -581,34 +581,36 @@ const vector<vector<vector<Course*>>> Department::get_courses() const {
 	return courses;
 }
 
-void Department::createClass(uint year, uint slots) {
-	queues.at(year - 1)->createClass(year, slots);
+void Department::createClass(uint year, uint slots,uint id) {
+	Class * new_class = new Class(id, year, slots);
+	classes.at(year - 1).push(new_class);
 }
 
 void Department::enrollInClass(Student *stud, uint year) {
-	queues.at(year - 1)->addStudent(stud);
+	//classes.at(year - 1)->addStudent(stud);
 }
 
-void Department::deleteClass(uint year, uint id) {
-	queues.at(year - 1)->removeClass(id);
-}
-
-//TODO: Align separating ||.
-void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const {
-	vector<Student *> intStuds;
-	for (auto it = students.begin(); it != students.end(); ++it) {
-		intStuds.push_back(*it);
+int Department::deleteClass(uint year, uint id) {
+	stack<Class *> temp_s;
+	priority_queue<Class*> temp_q=classes.at(year - 1);
+	while (!temp_q.empty()) {
+		if (temp_q.top()->getId() == id) {
+			delete temp_q.top();
+			temp_q.pop();
+			return 0;
+		}
+		temp_s.push(temp_q.top());
+		temp_q.pop();
 	}
-	sort(intStuds.begin(), intStuds.end(), comp);
-	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
-		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
-			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados"
-			<< " || " << intStuds.at(ind)->get_credits() << " creditos inscritos" << endl;
-		//	cout << *intStuds.at(ind) << "\n\n";
+	while (!temp_s.empty()) {
+		temp_q.push(temp_s.top());
+		temp_s.pop();
 	}
+	return 1;
+
 }
 
-//TODO: Align separating ||.
+//TODO: Readability.
 void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	vector<Student *> intStuds;
 	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
@@ -618,24 +620,24 @@ void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	}
 	sort(intStuds.begin(), intStuds.end(), comp);
 	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
-		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
-			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados"<< endl;
-	//	cout << *intStuds.at(ind) << "\n\n";
+		cout << *intStuds.at(ind) << "\n\n";
 	}
 }
 
-//TODO: Align separating ||.
-void Department::listFinishedStuds(bool comp(Student *s1, Student *s2)) const {
-	vector<Student *> intStuds;
-	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
-		if ((*it)->hasFinished()) {
-			intStuds.push_back(*it);
+Class * Department::find_class_id(uint year, uint id)
+{
+	stack<Class *> temp_s;
+	priority_queue<Class*> temp_q = classes.at(year - 1);
+	while (!temp_q.empty()) {
+		if (temp_q.top()->getId() == id) {
+			return temp_q.top();
 		}
+		temp_s.push(temp_q.top());
+		temp_q.pop();
 	}
-	sort(intStuds.begin(), intStuds.end(), comp);
-	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
-		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
-			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados" << endl;
-		//	cout << *intStuds.at(ind) << "\n\n";
+	while (!temp_s.empty()) {
+		temp_q.push(temp_s.top());
+		temp_s.pop();
 	}
+	return nullptr;
 }

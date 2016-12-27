@@ -15,6 +15,7 @@
 #include <unordered_set>
 #include <fstream>
 #include <algorithm>
+#include <stack>
 
 #define NEW_TUTOR true
 #define NEW_STUDENT true
@@ -29,7 +30,7 @@ private:
 	int next_assign_tutor;
 	int next_assign_student;
 
-	vector<ClassQueue *> queues;
+	vector<priority_queue<Class *>> classes;
 //	vector<priority_queue<Class *>> queues = vector<priority_queue<Class *>>(5);
 	unordered_set<Student *> stoppedStuds; // For students who interrupted or finished the degree.
 public:
@@ -169,15 +170,13 @@ public:
 	*/
 	const vector<vector<vector<Course*>>> get_courses() const;
 
-	void createClass(uint year, uint slots);
+	void createClass(uint year, uint slots, uint id);
 
 	void enrollInClass(Student *stud, uint year);
 
-	void deleteClass(uint year, uint id);
-
-	void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const;
+	int deleteClass(uint year, uint id);
 
 	void listIntStuds(bool comp(Student *s1, Student *s2)) const;
 
-	void listFinishedStuds(bool comp(Student *s1, Student *s2)) const;
+	Class * find_class_id(uint year,uint id);
 };
