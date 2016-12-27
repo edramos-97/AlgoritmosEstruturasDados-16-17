@@ -106,7 +106,7 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	return t;
 }
 
-Course * read_external(ifstream & f, uint & linenum)
+Course * read_external(ifstream &f, uint &linenum)
 {
 	string name, area, line;
 	double credits;
@@ -140,13 +140,13 @@ void read_line(ifstream & f, string & line, uint &linenum)
 
 void save_class(ofstream & f, Class * x)
 {
-	f << "||Class_start\n";
+	f << "|Class_start\n";
 	f << "||" << x->getId() << ";" << x->getYear() << ";" << x->getOpenSlots() << endl;
 	for (auto y : x->getStuds())
 	{
 		f << "||" << y->get_code() << endl;
 	}
-	f << "||" << "Class_end\n";
+	f << "|Class_end\n";
 }
 
 void save_student(ofstream & f, Student* x)

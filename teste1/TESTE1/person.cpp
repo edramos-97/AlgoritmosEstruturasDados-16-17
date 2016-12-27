@@ -111,7 +111,7 @@ void Student::setStatus(string newStatus) {
 
 void Student::add_approved_credits(double x) {
 	approved_credits += x;
-	credits -= x; // right? se foi aprovado retiramos dos creditos que esta inscrito...
+	credits -= x;
 }
 void Student::add_credits(double x) { credits += x; }
 void Student::assign_tutor(Tutor * x) { tutor = x->get_code(); }

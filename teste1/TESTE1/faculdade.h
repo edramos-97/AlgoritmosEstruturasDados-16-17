@@ -29,7 +29,7 @@ private:
 	int next_assign_tutor;
 	int next_assign_student;
 
-	vector<priority_queue<Class *>> classes;
+	vector<priority_queue<Class *>> classes = vector<priority_queue<Class *>>(5);
 //	vector<priority_queue<Class *>> queues = vector<priority_queue<Class *>>(5);
 	unordered_set<Student *> stoppedStuds; // For students who interrupted or finished the degree.
 public:
@@ -134,12 +134,16 @@ public:
 	*@return returns a vector with the name of the optional courses found
 	*/
 	vector<string> search_sci_area(string scientific_area);
+
 	/**
 	*@brief reads a course from the textfile
 	*@param f reference to the file
 	*@param linenum line number 
 	*/
 	void processCourse(ifstream &f, uint &linenum);
+
+	void processClass(ifstream &f, uint &linenum);
+
 	/**
 	*@brief reads everything from the textfile
 	*@param filename name of the file

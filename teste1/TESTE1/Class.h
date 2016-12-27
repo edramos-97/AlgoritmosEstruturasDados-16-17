@@ -40,12 +40,16 @@ public:
 	*@param year year of the Class
 	*@param slots number of slots per course
 	*/
-	Class(uint id ,uint year, uint slots);
+	Class(uint id, uint year, uint slots);
+	
 	/**
 	*@brief adds a students to the class with the most open slots
 	*@param stud pointer to the student
 	*/
 	int enrollStudent(Student *stud);
+
+	void setStudents(const vector<Student *> &studs);
+
 	/**
 	*@brief gets the value of open slots of a class
 	*@return returns the value of open slots of a class

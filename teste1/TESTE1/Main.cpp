@@ -18,7 +18,7 @@ int main() {
 			stop_program = Menu_department();
 		}
 		catch (exception_or_error x) {
-			cerr << x.get_reason() << ". Tente novamente!\n";
+			cerr << x.get_reason() << ". Tente novamente.\n";
 			system("PAUSE");
 			clrscr();
 		}

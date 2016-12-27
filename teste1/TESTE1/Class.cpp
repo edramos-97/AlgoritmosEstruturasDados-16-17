@@ -66,6 +66,10 @@ int Class::enrollStudent(Student *stud) {
 	return 0;
 }
 
+void Class::setStudents(const vector<Student *> &studs) {
+	this->studs = studs;
+}
+
 vector<Student*> Class::getStuds() const
 {
 	return studs;
@@ -87,6 +91,7 @@ uint Class::getId() const {
 uint Class::getYear() const {
 	return year;
 }
+
 //bool operator < (Class &c1, Class &c2) {
 //	return (c1.getOpenSlots() < c2.getOpenSlots());
 //}
