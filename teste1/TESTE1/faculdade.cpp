@@ -593,7 +593,7 @@ void Department::deleteClass(uint year, uint id) {
 	queues.at(year - 1)->removeClass(id);
 }
 
-//TODO: Readability.
+//TODO: Align separating ||.
 void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	vector<Student *> intStuds;
 	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
@@ -603,6 +603,8 @@ void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	}
 	sort(intStuds.begin(), intStuds.end(), comp);
 	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
-		cout << *intStuds.at(ind) << "\n\n";
+		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados" << endl;
+	//	cout << *intStuds.at(ind) << "\n\n";
 	}
 }
