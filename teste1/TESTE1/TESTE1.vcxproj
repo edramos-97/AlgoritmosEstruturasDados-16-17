@@ -24,6 +24,7 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="faculdade.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Meeting.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="person.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="faculdade.h" />
+    <ClInclude Include="Meeting.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="person.h" />

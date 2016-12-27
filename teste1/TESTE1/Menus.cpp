@@ -916,14 +916,19 @@ void m_createClass(Department &dept) {
 	cin >> slots;
 	cout << "ID da turma(1-9): ";
 	cin >> id;
-
-	while (id > 9 || id < 1|| !open ) {
+	if (dept.find_class_id(year, id)!=nullptr) {
+		open = true;
+	}
+	while (!open) {
 		clrscr();
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "ID invalido!\n";
 		cout << "ID da turma(1-9)(zero para sair): ";
 		cin >> id;
+		if (dept.find_class_id(year, id) != nullptr) {
+			open = true;
+		}
 		if (id == 0)
 		{
 			clrscr();
@@ -968,13 +973,13 @@ void classManagement(Department &dept) {
 
 		switch (option) {
 		case 1:
-			m_enrollInClass(dept);
+			m_enrollInClass(dept);//done
 			break;
 		case 2:
-			m_createClass(dept);
+			m_createClass(dept);//done
 			break;
 		case 3:
-			m_delClass(dept);
+			m_delClass(dept);//done
 			break;
 		case 0:
 			return;

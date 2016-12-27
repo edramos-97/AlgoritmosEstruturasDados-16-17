@@ -587,25 +587,33 @@ void Department::createClass(uint year, uint slots,uint id) {
 }
 
 void Department::enrollInClass(Student *stud, uint year) {
-	//classes.at(year - 1)->addStudent(stud);
+
+	Class * temp = classes[year - 1].top();
+	temp->enrollStudent(stud);
+	classes[year - 1].pop();
+	classes[year - 1].push(temp);
+	return;
 }
 
 int Department::deleteClass(uint year, uint id) {
+	bool success = false;
 	stack<Class *> temp_s;
-	priority_queue<Class*> temp_q=classes.at(year - 1);
-	while (!temp_q.empty()) {
-		if (temp_q.top()->getId() == id) {
-			delete temp_q.top();
-			temp_q.pop();
-			return 0;
+	classes.at(year - 1);
+	while (!classes.at(year - 1).empty()) {
+		if (classes.at(year - 1).top()->getId() == id) {
+			delete classes.at(year - 1).top();
+			classes.at(year - 1).pop();
+			success = true;
 		}
-		temp_s.push(temp_q.top());
-		temp_q.pop();
+		temp_s.push(classes.at(year - 1).top());
+		classes.at(year - 1).pop();
 	}
 	while (!temp_s.empty()) {
-		temp_q.push(temp_s.top());
+		classes.at(year - 1).push(temp_s.top());
 		temp_s.pop();
 	}
+	if (success)
+		return 0;
 	return 1;
 
 }
