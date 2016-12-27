@@ -10,10 +10,10 @@ Department::Department(string name) : name(name)
 	next_assign_tutor = 1;
 	next_assign_student = 1;
 
-	for (uint year = 1; year <= 5; ++year) {
+	/*for (uint year = 1; year <= 5; ++year) {
 		ClassQueue *cq = new ClassQueue(year);
 		queues.push_back(cq);
-	}
+	}*/
 }
 
 string Department::get_name() const { return name; }
@@ -581,16 +581,59 @@ const vector<vector<vector<Course*>>> Department::get_courses() const {
 	return courses;
 }
 
-void Department::createClass(uint year, uint slots) {
-	queues.at(year - 1)->createClass(year, slots);
+void Department::createClass(uint year, uint slots, uint id) {
+	Class * new_class = new Class(id, year, slots);
+	classes.at(year - 1).push(new_class);
 }
 
 void Department::enrollInClass(Student *stud, uint year) {
-	queues.at(year - 1)->addStudent(stud);
+
+	Class * temp = classes[year - 1].top();
+	temp->enrollStudent(stud);
+	classes[year - 1].pop();
+	classes[year - 1].push(temp);
+	return;
 }
 
-void Department::deleteClass(uint year, uint id) {
-	queues.at(year - 1)->removeClass(id);
+int Department::deleteClass(uint year, uint id) {
+	bool success = false;
+	stack<Class *> temp_s;
+	classes.at(year - 1);
+	while (!classes.at(year - 1).empty()) {
+		if (classes.at(year - 1).top()->getId() == id) {
+			delete classes.at(year - 1).top();
+			classes.at(year - 1).pop();
+			success = true;
+		}
+		temp_s.push(classes.at(year - 1).top());
+		classes.at(year - 1).pop();
+	}
+	while (!temp_s.empty()) {
+		classes.at(year - 1).push(temp_s.top());
+		temp_s.pop();
+	}
+	if (success)
+		return 0;
+	return 1;
+
+}
+
+Class * Department::find_class_id(uint year, uint id)
+{
+	stack<Class *> temp_s;
+	priority_queue<Class*> temp_q = classes.at(year - 1);
+	while (!temp_q.empty()) {
+		if (temp_q.top()->getId() == id) {
+			return temp_q.top();
+		}
+		temp_s.push(temp_q.top());
+		temp_q.pop();
+	}
+	while (!temp_s.empty()) {
+		temp_q.push(temp_s.top());
+		temp_s.pop();
+	}
+	return nullptr;
 }
 
 //TODO: Align separating ||.
