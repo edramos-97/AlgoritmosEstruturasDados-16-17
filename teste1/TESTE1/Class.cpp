@@ -55,8 +55,7 @@
 //}
 
 
-Class::Class(uint id, uint year, uint slots) : slots(slots) {
-	this->year = year;
+Class::Class(uint id, uint year, uint slots) : slots(slots),year(year),id(id) {
 }
 
 int Class::enrollStudent(Student *stud) {
@@ -65,6 +64,11 @@ int Class::enrollStudent(Student *stud) {
 	}
 	studs.push_back(stud);
 	return 0;
+}
+
+vector<Student*> Class::getStuds() const
+{
+	return studs;
 }
 
 uint Class::getOpenSlots() const {
@@ -80,6 +84,9 @@ uint Class::getId() const {
 	return id;
 }
 
+uint Class::getYear() const {
+	return year;
+}
 //bool operator < (Class &c1, Class &c2) {
 //	return (c1.getOpenSlots() < c2.getOpenSlots());
 //}

@@ -38,36 +38,30 @@ public:
 	*@param name Name of the department
 	*/
 	Department(string name);
-
 	/**
 	*@brief Returns the name of the department
 	*/
 	string get_name() const;
-
 	/**
 	*@brief Returns the number on the code of the next tutor
 	*/
 	int getNext_assigned_tutor(bool newTutor = false);
-
 	/**
 	*@brief returns the number on the code of the next tutor
 	*/
 	int getNext_assigned_student(bool newStudent = false);
-
 	/**
 	*@brief Returns a student given a student code
 	*@param studCode Code of the wanted student
 	*@return Returns a pointer to the wanted student
 	*/
 	Student* getStudent(const string &studCode) const;
-
 	/**
 	*@brief Returns a tutor given a tor code
 	*@param tutorCode Code of the wanted tutor
 	*@return Returns a pointer to the wanted tutor
 	*/
 	Tutor* getTutor(const string &tutorCode) const;
-
 	/**
 	*@brief returns a course given a name
 	*@param courseName name of the course 
@@ -84,27 +78,26 @@ public:
 	*@param stud Pointer to the student to add
 	*/
 	void new_student(Student *stud);
-
+	/**
+	*@brief Assigns a tutor to a student
+	*@param stud Pointer to the student that will be assigned a tutor
+	*/
 	void assignTutor(Student *stud);
-
 	/**
 	*@brief Adds a course to the department
 	*@param course Pointer to the course to add
 	*/
 	void new_course(Course *course);
-
 	/**
 	*@brief adds a student to the department
 	*@param stud pointer to the student to add
 	*/
 	void add_student(Student *stud);
-
 	/**
 	*@brief Adds an optional course to the department
 	*@param course Pointer to the course to add
 	*/
 	void add_external(Course *course);
-
 	/**
 	*@brief approves a student if enrolled in a specfied course
 	*@param course pointer to the course to appove the student
@@ -135,14 +128,12 @@ public:
 	*@return returns true if that student was approved else false
 	*/
 	bool verify_courses_completition(uint year, uint semestre, Student *stud, Course *course, Date *date);
-
 	/**
 	*@brief look for optional courses with the same scientific area specified on a param
 	*@param scientific_area scientific are to look for
 	*@return returns a vector with the name of the optional courses found
 	*/
 	vector<string> search_sci_area(string scientific_area);
-
 	/**
 	*@brief reads a course from the textfile
 	*@param f reference to the file
@@ -173,7 +164,7 @@ public:
 
 	void enrollInClass(Student *stud, uint year);
 
-	void deleteClass(uint year, uint id);
+	int deleteClass(uint year, uint id);
 
 	Class * find_class_id(uint year, uint id);
 

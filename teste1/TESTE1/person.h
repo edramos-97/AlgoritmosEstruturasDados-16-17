@@ -182,7 +182,9 @@ public:
 	void resumeDegree();
 
 	void setName(string newName);
+
 	void setEmail(string newEmail);
+
 	void setStatus(string newStatus);
 
 	/**

@@ -4,6 +4,7 @@
 #include "person.h"
 #include <vector>
 #include <queue>
+#include <stack>
 #include <set>
 
 using namespace std;
@@ -49,8 +50,10 @@ public:
 	*@brief gets the value of open slots of a class
 	*@return returns the value of open slots of a class
 	*/
+	vector<Student *> getStuds() const;
 	uint getOpenSlots() const;
 	uint getId() const;
+	uint getYear() const;
 };
 
 

@@ -138,6 +138,17 @@ void read_line(ifstream & f, string & line, uint &linenum)
 	++linenum;
 }
 
+void save_class(ofstream & f, Class * x)
+{
+	f << "||Class_start\n";
+	f << "||" << x->getId() << ";" << x->getYear() << ";" << x->getOpenSlots() << endl;
+	for (auto y : x->getStuds())
+	{
+		f << "||" << y->get_code() << endl;
+	}
+	f << "||" << "Class_end\n";
+}
+
 void save_student(ofstream & f, Student* x)
 {
 	f << x->get_code() << ';'

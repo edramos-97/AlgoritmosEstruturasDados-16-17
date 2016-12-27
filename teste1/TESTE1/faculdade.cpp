@@ -9,14 +9,21 @@ Department::Department(string name) : name(name)
 	courses.push_back(v1);
 	next_assign_tutor = 1;
 	next_assign_student = 1;
+	Class * temp;
+	priority_queue<Class*> temp_Q;
 
-	/*for (uint year = 1; year <= 5; ++year) {
-		ClassQueue *cq = new ClassQueue(year);
-		queues.push_back(cq);
-	}*/
+	for (uint year = 1; year <= 5; ++year) {
+		temp = new Class(year+3,year,year*4);
+		temp_Q.push(temp);
+		classes.push_back(temp_Q);
+		temp_Q.pop();
+	}
 }
 
-string Department::get_name() const { return name; }
+string Department::get_name() const 
+{ 
+	return name; 
+}
 
 int Department::getNext_assigned_tutor(bool newTutor) {
 	if (newTutor)
@@ -29,7 +36,6 @@ int Department::getNext_assigned_student(bool newStudent) {
 		++next_assign_student;
 	return next_assign_student;
 }
-
 
 void Department::new_student(Student* stud)
 {
@@ -48,7 +54,6 @@ void Department::new_tutor(Tutor* x)
 	tutors.push_back(x);
 }
 
-
 void Department::new_course(Course* course)
 {
 	uint year, semester;
@@ -58,7 +63,6 @@ void Department::new_course(Course* course)
 
 	courses.at(semester - 1).at(year - 1).push_back(course);
 }
-
 
 void Department::add_student(Student *x)
 {
@@ -185,7 +189,6 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 
 }
 
-
 void Department::load_dept(string x)
 {
 	string filename = x + ".txt", line;
@@ -252,17 +255,24 @@ void Department::load_dept(string x)
 
 void Department::save_dept()
 {
+	//Static numbers;
 	ofstream f(name + ".txt");
 	f << this->next_assign_tutor << "\n";
 	f << this->next_assign_student << "\n";
+	
+	//External Courses write;
 	f << "#external_courses_start" << endl;
 	for (auto x : external_courses)
 		save_external(f, x);
 	f << "#external_courses_end" << endl;
+
+	//Tutors write;
 	f << "#tutors_start" << endl;
 	for (auto x : tutors)
 		save_tutor(f, x);
 	f << "#tutors_end" << endl;
+
+	//Students write;
 	f << "#students_start" << endl;
 	for (Student *stud : students) {
 		save_student(f, stud);
@@ -273,6 +283,21 @@ void Department::save_dept()
 		f << endl;
 	}
 	f << "#students_end" << endl;
+
+	//Classes write;
+	f << "#classes_start" << endl;
+	
+	for (auto x : classes) {
+		f << "|year_start\n";
+		while (!x.empty()) {
+			save_class(f, x.top());
+			x.pop();
+		}
+		f << "|year_end\n";
+	}
+	f << "#classes_end" << endl;
+
+	//Course write;
 	f << "#courses_start" << endl;
 	for (size_t year = 0; year < courses.at(0).size(); ++year) {
 		for (Course *course : courses.at(0).at(year))
@@ -280,8 +305,9 @@ void Department::save_dept()
 		for (Course *course : courses.at(1).at(year))
 			save_course(f, course);
 	}
-
 	f << "#courses_end" << endl;
+
+	//End
 	f.close();
 }
 
@@ -291,7 +317,6 @@ void Department::approve_student(Student *stud, Course *course) {
 	course->approve_student(stud, date);
 
 }
-
 
 bool Department::apply_for_course(Student *stud, Course *course)
 {
@@ -509,7 +534,6 @@ ostream & operator<<(ostream & os, const Department & d)
 
 	return os;
 }
-
 
 bool Department::verify_courses_completition(uint year, uint semester, Student *stud, Course *course, Date *date) {
 	int result;
