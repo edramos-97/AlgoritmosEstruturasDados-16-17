@@ -594,6 +594,21 @@ void Department::deleteClass(uint year, uint id) {
 }
 
 //TODO: Align separating ||.
+void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const {
+	vector<Student *> intStuds;
+	for (auto it = students.begin(); it != students.end(); ++it) {
+		intStuds.push_back(*it);
+	}
+	sort(intStuds.begin(), intStuds.end(), comp);
+	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
+		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados"
+			<< " || " << intStuds.at(ind)->get_credits() << " creditos inscritos" << endl;
+		//	cout << *intStuds.at(ind) << "\n\n";
+	}
+}
+
+//TODO: Align separating ||.
 void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 	vector<Student *> intStuds;
 	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
@@ -606,5 +621,21 @@ void Department::listIntStuds(bool comp(Student *s1, Student *s2)) const {
 		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
 			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados" << endl;
 	//	cout << *intStuds.at(ind) << "\n\n";
+	}
+}
+
+//TODO: Align separating ||.
+void Department::listFinishedStuds(bool comp(Student *s1, Student *s2)) const {
+	vector<Student *> intStuds;
+	for (auto it = stoppedStuds.begin(); it != stoppedStuds.end(); ++it) {
+		if ((*it)->hasFinished()) {
+			intStuds.push_back(*it);
+		}
+	}
+	sort(intStuds.begin(), intStuds.end(), comp);
+	for (size_t ind = 0; ind < intStuds.size(); ++ind) {
+		cout << intStuds.at(ind)->get_code() << " || " << intStuds.at(ind)->get_name() << " || " << intStuds.at(ind)->get_email()
+			<< " || " << intStuds.at(ind)->get_status() << " || " << intStuds.at(ind)->get_appcredits() << " creditos aprovados" << endl;
+		//	cout << *intStuds.at(ind) << "\n\n";
 	}
 }

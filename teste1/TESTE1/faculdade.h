@@ -175,5 +175,9 @@ public:
 
 	void deleteClass(uint year, uint id);
 
+	void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const;
+
 	void listIntStuds(bool comp(Student *s1, Student *s2)) const;
+
+	void listFinishedStuds(bool comp(Student *s1, Student *s2)) const;
 };
