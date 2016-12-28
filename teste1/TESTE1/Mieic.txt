@@ -29,11 +29,11 @@ st000000018;Estudante 17;st000000018@fe.up.pt;Ordinario;tu000000002
 st000000019;Estudante 18;st000000019@fe.up.pt;Ordinario;tu199703569
 st000000020;Estudante 19;st000000020@fe.up.pt;Ordinario;tu000000002
 st000000001;Joao Moreno;st000000001@fe.up.pt;Ordinario;tu199703569
+st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 st000000010;Hans Rudel;st000000010@fe.up.pt;Ordinario;I
-st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
-st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
 st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
 st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
+st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
 st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
 st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 #students_end
@@ -389,9 +389,15 @@ end_course
 #courses_end
 #classes_start
 |Class_start
-||2;1;MDIS;10;AOCO;10;FPRO;10;AMAT;10;ALGE;10;PF;10;MEST;10;PROG;10;FISI1;10;CMAT;10;MPCP;10
+||5;1;MDIS;50;AOCO;50;FPRO;50;AMAT;50;ALGE;50;PF;50;MEST;50;PROG;50;FISI1;50;CMAT;50;MPCP;50
 |Class_end
 |Class_start
-||1;1;MDIS;50;AOCO;50;FPRO;50;AMAT;50;ALGE;50;PF;50;MEST;50;PROG;50;FISI1;50;CMAT;50;MPCP;50
+||3;1;MDIS;40;AOCO;40;FPRO;40;AMAT;40;ALGE;40;PF;40;MEST;40;PROG;40;FISI1;40;CMAT;40;MPCP;40
+|Class_end
+|Class_start
+||4;1;MDIS;60;AOCO;60;FPRO;60;AMAT;60;ALGE;60;PF;60;MEST;60;PROG;60;FISI1;60;CMAT;60;MPCP;60
+|Class_end
+|Class_start
+||2;1;MDIS;20;AOCO;20;FPRO;20;AMAT;20;ALGE;20;PF;20;MEST;20;PROG;20;FISI1;20;CMAT;20;MPCP;20
 |Class_end
 #classes_end

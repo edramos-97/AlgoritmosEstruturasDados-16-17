@@ -736,6 +736,7 @@ int Department::deleteClass(uint year, uint id) {
 			delete classes.at(year - 1).top();
 			classes.at(year - 1).pop();
 			success = true;
+			break;
 		}
 		temp_s.push(classes.at(year - 1).top());
 		classes.at(year - 1).pop();
