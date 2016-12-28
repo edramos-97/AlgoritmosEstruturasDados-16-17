@@ -6,6 +6,7 @@
 #include <queue>
 #include <stack>
 #include <set>
+#include <utility>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ class Class {
 private:
 	uint id;
 	uint year;
-	const uint slots;
+	vector<pair<Course*, uint>> openSlots;
 	vector<Student *> studs;
 	bool operator < (Class &c);
 public:
@@ -40,7 +41,7 @@ public:
 	*@param year year of the Class
 	*@param slots number of slots per course
 	*/
-	Class(uint id, uint year, uint slots);
+	Class(uint id, uint year, vector<Course*> courses, uint slots);
 	
 	/**
 	*@brief adds a students to the class with the most open slots

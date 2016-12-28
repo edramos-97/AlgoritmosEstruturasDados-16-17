@@ -208,6 +208,10 @@ void Department::processClass(ifstream &f, uint &linenum) {
 	year = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
+	if (year > 5) {
+		throw exception_or_error("Ficheiro corrompido, problema na linha " + to_string(linenum) + ", ano invalido");
+	}
+
 	openSlots = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
@@ -225,7 +229,11 @@ void Department::processClass(ifstream &f, uint &linenum) {
 		classStudents.push_back(stud);
 	} while (line != "|Class_end");
 
-	Class *c = new Class(id, year, openSlots);
+	vector<Course *> classCourses = this->courses.at(0).at(year - 1);
+	for (size_t ind = 0; ind < this->courses.at(1).at(year - 1).size(); ++ind) {
+		classCourses.push_back(this->courses.at(1).at(year - 1).at(ind));
+	}
+	Class *c = new Class(id, year, classCourses, openSlots);
 	c->setStudents(classStudents);
 	classes.at(year - 1).push(c);
 }
@@ -281,25 +289,37 @@ void Department::load_dept(string x)
 		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_end");
 
 	read_line(f, line, linenum);
-	if (line != "#classes_start")
-		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_start");
-	while (f.peek() != '#') {
-		processClass(f, linenum);
-	}
-	read_line(f, line, linenum);
-	if (line != "#classes_end")
-		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_end");
-
-	read_line(f, line, linenum);
 	if (line != "#courses_start")
 		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #courses_start");
 
 	while (f.peek() != '#') {
-		processCourse(f, linenum);
+		try {
+			processCourse(f, linenum);
+		}
+		catch (exception_or_error e) {
+			cerr << e.get_reason() << "\n";
+			throw e;
+		}
 	}
 	read_line(f, line, linenum);
 	if (line != "#courses_end")
 		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #courses_end");;
+
+	read_line(f, line, linenum);
+	if (line != "#classes_start")
+		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_start");
+	while (f.peek() != '#') {
+		try {
+			processClass(f, linenum);
+		}
+		catch (exception_or_error e) {
+			cerr << e.get_reason() << "\n";
+			throw e;
+		}		
+	}
+	read_line(f, line, linenum);
+	if (line != "#classes_end")
+		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #students_end");
 
 	f.close();
 }
@@ -335,19 +355,6 @@ void Department::save_dept()
 	}
 	f << "#students_end" << endl;
 
-	//Classes write;
-	f << "#classes_start" << endl;
-	
-	for (auto x : classes) {
-	//	f << "|year_start\n";
-		while (!x.empty()) {
-			save_class(f, x.top());
-			x.pop();
-		}
-	//	f << "|year_end\n";
-	}
-	f << "#classes_end" << endl;
-
 	//Course write;
 	f << "#courses_start" << endl;
 	for (size_t year = 0; year < courses.at(0).size(); ++year) {
@@ -357,6 +364,17 @@ void Department::save_dept()
 			save_course(f, course);
 	}
 	f << "#courses_end" << endl;
+
+	//Classes write;
+	f << "#classes_start" << endl;
+
+	for (auto x : classes) {
+		while (!x.empty()) {
+			save_class(f, x.top());
+			x.pop();
+		}
+	}
+	f << "#classes_end" << endl;
 
 	//End
 	f.close();
@@ -683,7 +701,11 @@ uint Department::getNewClassId(uint year) {
 }
 
 void Department::createClass(uint year, uint slots, uint id) {
-	Class * new_class = new Class(id, year, slots);
+	vector<Course *> classCourses = courses.at(0).at(year - 1);
+	for (size_t ind = 0; ind < courses.at(1).at(year - 1).size(); ++ind) {
+		classCourses.push_back(courses.at(1).at(year - 1).at(ind));
+	}
+	Class *new_class = new Class(id, year, classCourses, slots);
 	classes.at(year - 1).push(new_class);
 }
 

@@ -55,14 +55,22 @@
 //}
 
 
-Class::Class(uint id, uint year, uint slots) : slots(slots),year(year),id(id) {
+Class::Class(uint id, uint year, vector<Course*> courses, uint slots) : year(year), id(id) {
+	for (size_t ind = 0; ind < courses.size(); ++ind) {
+		pair<Course*, uint> slot(courses.at(ind), slots);
+		openSlots.push_back(slot);
+	}
 }
 
 int Class::enrollStudent(Student *stud) {
 	if (getOpenSlots() <= 0) {
 		return 1;
 	}
+	for (size_t ind = 0; ind < openSlots.size(); ++ind) {
+		openSlots.at(ind).second--;
+	}
 	studs.push_back(stud);
+
 	return 0;
 }
 
@@ -76,7 +84,13 @@ vector<Student*> Class::getStuds() const
 }
 
 uint Class::getOpenSlots() const {
-	return slots - (uint) studs.size();
+	uint lowestSlots = UINT_MAX;
+	for (size_t ind = 0; ind < openSlots.size(); ++ind) {
+		if (openSlots.at(ind).second < lowestSlots) {
+			lowestSlots = openSlots.at(ind).second;
+		}
+	}
+	return lowestSlots;
 }
 
 bool Class::operator<(Class & c)
