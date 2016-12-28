@@ -15,7 +15,7 @@ class exception_or_error {
 public:
 	/**
 	*@brief constructor of the exception class
-	*@reason  reason that caused a throw
+	*@param reason  reason that caused a throw
 	*/
 	exception_or_error(string reason) : reason(reason) {};
 	/**
@@ -28,14 +28,29 @@ public:
 class NoSlots {
 	uint year;
 public:
+	/**
+	*@brief constructor of the exception class
+	*@param year year of the class with no slots available
+	*/
 	NoSlots(uint year) { this->year = year; }
+	/**
+	*@brief returns the year data-member
+	*@return year data-member
+	*/
 	uint getYear() const { return year;	}
 };
 
 class NoClasses {
-public:
-	NoClasses(uint year) { this->year = year; }
-	uint getYear() const { return year; }
-private:
 	uint year;
+public:
+	/**
+	*@brief constructor of the exception class
+	*@param year year that has no available class
+	*/
+	NoClasses(uint year) { this->year = year; }
+	/**
+	*@brief returns the year data-member
+	*@return year data-member
+	*/
+	uint getYear() const { return year; }
 };

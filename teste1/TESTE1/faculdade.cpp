@@ -198,7 +198,7 @@ void Department::processClass(ifstream &f, uint &linenum) {
 
 	read_line(f, line, linenum);
 	if (line != "|Class_start") {
-		throw exception_or_error("Ficheiro corrompido, problema na linha " + to_string(linenum) + ", esperava-se ||Class_start");
+		throw exception_or_error("Ficheiro corrompido, problema na linha " + to_string(linenum) + ", esperava-se |Class_start");
 	}
 	read_line(f, line, linenum);
 	line.erase(0, 2);

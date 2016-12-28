@@ -57,9 +57,25 @@ public:
 	*@return returns the value of open slots of a class
 	*/
 	vector<Student *> getStuds() const;
+
 	vector<pair<Course*, uint>> getCourseSlots() const;
+
+	/**
+	*@brief gets the value of open slots of a class
+	*@return returns the value of open slots of a class
+	*/
 	uint getOpenSlots() const;
+
+	/**
+	*@brief gets the id of the class
+	*@return class id
+	*/
 	uint getId() const;
+	
+	/**
+	*@brief gets the year of the class
+	*@return year of the class
+	*/
 	uint getYear() const;
 
 	friend bool operator < (const Class &c1, const Class &c2);
