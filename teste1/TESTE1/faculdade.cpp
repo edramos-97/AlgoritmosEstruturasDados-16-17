@@ -9,7 +9,7 @@ Department::Department(string name) : name(name)
 	courses.push_back(v1);
 	next_assign_tutor = 1;
 	next_assign_student = 1;
-	Class * temp;
+/*	Class * temp;
 	priority_queue<Class*> temp_Q;
 
 	for (uint year = 1; year <= 5; ++year) {
@@ -17,7 +17,7 @@ Department::Department(string name) : name(name)
 		temp_Q.push(temp);
 		classes.push_back(temp_Q);
 		temp_Q.pop();
-	}
+	} */
 }
 
 string Department::get_name() const 

@@ -47,7 +47,7 @@ bool Menu_department() {
 			return true;
 		}
 		catch (exception_or_error x) {
-			cerr << x.get_reason() << ". Tente novamente\n";
+			cerr << x.get_reason() << ". Tente novamente.\n";
 			system("PAUSE");
 			clrscr();
 		}
@@ -73,7 +73,7 @@ bool Menu_department() {
 		}
 		catch (exception_or_error x)
 		{
-			cerr << x.get_reason() << ". Tente novamente!\n";
+			cerr << x.get_reason() << ". Tente novamente.\n";
 			system("PAUSE");
 			clrscr();
 		}
@@ -83,14 +83,14 @@ bool Menu_department() {
 	case 0:
 		return true;
 	default: 
-		cerr << "O input nao e valido. Tente novamente " << endl << endl;
+		cerr << "O input nao e valido. Tente novamente." << endl << endl;
 		system("PAUSE");
 		clrscr();
 	}
 	return false;
 }
 
-void mainMenu(Department & dept)
+void mainMenu(Department &dept)
 {
 	unsigned short option;
 	bool exit_program = false;
@@ -111,7 +111,7 @@ void mainMenu(Department & dept)
 		if (!cin.good()) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cerr << "O input nao e valido. Tente novamente " << endl << endl;
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
 			system("PAUSE");
 			clrscr();
 			continue;
