@@ -191,8 +191,9 @@ void Department::processCourse(ifstream &f, uint &linenum) {
 
 void Department::processClass(ifstream &f, uint &linenum) {
 	string line;
-	uint id, year, openSlots;
+	uint id, year;
 	string studCode;
+	vector<pair<Course*, uint>> courseSlots;
 	vector<Student *> classStudents;
 
 	read_line(f, line, linenum);
@@ -212,8 +213,21 @@ void Department::processClass(ifstream &f, uint &linenum) {
 		throw exception_or_error("Ficheiro corrompido, problema na linha " + to_string(linenum) + ", ano invalido");
 	}
 
-	openSlots = stoul(line.substr(0, line.find(';')));
-	line.erase(0, line.find(';') + 1);
+	while (!line.empty()) {
+		string courseName = line.substr(0, line.find(';'));
+		line.erase(0, line.find(';') + 1);
+		Course *course = getCourse(courseName);
+		uint slots = stoul(line.substr(0, line.find(';')));
+		line.erase(0, line.find(';') + 1);
+		if (line.find(';') == string::npos) {
+			line.clear();
+		}
+		pair<Course*, uint> cSlot(course, slots);
+		courseSlots.push_back(cSlot);
+	}
+
+	/*openSlots = stoul(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);*/
 
 	// Read a Class' students.
 	do {
@@ -229,11 +243,7 @@ void Department::processClass(ifstream &f, uint &linenum) {
 		classStudents.push_back(stud);
 	} while (line != "|Class_end");
 
-	vector<Course *> classCourses = this->courses.at(0).at(year - 1);
-	for (size_t ind = 0; ind < this->courses.at(1).at(year - 1).size(); ++ind) {
-		classCourses.push_back(this->courses.at(1).at(year - 1).at(ind));
-	}
-	Class *c = new Class(id, year, classCourses, openSlots);
+	Class *c = new Class(id, year, courseSlots);
 	c->setStudents(classStudents);
 	classes.at(year - 1).push(c);
 }

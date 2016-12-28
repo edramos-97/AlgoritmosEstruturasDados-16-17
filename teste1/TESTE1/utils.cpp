@@ -138,12 +138,15 @@ void read_line(ifstream & f, string & line, uint &linenum)
 	++linenum;
 }
 
-void save_class(ofstream & f, Class * x)
+void save_class(ofstream &f, Class *c)
 {
 	f << "|Class_start\n";
-	f << "||" << x->getId() << ";" << x->getYear() << ";" << x->getOpenSlots() << endl;
-	for (auto y : x->getStuds())
-	{
+	f << "||" << c->getId() << ";" << c->getYear();
+	for (size_t ind = 0; ind < c->getCourseSlots().size(); ++ind) {
+		f << ";" << c->getCourseSlots().at(ind).first->get_name() << ";" << c->getCourseSlots().at(ind).second;
+	}
+	f << endl;
+	for (auto y : c->getStuds()) {
 		f << "||" << y->get_code() << endl;
 	}
 	f << "|Class_end\n";

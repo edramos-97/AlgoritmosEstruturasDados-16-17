@@ -31,10 +31,10 @@ st000000020;Estudante 19;st000000020@fe.up.pt;Ordinario;tu000000002
 st000000001;Joao Moreno;st000000001@fe.up.pt;Ordinario;tu199703569
 st000000010;Hans Rudel;st000000010@fe.up.pt;Ordinario;I
 st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
-st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
-st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
+st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
+st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
 #students_end
 #courses_start
@@ -389,27 +389,6 @@ end_course
 #courses_end
 #classes_start
 |Class_start
-||3;1;30
-|Class_end
-|Class_start
-||1;1;25
-|Class_end
-|Class_start
-||4;1;90
-|Class_end
-|Class_start
-||2;1;30
-|Class_end
-|Class_start
-||1;2;20
-|Class_end
-|Class_start
-||6;3;12
-|Class_end
-|Class_start
-||7;4;16
-|Class_end
-|Class_start
-||8;5;20
+||3;1;AMAT;30;PF;20;FPRO;30;AOCO;40;MDIS;30;ALGE;30
 |Class_end
 #classes_end

@@ -42,12 +42,14 @@ public:
 	*@param slots number of slots per course
 	*/
 	Class(uint id, uint year, vector<Course*> courses, uint slots);
+
+	Class(uint id, uint year, vector<pair<Course*, uint>> courseSlots);
 	
 	/**
 	*@brief adds a students to the class with the most open slots
 	*@param stud pointer to the student
 	*/
-	int enrollStudent(Student *stud);
+	void enrollStudent(Student *stud);
 
 	void setStudents(const vector<Student *> &studs);
 
@@ -56,6 +58,7 @@ public:
 	*@return returns the value of open slots of a class
 	*/
 	vector<Student *> getStuds() const;
+	vector<pair<Course*, uint>> getCourseSlots() const;
 	uint getOpenSlots() const;
 	uint getId() const;
 	uint getYear() const;
