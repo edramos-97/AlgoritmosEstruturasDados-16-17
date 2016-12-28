@@ -34,7 +34,6 @@ private:
 	uint year;
 	vector<pair<Course*, uint>> openSlots;
 	vector<Student *> studs;
-	bool operator < (Class &c);
 public:
 	/**
 	*@brief Constructor of class Class
@@ -62,6 +61,8 @@ public:
 	uint getOpenSlots() const;
 	uint getId() const;
 	uint getYear() const;
+
+	friend bool operator < (const Class &c1, const Class &c2);
 };
 
 

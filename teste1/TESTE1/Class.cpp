@@ -101,10 +101,10 @@ uint Class::getOpenSlots() const {
 	return lowestSlots;
 }
 
-bool Class::operator<(Class & c)
-{
-	return this->getOpenSlots() > c.getOpenSlots();
-}
+//bool Class::operator<(Class & c)
+//{
+//	return this->getOpenSlots() > c.getOpenSlots();
+//}
 
 uint Class::getId() const {
 	return id;
@@ -114,9 +114,9 @@ uint Class::getYear() const {
 	return year;
 }
 
-//bool operator < (Class &c1, Class &c2) {
-//	return (c1.getOpenSlots() < c2.getOpenSlots());
-//}
+bool operator < (Class &c1, Class &c2) {
+	return (c1.getOpenSlots() > c2.getOpenSlots());
+}
 
 
 // Private methods.
