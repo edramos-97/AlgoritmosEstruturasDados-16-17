@@ -656,13 +656,38 @@ const vector<vector<vector<Course*>>> Department::get_courses() const {
 	return courses;
 }
 
+// This should be const.
+uint Department::getNewClassId(uint year) {
+	stack<Class *> tempClasses;
+	set<uint> ids;
+
+	while (!classes.at(year - 1).empty()) {
+		Class *top = classes.at(year - 1).top();
+		tempClasses.push(top);
+		ids.insert(top->getId());
+		classes.at(year - 1).pop();
+	}
+	while (!tempClasses.empty()) {
+		Class *top = tempClasses.top();
+		classes.at(year - 1).push(top);
+		tempClasses.pop();
+	}
+
+	for (uint id = 1; id < UINT_MAX; ++id) {
+		if (ids.find(id) == ids.end()) {
+			return id;
+		}
+	}
+
+	throw exception_or_error("O ano " + to_string(year) + " ja tem o numero maximo de turmas");
+}
+
 void Department::createClass(uint year, uint slots, uint id) {
 	Class * new_class = new Class(id, year, slots);
 	classes.at(year - 1).push(new_class);
 }
 
 void Department::enrollInClass(Student *stud, uint year) {
-
 	Class *temp = classes.at(year - 1).top();
 	temp->enrollStudent(stud);
 	classes.at(year - 1).pop();
@@ -673,7 +698,7 @@ void Department::enrollInClass(Student *stud, uint year) {
 int Department::deleteClass(uint year, uint id) {
 	bool success = false;
 	stack<Class *> temp_s;
-	classes.at(year - 1);
+//	classes.at(year - 1);
 	while (!classes.at(year - 1).empty()) {
 		if (classes.at(year - 1).top()->getId() == id) {
 			delete classes.at(year - 1).top();
@@ -690,10 +715,9 @@ int Department::deleteClass(uint year, uint id) {
 	if (success)
 		return 0;
 	return 1;
-
 }
 
-Class * Department::find_class_id(uint year, uint id)
+Class* Department::findClass(uint year, uint id)
 {
 	stack<Class *> temp_s;
 	priority_queue<Class*> temp_q = classes.at(year - 1);

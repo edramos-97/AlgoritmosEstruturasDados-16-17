@@ -30,7 +30,6 @@ private:
 	int next_assign_student;
 
 	vector<priority_queue<Class *>> classes = vector<priority_queue<Class *>>(5);
-//	vector<priority_queue<Class *>> queues = vector<priority_queue<Class *>>(5);
 	unordered_set<Student *> stoppedStuds; // For students who interrupted or finished the degree.
 public:
 	/**
@@ -164,13 +163,16 @@ public:
 	*/
 	const vector<vector<vector<Course*>>> get_courses() const;
 
+	// This should be const.
+	uint getNewClassId(uint year);
+
 	void createClass(uint year, uint slots, uint id);
 
 	void enrollInClass(Student *stud, uint year);
 
 	int deleteClass(uint year, uint id);
 
-	Class * find_class_id(uint year, uint id);
+	Class* findClass(uint year, uint id);
 
 	void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const;
 

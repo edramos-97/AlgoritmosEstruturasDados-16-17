@@ -914,29 +914,36 @@ void m_createClass(Department &dept) {
 	cin >> year;
 	cout << "Vagas: ";
 	cin >> slots;
-	cout << "ID da turma(1-9): ";
-	cin >> id;
-	if (dept.find_class_id(year, id) != nullptr) {
-		open = true;
+	try {
+		id = dept.getNewClassId(year);
 	}
-	while (!open) {
-		clrscr();
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "ID invalido!\n";
-		cout << "ID da turma(1-9)(zero para sair): ";
-		cin >> id;
-		if (dept.find_class_id(year, id) != nullptr) {
-			open = true;
-		}
-		if (id == 0)
-		{
-			clrscr();
-			cout << endl << TAB << "Operacao interrompida!\n";
-			system("pause");
-			return;
-		}
+	catch (exception_or_error e) {
+		cerr << e.get_reason() << ". Tente novamente.\n";
+		system("pause");
+		return;
 	}
+	
+	//if (dept.findClass(year, id) != nullptr) {
+	//	open = true;
+	//}
+	//while (!open) {
+	//	clrscr();
+	//	cin.clear();
+	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	//	cout << "ID invalido!\n";
+	//	cout << "ID da turma(1-9)(zero para sair): ";
+	//	cin >> id;
+	//	if (dept.findClass(year, id) != nullptr) {
+	//		open = true;
+	//	}
+	//	if (id == 0)
+	//	{
+	//		clrscr();
+	//		cout << endl << TAB << "Operacao interrompida!\n";
+	//		system("pause");
+	//		return;
+	//	}
+	//}
 
 	dept.createClass(year, slots, id);
 }
