@@ -205,10 +205,10 @@ void Department::processClass(ifstream &f, uint &linenum) {
 	id = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-	year = stoul(line.erase(0, line.find(';') + 1));
+	year = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
-	openSlots = stoul(line.erase(0, line.find(';') + 1));
+	openSlots = stoul(line.substr(0, line.find(';')));
 	line.erase(0, line.find(';') + 1);
 
 	// Read a Class' students.
