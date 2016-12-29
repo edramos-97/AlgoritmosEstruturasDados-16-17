@@ -119,163 +119,169 @@ private:
 	vector<Date *> approved_dates;
 public:
 	/**
-	*@brief Constructor of the class Student
-	*@param code Student's code generated automatically or read from a text file
-	*@param name Student's name
-	*@param email Student's e-mail
-	*@param status Student's status ("Trabalhador Estudante", "Ordinário")
-	*@param tutor Student's Tutor's code
+	*@brief Constructor of Student.
+	*@param code Student's code.
+	*@param name Student's name.
+	*@param email Student's e-mail.
+	*@param status Student's status ("Trabalhador Estudante", "Ordinário").
+	*@param tutor Student's Tutor's code.
 	*/
 	Student(string code, string name, string email, string status, string tutor);
 
 	/**
-	*@brief Constructor of the class Student
-	*@param code Student's code generated automatically or read from a text file
-	*@param name Student's name
-	*@param email Student's e-mail
-	*@param status Student's status ("Trabalhador Estudante", "Ordinário")
-	*@param interrupted True if student has interrupted the degree, false otherwise
-	*@param finished True if student has terminated the degree, false otherwise
+	*@brief Constructor of Student.
+	*@param code Student's code.
+	*@param name Student's name.
+	*@param email Student's e-mail.
+	*@param status Student's status ("Trabalhador Estudante", "Ordinário").
+	*@param interrupted True if student has interrupted the degree, false otherwise.
+	*@param finished True if student has terminated the degree, false otherwise.
 	*/
 	Student(string code, string name, string email, string status, bool interrupted, bool finished);
 
 	/**
-	*@brief Get a Student's name
-	*@return Student's name as a string
+	*@brief Gets a Student's name.
+	*@return Name of the Student.
 	*/
 	string get_name() const;
 
 	/**
-	*@brief Get a Student's code
-	*@return Student's code as a string
+	*@brief Gets a Student's code.
+	*@return Code of the Student.
 	*/
 	string get_code() const;
 
 	/**
-	*@brief Get a student's e-mail
-	*@return Student's e-mail as a string
+	*@brief Gets a Student's e-mail.
+	*@return E-mail of the Student.
 	*/
 	string get_email() const;
 
 	/**
-	*@brief Get a student's status
-	*@return Student's status as a string
+	*@brief Gets a Student's status.
+	*@return Status of the Student.
 	*/
 	string get_status() const;
 
 	/**
-	*@brief Get a student's tutor's code
-	*@return Student's tutor's code as a string
+	*@brief Gets a Student's Tutor's code.
+	*@return Student's Tutor's code.
 	*/
 	string get_tutor() const;
 	
 	/**
-	*@brief access the data-member "interrupted"
-	*@return value of the data-member "interrupted"
+	*@brief Gets interrupted attribute.
+	*@return True if Student interrupted degree, false otherwise.
 	*/
 	bool hasInterrupted() const;
 
 	/**
-	*@brief access the data-member "finished"
-	*@return value of the data-member "finished"
+	*@brief Gets finished attribute.
+	*@return True if Student finished degree, false otherwise.
 	*/
 	bool hasFinished() const;
 
 	/**
-	*@brief Function that returns a vector with the courses the student is enrolled
-	*@return vector<Course *> with student enrolled courses
+	*@brief Gets the Courses the Student is enrolled in.
+	*@return Vector with pointers to Courses the Student is enrolled in.
 	*/
 	vector<Course *> get_enrol_courses() const;
 
 	/**
-	*@brief Function that returns a vector with the courses the student has been approved at
-	*@return vector<Course *> with student approved courses
+	*@brief Gets the Courses the Student is approved in.
+	*@return Vector with pointers to Courses the Student is approved in.
 	*/
 	vector<Course *> get_approv_courses() const;
 
 	/**
-	*@brief Function that returns a vector with the dates at which the student enrolled at a course (organized respectively with the vector of enrolled courses)
-	*@return vector<Date *> with the date at which the student enrolled at a course
+	*Gets the Dates of when the Student enrolled each Course with the same index in the enrolled_courses vector.
+	*@brief Gets the enrolled Dates.
+	*@return Vector with pointers to enrolled Dates.
 	*/
 	vector<Date *> get_enrol_dates() const;
 
 	/**
-	*@brief Function that returns a vector with the dates at which the student was approved at a course (organized respectively with the vector of enrolled courses)
-	*@return vector<Date *> with the date at which the student was approved at a course
+	*Gets the Dates of when the Student approved each Course with the same index in the approved_courses vector.
+	*@brief Gets the approved Dates.
+	*@return Vector with pointers to approved Dates.
 	*/
 	vector<Date *> get_approv_dates() const;
 
 	/**
-	*@brief returns the number of approved credits
-	*@return number of credits
+	*@brief Gets the Student's approved credits.
+	*@return Number of approved credits.
 	*/
 	double get_appcredits() const;
 
 	/**
-	*@brief returns the number of credits assigned
-	*@return number of credits assigned for
+	*@brief Gets the Student's enrolled credits.
+	*@return Number of enrolled credits.
 	*/
 	double get_credits() const;
 
 	/**
-	*@brief sets the status of the student to active
+	*@brief Changes state of Student from interrupted to current.
 	*/
 	void resumeDegree();
 
 	/**
-	*@brief Changes the Student's name
-	*@param newName Student's new name
+	*@brief Changes the Student's name.
+	*@param newName Student's new name.
 	*/
 	void setName(string newName);
 
 	/**
-	*@brief Changes the Student's e-mail
-	*@param newEmail Student's new e-mail
+	*@brief Changes the Student's e-mail.
+	*@param newEmail Student's new e-mail.
 	*/
 	void setEmail(string newEmail);
 
 	/**
-	*@brief Changes the Student's status
-	*@param newStatus Student's new status
+	*@brief Changes the Student's status.
+	*@param newStatus Student's new status.
 	*/
 	void setStatus(string newStatus);
 
 	/**
-	*@brief If a course is complered add credits of the respective course to approved credits of the student
-	*@param x number of credits to add
+	*@brief Moves given credits from enrolled to approved.
+	*@param cred Number of credits.
 	*/
-	void add_approved_credits(double x);
+	void add_approved_credits(double cred);
 
 	/**
-	*@brief If a course is enrolled add credits of the respective course to credits of the student
-	*@param x number of credits to add
+	*@brief Add given credits to the Student's enrolled credits.
+	*@param cred Number of credits.
 	*/
-	void add_credits(double x);
+	void add_credits(double cred);
 
 	/**
-	*@brief Assigns a tutor to the student
-	*@param tut Pointer to the Tutor to assign
+	*@brief Assigns a given tutor to the Student.
+	*@param tut Pointer to the Tutor to assign.
 	*/
 	void assign_tutor(Tutor *tut);
 	
 	/**
-	*@brief Enrols a student in a course
-	*@param course Course to enrol in
-	*@param date Date of the student's enrolment in the course
+	*Adds the Course and Date in the Student's enrolled vectors.
+	*@brief Enrolls the Student in a Course.
+	*@param course Course to enroll in.
+	*@param date Date of the Student's enrollment in the Course.
 	*/
 	void enroll_course(Course *course, Date *date);
 
 	/**
-	*@brief Approves a student at a course
-	*@param course Course the student got approved at
-	*@param date Date of the student's approval
+	*Adds the Course and Date in the Student's approved vectors.
+	*@brief Approves the Student in a Course.
+	*@param course Course to approve in.
+	*@param date Date of the Student's approval.
 	*/
 	void approve_course(Course *course, Date *date);
 
 	/**
-	@brief Prints to an output stream information about a student
-	@param os ostream&
-	@param s Student to get information from
+	*Prints the Student's code, name, e-mail, status, tutor, and enrolled and approved credits.
+	@brief Prints to an output stream information about a Student.
+	@param os Output stream.
+	@param s Student to get information from.
+	@return Output stream os.
 	*/
-	friend ostream& operator<<(ostream &os, const Student &s);
+	friend ostream& operator << (ostream &os, const Student &s);
 };
