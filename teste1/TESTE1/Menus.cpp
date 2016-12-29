@@ -384,7 +384,6 @@ void studentChange(Department &dept) {
 
 Department newDepartment(string name) {
 	ifstream f;
-	
 	string cod;
 	
 	f.open(name + ".txt");
@@ -400,7 +399,7 @@ Department newDepartment(string name) {
 		cod = '0' + cod;
 	}
 	cod = "tu" + cod;
-	Tutor *T= new Tutor(cod, name);
+	Tutor *T = new Tutor(cod, name);
 	D.new_tutor(T);
 	return D;
 }
