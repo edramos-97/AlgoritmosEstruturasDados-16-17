@@ -142,6 +142,7 @@ public:
 	*@brief Prints to a given output stream information of a Course.
 	*@param os Output stream.
 	*@param course Course to print.
+	*@return The printed stream, out.
 	*/
 	friend ostream& operator<<(ostream &os, const Course &course);
 };
