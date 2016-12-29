@@ -82,8 +82,7 @@ void Class::setStudents(const vector<Student *> &studs) {
 	this->studs = studs;
 }
 
-vector<Student*> Class::getStuds() const
-{
+vector<Student*> Class::getStuds() const {
 	return studs;
 }
 
