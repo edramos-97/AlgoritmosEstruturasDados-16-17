@@ -1,8 +1,8 @@
 /**
 * @file course.h
 * @author AEDA T4GE
-* @title Classes Course and OptionalCourse
-* @brief Classes used to store information of both mandatory and optional courses
+* @title Classes Course and OptionalCourse.
+* @brief Classes used to store information of both mandatory and optional courses.
 */
 #pragma once
 
@@ -30,85 +30,95 @@ protected:
 	vector<Date *> date_approved;
 public:
 	/**
-	*@brief Constructor of class course
-	*@param year Year of the course ranging from 1 to 5
-	*@param semester Semester of the course ranging from 1 to 2
-	*@param credits How many credits the course is worth
-	*@param name Name of the course
+	*@brief Constructor of Course.
+	*@param year Year of the Course from 1 to 5.
+	*@param semester Semester of the Course from 1 to 2.
+	*@param credits Number of credits the Course is worth.
+	*@param name Name of the Course.
 	*/
 	Course(uint year, uint semester, double credits, string name);
 
 	/**
-	*@brief Enrolls student in the course
-	*@param stud Student to enroll
-	*@param date Date of the student's enrollment
-	*Adds student to the course's vector of enrolled students
+	*Adds Student to the Course's vector of enrolled students.
+	*@brief Enrolls a Student in the Course.
+	*@param stud Pointer to Student to enroll.
+	*@param date Pointer to Date of the student's enrollment.
 	*/
 	virtual void add_student(Student *stud, Date *date);
 
 	/**
-	*@brief Approves student in the course
-	*@param stud Student to approve
-	*@param date Date of the student's approvement
-	*Adds student to the course's vector of approved students
+	*Adds a Student to the Course's vector of approved students.
+	*@brief Approves a Student in the Course.
+	*@param stud Pointer to Student to approve.
+	*@param date Pointer to Date of the Student's approvement.
 	*/
 	virtual void add_approved_student(Student *stud, Date *date);
 
 	/**
-	*@brief Approves a student in the course
-	*@param stud Student to approve
-	*@param date Date of the student's approvement
-	*Removes the student from the vector of enrolled students and adds the student to the vector of approved students
+	*Moves the Student from the vector of enrolled Students to the vector of approved Students.
+	*@brief Approves a Student in the Course.
+	*@param stud Pointer to Student to approve.
+	*@param date Pointer to Date of the Student's approvement.
 	*/
 	virtual void approve_student(Student *stud, Date *date);
 
 	/**
-	*@brief Returns the course's year
+	*@brief Gets the Course's year.
+	*@return Year of the Course.
 	*/
 	virtual const uint get_year();
 
 	/**
-	*@brief Returns the course's semester
+	*@brief Gets the Course's semester.
+	*@return Semester of the Course.
 	*/
 	virtual const uint get_semestre();
 
 	/**
-	*@brief Returns the course's credits
+	*@brief Gets the Course's credits.
+	*@return Credits that the Course is worth.
 	*/
 	virtual const double get_credits();
 
 	/**
-	*@brief Returns the course's name
+	*@brief Gets the Course's name.
+	*@return Name of the Course.
 	*/
 	virtual const string get_name();
 
 	/**
-	*@brief Returns a copy of the course's vector of enrolled students
+	*@brief Gets the Course's enrolled students.
+	*@return Vector of pointers to Students enrolled in the Course.
 	*/
 	virtual vector<Student *> get_enrol_students() const;
 
 	/**
-	*@brief Returns a copy of the course's vector of approved students
+	*@brief Gets the Course's approved Students.
+	*@return Vector of pointers to Students approved in the Course.
 	*/
 	virtual vector<Student *> get_approv_students() const;
 
 	/**
-	*@brief Returns a copy of the course's vector of dates of enrolled students
+	*@brief Gets the Course's Student enrollment Dates.
+	*@return Vector of pointers to Dates corresponding by index to Students enrolled in the Course.
 	*/
 	virtual vector<Date *> get_date_enrolled() const;
 
 	/**
-	*@brief Returns a copy of the course's vector of dates of approved students
+	*@brief Gets the Course's Student approvement Dates.
+	*@return Vector of pointers to Dates corresponding by index to Students approved in the Course.
 	*/
 	virtual vector<Date *> get_date_approved() const;
 
 	/**
-	*@brief Prints enrolled students
+	*For each Student, it prints its info according to the Student's << operator and its date of enrollment.
+	*@brief Prints enrolled students.
 	*/
 	virtual void print_enrolled() const;
 
 	/**
-	*@brief Prints approved students
+	*For each Student, it prints its info according to the Student's << operator and its date of approvement.
+	*@brief Prints approved students.
 	*/
 	virtual void print_approved() const;
 
@@ -128,11 +138,12 @@ public:
 	virtual uint get_openSlots() const { cerr << "Invoked Course::get_openSlots()\n"; return 0; };
 
 	/**
-	@brief Operator << for Course
-	@param os Output stream
-	@param course Course
+	*Prints a Course's name, credits, enrolled students and respective enrollment dates, and approved students and respective approvement dates.
+	*@brief Prints to a given output stream information of a Course.
+	*@param os Output stream.
+	*@param course Course to print.
 	*/
-	friend ostream& operator<<(ostream& os, const Course & course);
+	friend ostream& operator<<(ostream &os, const Course &course);
 };
 
 
@@ -144,51 +155,56 @@ private:
 	string scientificArea;
 public:
 	/**
-	*@brief Constructor of sub-class OptionalCourse
-	*@param year Year of the course ranging from 1 to 5
-	*@param semester Semester of the course ranging from 1 to 2
-	*@param credits How many credits the course is worth
-	*@param name Name of the course
-	*@param maxSlots Maximum number of the course's open slots
-	*@param scientificArea Scientific area of the course
+	*@brief Constructor of OptionalCourse.
+	*@param year Year of the OptionalCourse from 1 to 5.
+	*@param semester Semester of the OptionalCourse from 1 to 2.
+	*@param credits Number of credits the OptionalCourse is worth.
+	*@param name Name of the OptionalCourse.
+	*@param maxSlots Maximum number of the OptionalCourse's open slots.
+	*@param scientificArea Scientific area of the OptionalCourse.
 	*/
 	OptionalCourse(uint year, uint semester, double credits, uint maxSlots, string name, string scientificArea);
 
 	/**
-	*@brief Returns the scientific area of the course
+	*@brief Gets the OptionalCourse's scientific area.
+	*@return Scientific area.
 	*/
 	string get_scientificArea() const;
 
 	/**
-	*@brief Returns the maximum number of the course's open slots
+	*@brief Gets the OptionalCourse's maximum number of slots.
+	*@return Maximum number of slots.
 	*/
 	uint get_maxSlots() const;
 
 	/**
-	*@brief Returns the current number of the course's open slots
+	*@brief Gets the OptionalCourse's open slots.
+	*@return Open slots.
 	*/
 	uint get_openSlots() const;
 
 	/**
-	*@brief Enrolls student in the course
-	*@param stud Student to enroll
-	*@param date Date of the student's enrollment
-	*Adds student to the course's vector of enrolled students
+	*Adds Student to the OptionalCourse's vector of enrolled students.
+	*@brief Enrolls a Student in the OptionalCourse.
+	*@param stud Pointer to Student to enroll.
+	*@param date Pointer to Date of the student's enrollment.
 	*/
 	void add_student(Student *student, Date *date);
 
 	/**
-	*@brief Approves enrolled student in the course
-	*@param stud Student to approve
-	*@param date Date of the student's approvement
-	*Removes the student from the vector of enrolled students, adds the student to the vector of approved students and adds an open slot to the course
+	*Moves the Student from the vector of enrolled Students to the vector of approved Students.
+	*@brief Approves a Student in the OptionalCourse.
+	*@param stud Pointer to Student to approve.
+	*@param date Pointer to Date of the Student's approvement.
 	*/
 	void approve_student(Student *student, Date *date);
 
 	/**
-	@brief Operator << for OptionalCourse
-	@param os Output Stream
-	@param course Course
+	*Prints a OptionalCourse's name, credits, open slots, enrolled students and respective enrollment dates,
+	*and approved students and respective approvement dates.
+	*@brief Prints to a given output stream information of a OptionalCourse.
+	*@param os Output stream.
+	*@param course OptionalCourse to print.
 	*/
-	friend ostream& operator<<(ostream& os, const OptionalCourse & course);
+	friend ostream& operator<<(ostream &os, const OptionalCourse &course);
 };
