@@ -77,3 +77,10 @@ bool operator<(const Date &date1, const Date &date2){
 	
 	return date1totaldays < date2totaldays;
 }
+
+bool Date::operator==(const Date &date) const {
+	int this_Datetotaldays = day + 32 * month + 367 * year;
+	int datetotaldays = date.getDay() + 32 * date.getMonth() + 367 * date.getYear();
+
+	return this_Datetotaldays == datetotaldays;
+}

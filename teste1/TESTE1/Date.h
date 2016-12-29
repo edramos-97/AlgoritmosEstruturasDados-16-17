@@ -52,16 +52,21 @@ public:
 	int getYear() const;
 
 	/**
+	*/
+
+	bool operator==(const Date &date) const;
+
+	/**
 	*@brief Prints the Date to a file in the format DD/MM/YYYY.
 	*@param out Stream of the file to print to.
 	*/
 	void save(ofstream &out) const;
 
 	/**
-	*@brief Prints a Date to an output stream in the format DD/MM/YYYY.
-	*@param out Stream to print to.
+	*@brief Prints a Date to a file in the format DD/MM/YYYY.
+	*@param out Stream of the file to print to.
 	*@param date Date to print.
-	*@return The printed stream, out.
+	*@return Stream of the file to print to.
 	*/
 	friend ostream& operator<<(ostream &out, const Date &date);
 

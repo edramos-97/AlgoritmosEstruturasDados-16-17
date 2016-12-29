@@ -8,12 +8,18 @@
 
 class Meeting
 {
+	unsigned id;
 	Date date;
 	string studentCod;
-	vector <string> appointmentBook;
+	string topicsMeeting;
 	string description;
 public:
-	Meeting(Date date, string studentCod, vector <string> appointmentBook, string description);
-	// a implementar
+	Meeting(unsigned id, Date date, string studentCod, string appointmentBook);
+	Meeting(unsigned id, Date date, string studentCod, string appointmentBook,string description);
+	Date getDate() const;
+	unsigned getId() const;
+	void setDescription(string discription);
+	bool operator< (const Meeting *meeting) const;
+	friend ostream& operator<<(ostream &out, const Meeting *meeting);
 };
 
