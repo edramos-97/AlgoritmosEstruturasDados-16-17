@@ -85,9 +85,9 @@ void Department::add_student(Student *x)
 	}
 }
 
-void Department::add_external(Course * x)
+void Department::add_external(Course *course)
 {
-	external_courses.push_back(x);
+	external_courses.push_back(course);
 }
 
 void Department::processCourse(ifstream &f, uint &linenum) {
@@ -593,8 +593,7 @@ bool Department::apply_for_course(Student * stud, OptionalCourse * course)
 	
 }
 
-ostream & operator<<(ostream & os, const Department & d)
-{
+ostream& operator << (ostream &os, const Department &d) {
 	os << d.name << endl
 		<< "Number of Students: " << d.students.size() << endl
 		<< "Number of Tutors: " << d.tutors.size() << endl
