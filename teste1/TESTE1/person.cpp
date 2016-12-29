@@ -17,6 +17,7 @@ Person::Person(string code, string name) : code(code), name(name) {
 Tutor::Tutor(string code, string name) : Person(code, name) {
 	if (code.at(0) != 't' || code.at(1) != 'u')
 		throw exception_or_error("Codigo de tutor invalido(" + code + ")");
+	nextid = 1;
 }
 
 string Tutor::get_name() const { return name; }
@@ -27,6 +28,72 @@ void Tutor::add_student(Student* x)
 {
 	students.push_back(x);
 }
+
+void Tutor::create_newMeeting(string studentCod, string topics, string dateStr)
+{
+	bool foundst = false;
+	for (size_t i = 0; i < students.size() && !foundst ;i++) {
+		if (students.at(i)->get_code() == studentCod)
+			foundst == true;
+	}
+
+	if (!foundst) {
+		throw exception_or_error("Este tutor nao mentor do estudante com o codigo: " + studentCod);
+	}
+	
+	Date dateofmeeting(dateStr);
+	Date date = Date();
+	if (dateofmeeting<date)
+		throw exception_or_error("Nao pode fazer uma reuniao numa data passada");
+
+	Meeting * meeting = new Meeting(nextid, dateofmeeting, studentCod, topics);
+	meetings.insert(meeting);
+	nextid++;
+	return;
+}
+
+void Tutor::add_meeting(Meeting * meeting)
+{
+	meetings.insert(meeting);
+	if (nextid < meeting->getId())
+		nextid = meeting->getId() + 1;
+}
+
+void Tutor::remove_meeting(uint IdMeeting)
+{
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end();it++) {
+		if ((*it)->getId() == IdMeeting) {
+			Date date = Date();
+			if (date < (*it)->getDate()) {
+				meetings.erase(it);
+				return;
+			}
+			else
+				throw exception_or_error("Nao e possivel remover uma reuniao que ja aconteceu");
+		}
+	}
+	throw exception_or_error("Nao ha nenhuma reuniao com o id: " + IdMeeting);
+}
+
+void Tutor::ChangeMeetingDescription(unsigned IdMeeting, string description)
+{
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end();it++) {
+		if ((*it)->getId() == IdMeeting) {
+			Date date = Date();
+			if ((*it)->getDate()< date|| (*it)->getDate()==date) {
+				(*it)->setDescription(description);
+				return;
+			}
+			else
+				throw exception_or_error("Nao e possivel alterar a descricao de uma reuniao que ainda nao aconteceu");
+		}
+	}
+		throw exception_or_error("Nao ha nenhuma reuniao com o id: " + IdMeeting);
+}
+
+
 
 void Tutor::setName(string newName) {
 	name = newName;

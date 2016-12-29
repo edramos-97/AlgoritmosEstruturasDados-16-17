@@ -9,9 +9,11 @@
 
 #include <vector>
 #include <string>
+#include <set>
 #include "exceptions.h"
 #include "course.h"
 #include "Date.h"
+#include "Meeting.h"
 
 using namespace std;
 
@@ -55,7 +57,8 @@ public:
 
 class Tutor : public Person {
 private:
-
+	uint nextid;
+	set<Meeting *> meetings;
 public:
 	//se der tempo mudar isto para privado
 	vector<Student *> students;
@@ -90,6 +93,16 @@ public:
 	*@param stud Pointer to the Student to add.
 	*/
 	void add_student(Student *stud);
+
+	void create_newMeeting(string studentCod,string topics, string dateStr);
+
+	void add_meeting(Meeting *meeting);
+
+	void remove_meeting(uint IdMeeting);
+
+	void ChangeMeetingDescription(unsigned IdMeeting,string description);
+
+
 
 	/**
 	*@brief Compares the amount of Students in the Tutors' Students vectors.

@@ -6,7 +6,7 @@ Meeting::Meeting(unsigned id, Date date, string studentCod, string appointmentBo
 	this->date = date;
 	this->studentCod = studentCod;
 	this->topicsMeeting = appointmentBook;
-	description = "";
+	description = "No description";
 }
 
 Meeting::Meeting(unsigned id, Date date, string studentCod, string appointmentBook, string description)
@@ -47,7 +47,7 @@ ostream & operator<<(ostream & out, const Meeting * meeting)
 	out << "Date: " << meeting->date << endl;
 	out << "Student Code that requested the meeting: " << meeting->studentCod << endl;
 	out << "Topics of the meeting: " << meeting->topicsMeeting << endl;
-	if (meeting->description != "")
+	if (meeting->description != "No description")
 		out << "Description: " << meeting->description;
 	return out;
 }
