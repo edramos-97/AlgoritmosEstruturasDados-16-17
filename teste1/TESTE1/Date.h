@@ -1,8 +1,8 @@
 /**
 * @file Date.h
 * @author AEDA T4GE
-* @title Date
-* @brief Definition of Class that handles all dates in this project
+* @title Class Date
+* @brief Declaration of Date that handles all dates in the project.
 */
 
 #pragma once
@@ -23,52 +23,54 @@ private:
 	int year;
 public:
 	/**
-	@brief By default contructor wich creates an object date with the actual date of the day
+	*@brief Creates a Date with the current date.
 	*/
 	Date();
 
 	/**
-	@brief Contructor wich creates an object date from a string in the format Day/Month/Year
-	@param dateStr String that contains a date
+	*@brief Creates a Date with the date information in a string.
+	*@param dateStr String containing a date in the format DD/MM/YYYY.
 	*/
 	Date(string dateStr); 
 
 	/**
-	@brief Returns the day of an object type Date
-	@return day
+	*@brief Gets the Date's day.
+	*@return Day.
 	*/
 	int getDay() const;
 
 	/**
-	@brief Returns the month of an object type Date
-	@return month
+	*@brief Gets the Date's month.
+	*@return Month.
 	*/
 	int getMonth() const;
 
 	/**
-	@brief Returns the year of an object type Date
-	@return year
+	*@brief Gets the Date's year.
+	*@return Year.
 	*/
 	int getYear() const;
 
 	/**
-	@brief Saves an object type Date in a file in the format DD/MM/YY
-	@param out reference to the file
+	*@brief Prints the Date to a file in the format DD/MM/YYYY.
+	*@param out Stream of the file to print to.
 	*/
-	void save(ofstream & out) const;
+	void save(ofstream &out) const;
 
 	/**
-	@brief Operator << for Date
-	@param out ostream&
-	@param data Date object to use the operator
+	*@brief Prints a Date to a file in the format DD/MM/YYYY.
+	*@param out Stream of the file to print to.
+	*@param date Date to print.
+	*@return Stream of the file to print to.
 	*/
-	friend ostream& operator<<(ostream& out, const Date & data);
+	friend ostream& operator<<(ostream &out, const Date &date);
 
 	/**
-	@brief Operator < for class Date
-	@param date1 object type Date
-	@param date2 object type Date
-	@return return true if date1 < date2
+	*Compares Dates by their amount of days since 00/00/0000.
+	*@brief Compares Dates.
+	*@param date1 Date.
+	*@param date2 Date.
+	*@return True if date1 is older than date2, false otherwise.
 	*/
 	friend bool operator<(const Date &date1, const Date &date2);
 };

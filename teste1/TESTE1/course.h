@@ -1,7 +1,7 @@
 /**
 * @file course.h
 * @author AEDA T4GE
-* @title Classes Course and OptionalCourse.
+* @title Classes Course and OptionalCourse
 * @brief Classes used to store information of both mandatory and optional courses.
 */
 #pragma once
