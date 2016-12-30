@@ -43,7 +43,7 @@ void Meeting::setDescription(string discription)
 bool Meeting::operator<(const Meeting * meeting) const
 {
 	if (date == meeting->getDate())
-		return id < meeting->getId;
+		return id < meeting->getId();
 	return date < meeting->getDate();
 }
 

@@ -34,7 +34,7 @@ void Tutor::create_newMeeting(string studentCod, string topics, string dateStr)
 	bool foundst = false;
 	for (size_t i = 0; i < students.size() && !foundst; i++) {
 		if (students.at(i)->get_code() == studentCod)
-			foundst == true;
+			foundst = true;
 	}
 
 	if (!foundst) {
@@ -144,7 +144,7 @@ vector<uint> Tutor::PastMeetings_NoDescription() const
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		Date date = Date();
 		if ((*it)->getDate() < date) {
-			if ((*it)->getDescription == "No description")
+			if ((*it)->getDescription() == "No description")
 				Nodescription.push_back((*it)->getId());
 		}
 		else
