@@ -136,20 +136,21 @@ void Tutor::ListMeetingsBeetween2Dates(Date date1, Date date2) const
 	return;
 }
 
-vector<int> Tutor::PastMeetings_NoDescription() const
+vector<uint> Tutor::PastMeetings_NoDescription() const
 {
 	vector <uint> Nodescription;
 
 	set <Meeting *>::iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		Date date = Date();
-		if ((*it)->getDate() < date)
+		if ((*it)->getDate() < date) {
 			if ((*it)->getDescription == "No description")
 				Nodescription.push_back((*it)->getId());
+		}
 		else
 			break;
 	}
-	return;
+	return Nodescription;
 }
 
 

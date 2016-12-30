@@ -110,7 +110,7 @@ public:
 
 	void ListMeetingsBeetween2Dates(Date date1, Date date2) const;
 
-	vector<int> PastMeetings_NoDescription() const;
+	vector<uint> PastMeetings_NoDescription() const;
 
 	/**
 	*@brief Compares the amount of Students in the Tutors' Students vectors.
