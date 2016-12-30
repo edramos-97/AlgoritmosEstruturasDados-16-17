@@ -6,7 +6,7 @@
 
 Person::Person(string code, string name) : code(code), name(name) {
 	if (name.size() < 3)
-		throw exception_or_error("Nome que tentou atribuir a esta pessoa é demasiado pequeno (" +  name  + ")");
+		throw exception_or_error("Nome que tentou atribuir a esta pessoa é demasiado pequeno (" + name + ")");
 	if (code.length() != 11)
 		throw exception_or_error("Codigo de aluno ou tutor invalido (" + code + ")");
 }
@@ -32,7 +32,7 @@ void Tutor::add_student(Student* x)
 void Tutor::create_newMeeting(string studentCod, string topics, string dateStr)
 {
 	bool foundst = false;
-	for (size_t i = 0; i < students.size() && !foundst ;i++) {
+	for (size_t i = 0; i < students.size() && !foundst; i++) {
 		if (students.at(i)->get_code() == studentCod)
 			foundst == true;
 	}
@@ -40,10 +40,10 @@ void Tutor::create_newMeeting(string studentCod, string topics, string dateStr)
 	if (!foundst) {
 		throw exception_or_error("Este tutor nao mentor do estudante com o codigo: " + studentCod);
 	}
-	
+
 	Date dateofmeeting(dateStr);
 	Date date = Date();
-	if (dateofmeeting<date)
+	if (dateofmeeting < date)
 		throw exception_or_error("Nao pode fazer uma reuniao numa data passada");
 
 	Meeting * meeting = new Meeting(nextid, dateofmeeting, studentCod, topics);
@@ -62,7 +62,7 @@ void Tutor::add_meeting(Meeting * meeting)
 void Tutor::remove_meeting(uint IdMeeting)
 {
 	set <Meeting *>::iterator it;
-	for (it = meetings.begin(); it != meetings.end();it++) {
+	for (it = meetings.begin(); it != meetings.end(); it++) {
 		if ((*it)->getId() == IdMeeting) {
 			Date date = Date();
 			if (date < (*it)->getDate()) {
@@ -79,10 +79,10 @@ void Tutor::remove_meeting(uint IdMeeting)
 void Tutor::ChangeMeetingDescription(unsigned IdMeeting, string description)
 {
 	set <Meeting *>::iterator it;
-	for (it = meetings.begin(); it != meetings.end();it++) {
+	for (it = meetings.begin(); it != meetings.end(); it++) {
 		if ((*it)->getId() == IdMeeting) {
 			Date date = Date();
-			if ((*it)->getDate()< date|| (*it)->getDate()==date) {
+			if ((*it)->getDate() < date || (*it)->getDate() == date) {
 				(*it)->setDescription(description);
 				return;
 			}
@@ -90,9 +90,67 @@ void Tutor::ChangeMeetingDescription(unsigned IdMeeting, string description)
 				throw exception_or_error("Nao e possivel alterar a descricao de uma reuniao que ainda nao aconteceu");
 		}
 	}
-		throw exception_or_error("Nao ha nenhuma reuniao com o id: " + IdMeeting);
+	throw exception_or_error("Nao ha nenhuma reuniao com o id: " + IdMeeting);
 }
 
+void Tutor::ListAllMeettings() const
+{
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end(); it++) {
+		cout << (*it) << endl << endl;
+	}
+	return;
+}
+
+void Tutor::ListPastMeetings() const
+{
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end(); it++) {
+		Date date = Date();
+		if ((*it)->getDate() < date)
+			cout << (*it) << endl << endl;
+		else
+			break;
+	}
+	return;
+}
+
+void Tutor::ListFutureMeetings() const
+{
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end(); it++) {
+		Date date = Date();
+		if (!((*it)->getDate() < date))
+			cout << (*it) << endl << endl;
+	}
+	return;
+}
+
+void Tutor::ListMeetingsBeetween2Dates(Date date1, Date date2) const
+{
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end(); it++) {
+		if ((*it)->getDate() < date2 && date1 < (*it)->getDate())
+			cout << (*it) << endl << endl;
+	}
+	return;
+}
+
+vector<int> Tutor::PastMeetings_NoDescription() const
+{
+	vector <uint> Nodescription;
+
+	set <Meeting *>::iterator it;
+	for (it = meetings.begin(); it != meetings.end(); it++) {
+		Date date = Date();
+		if ((*it)->getDate() < date)
+			if ((*it)->getDescription == "No description")
+				Nodescription.push_back((*it)->getId());
+		else
+			break;
+	}
+	return;
+}
 
 
 void Tutor::setName(string newName) {

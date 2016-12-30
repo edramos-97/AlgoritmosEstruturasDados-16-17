@@ -28,6 +28,12 @@ unsigned Meeting::getId() const
 	return id;
 }
 
+string Meeting::getDescription() const
+{
+	return string();
+}
+
+
 void Meeting::setDescription(string discription)
 {
 	this->description = description;

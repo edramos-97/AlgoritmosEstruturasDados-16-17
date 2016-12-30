@@ -102,7 +102,15 @@ public:
 
 	void ChangeMeetingDescription(unsigned IdMeeting,string description);
 
+	void ListAllMeettings() const;
 
+	void ListPastMeetings() const;
+
+	void ListFutureMeetings() const;
+
+	void ListMeetingsBeetween2Dates(Date date1, Date date2) const;
+
+	vector<int> PastMeetings_NoDescription() const;
 
 	/**
 	*@brief Compares the amount of Students in the Tutors' Students vectors.
