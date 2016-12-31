@@ -11,24 +11,6 @@
 
 using namespace std;
 
-class Class;
-
-/*class ClassQueue {
-public:
-	ClassQueue(uint year);
-	Class* getMostVacantClass() const;
-	void createClass(uint year, uint slots);
-	void removeMostVacantClass();
-	void removeClass(uint id);
-	void addStudent(Student *stud);
-private:
-	priority_queue<Class *> classes;
-	set<uint> ids;
-	uint year;
-
-	uint getNewId() const;
-};*/
-
 class Class {
 private:
 	uint id;
@@ -101,6 +83,7 @@ public:
 	*@brief Compares Classes in a way that they're correctly ordered in a priority queue.
 	*@param c1 Class.
 	*@param c2 Class.
+	*@return True if c1 is "smaller" than c2, false otherwise.
 	*/
 	friend bool operator < (const Class &c1, const Class &c2);
 };

@@ -117,7 +117,6 @@ bool operator < (const Class &c1, const Class &c2) {
 	return (c1.openSlots[0].second > c2.openSlots[0].second);
 }
 
-
 // Private methods.
 
 //uint ClassQueue::getNewId() const {

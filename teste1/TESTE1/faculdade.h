@@ -19,6 +19,21 @@
 #define NEW_TUTOR true
 #define NEW_STUDENT true
 
+struct stoppedStudsHash {
+	size_t operator () (const Student *s) const {
+		try {
+			return stoul(s->get_code().substr(2, string::npos));
+		}
+		catch (invalid_argument) {
+			cout << "Invalid Student code: " << s->get_code() << "\n";
+		//TODO:	throw invalid_argument();
+		}		
+	}
+	bool operator () (const Student *s1, const Student *s2) const {	
+		return (*s1 == *s2);
+	}
+};
+
 class Department {
 private:
 	string name;
@@ -30,7 +45,7 @@ private:
 	int next_assign_student;
 
 	vector<priority_queue<Class*>> classes = vector<priority_queue<Class*>>(5);
-	unordered_set<Student *> stoppedStuds; // For students who interrupted or finished the degree.
+	unordered_set<Student*, stoppedStudsHash, stoppedStudsHash> stoppedStuds; // For students who interrupted or finished the degree.
 public:
 	/**
 	*@brief Constructor of class Department.

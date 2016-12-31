@@ -305,4 +305,13 @@ public:
 	@return Output stream os.
 	*/
 	friend ostream& operator << (ostream &os, const Student &s);
+
+	/**
+	*Students are equal if they have the same ID.
+	*@brief Student equality comparison.
+	*@param s1 Student.
+	*@param s2 Student.
+	*@return True if s1 and s2 are equal, false otherwise.
+	*/
+	friend bool operator == (const Student &s1, const Student &s2);
 };

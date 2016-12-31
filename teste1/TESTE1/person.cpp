@@ -285,3 +285,7 @@ ostream & operator<<(ostream &os, const Student &stud)
 		"Creditos inscritos: " << stud.credits;
 	return os;
 }
+
+bool operator == (const Student &s1, const Student &s2) {
+	return (s1.code == s2.code);
+}
