@@ -752,7 +752,7 @@ int Department::deleteClass(uint year, uint id) {
 Class* Department::findClass(uint year, uint id)
 {
 	stack<Class *> temp_s;
-	priority_queue<Class*> temp_q = classes.at(year - 1);
+	priority_queue<Class*, vector<Class*>, classComp> temp_q = classes.at(year - 1);
 	while (!temp_q.empty()) {
 		if (temp_q.top()->getId() == id) {
 			return temp_q.top();
@@ -768,7 +768,7 @@ Class* Department::findClass(uint year, uint id)
 }
 
 void Department::top_slots(uint year) {
-	priority_queue<Class *> temp = classes[year - 1];
+	priority_queue<Class *, vector<Class*>, classComp> temp = classes[year - 1];
 	for (size_t i = 0; (i < 3 && !temp.empty()); i++)
 	{
 		cout << "Turma " << temp.top()->getId() << ": " << temp.top()->getOpenSlots() << "vagas.\n";

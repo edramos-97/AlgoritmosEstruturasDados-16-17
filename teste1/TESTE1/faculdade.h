@@ -33,6 +33,13 @@ struct stoppedStudsHash {
 	}
 };
 
+class classComp {
+public:
+	bool operator () (const Class *c1, const Class *c2) const {
+		return (*c1 < *c2);
+	}
+};
+
 class Department {
 private:
 	string name;
@@ -43,7 +50,7 @@ private:
 	int next_assign_tutor;
 	int next_assign_student;
 
-	vector<priority_queue<Class*>> classes = vector<priority_queue<Class*>>(5);
+	vector<priority_queue<Class*, vector<Class*>, classComp>> classes = vector<priority_queue<Class*, vector<Class*>, classComp>>(5);
 	unordered_set<Student*, stoppedStudsHash, stoppedStudsHash> stoppedStuds; // For students who interrupted or finished the degree.
 public:
 	/**

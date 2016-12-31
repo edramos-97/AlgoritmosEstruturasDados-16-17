@@ -117,6 +117,11 @@ bool operator < (const Class &c1, const Class &c2) {
 	return (c1.openSlots[0].second > c2.openSlots[0].second);
 }
 
+//template <class template_Class>
+//bool classComp(const template_Class c1, const template_Class c2) {
+//	return (*c1 < *c2);
+//}
+
 // Private methods.
 
 //uint ClassQueue::getNewId() const {

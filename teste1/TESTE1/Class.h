@@ -86,6 +86,11 @@ public:
 	*@return True if c1 is "smaller" than c2, false otherwise.
 	*/
 	friend bool operator < (const Class &c1, const Class &c2);
+
+	/*template <class template_Class = Class *>
+	bool classComp(const template_Class c1, const template_Class c2) {
+		return (*c1 < *c2);
+	}*/
 };
 
 //bool class_cmp(Class &a,Class &b)
