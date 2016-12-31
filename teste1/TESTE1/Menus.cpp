@@ -909,28 +909,6 @@ void m_createClass(Department &dept) {
 		system("pause");
 		return;
 	}
-	
-	//if (dept.findClass(year, id) != nullptr) {
-	//	open = true;
-	//}
-	//while (!open) {
-	//	clrscr();
-	//	cin.clear();
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	//	cout << "ID invalido!\n";
-	//	cout << "ID da turma(1-9)(zero para sair): ";
-	//	cin >> id;
-	//	if (dept.findClass(year, id) != nullptr) {
-	//		open = true;
-	//	}
-	//	if (id == 0)
-	//	{
-	//		clrscr();
-	//		cout << endl << TAB << "Operacao interrompida!\n";
-	//		system("pause");
-	//		return;
-	//	}
-	//}
 
 	dept.createClass(year, slots, id);
 }
