@@ -25,8 +25,7 @@ struct stoppedStudsHash {
 			return stoul(s->get_code().substr(2, string::npos));
 		}
 		catch (invalid_argument) {
-			cout << "Invalid Student code: " << s->get_code() << "\n";
-		//TODO:	throw invalid_argument();
+			throw exception_or_error("Invalid Student code: " + s->get_code());
 		}		
 	}
 	bool operator () (const Student *s1, const Student *s2) const {	
