@@ -73,3 +73,16 @@ void enrollStudent(Department &dept);
 *@param dept Department being used.
 */
 void approveStudent(Department &dept);
+
+void tutorManagement(Department &dept);
+void studentManagement(Department &dept);
+void classManagement(Department &dept);
+void tutorNameChange(Department &dept);
+void tutorInfo(const Department &dept);
+void studentChange(Department &dept);
+void m_listStudents(const Department &dept);
+void m_listCurrentStuds(const Department &dept);
+void m_listIntStuds(const Department &dept);
+void m_listFinishedStuds(const Department &dept);
+void m_listAllStuds(const Department &dept);
+void m_top_slots(Department &dept);

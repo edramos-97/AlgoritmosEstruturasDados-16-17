@@ -29,7 +29,7 @@ private:
 	int next_assign_tutor;
 	int next_assign_student;
 
-	vector<priority_queue<Class *>> classes = vector<priority_queue<Class *>>(5);
+	vector<priority_queue<Class*>> classes = vector<priority_queue<Class*>>(5);
 	unordered_set<Student *> stoppedStuds; // For students who interrupted or finished the degree.
 public:
 	/**
@@ -232,6 +232,12 @@ public:
 	*@return Pointer to the wanted Class.
 	*/
 	Class* findClass(uint year, uint id);
+
+	/**
+	*@brief Function that outputs to the console the 3 classe with the most slts available in a given year.
+	*@param year Year of the Class.
+	*/
+	void top_slots(uint year);
 
 	/**
 	*@brief Prints the current Students to stdout in an user-defined order.

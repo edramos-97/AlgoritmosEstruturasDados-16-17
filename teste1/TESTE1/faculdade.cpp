@@ -767,6 +767,15 @@ Class* Department::findClass(uint year, uint id)
 	return nullptr;
 }
 
+void Department::top_slots(uint year) {
+	priority_queue<Class *> temp = classes[year - 1];
+	for (size_t i = 0; (i < 3 && !temp.empty()); i++)
+	{
+		cout << "Turma " << temp.top()->getId() << ": " << temp.top()->getOpenSlots() << "vagas.\n";
+		temp.pop();
+	}
+}
+
 //TODO: Align separating ||.
 void Department::listCurrentStuds(bool comp(Student *s1, Student *s2)) const {
 	vector<Student *> intStuds;

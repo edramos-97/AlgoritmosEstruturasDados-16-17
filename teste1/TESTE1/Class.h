@@ -7,6 +7,7 @@
 #include <stack>
 #include <set>
 #include <utility>
+#include <memory>
 
 using namespace std;
 
@@ -104,6 +105,8 @@ public:
 	friend bool operator < (const Class &c1, const Class &c2);
 };
 
-
-
+//bool class_cmp(Class &a,Class &b)
+//{
+//	return (a.getOpenSlots() < b.getOpenSlots());
+//}
 #endif

@@ -1,18 +1,6 @@
 #include "Menus.h"
 #include "faculdade.h"
 
-void tutorManagement(Department &dept);
-void studentManagement(Department &dept);
-void classManagement(Department &dept);
-void tutorNameChange(Department &dept);
-void tutorInfo(const Department &dept);
-void studentChange(Department &dept);
-void m_listStudents(const Department &dept);
-void m_listCurrentStuds(const Department &dept);
-void m_listIntStuds(const Department &dept);
-void m_listFinishedStuds(const Department &dept);
-void m_listAllStuds(const Department &dept);
-
 bool Menu_department() {
 	unsigned short option;
 	string filename; //without .txt
@@ -948,25 +936,49 @@ void m_createClass(Department &dept) {
 }
 
 void m_delClass(Department &dept) {
-	uint classYear, classId;
-	cout << "Ano da turma: ";
+	int classYear, classId;
+	cout << "\nAno da turma(1-5): ";
 	cin >> classYear;
 	cout << "ID da turma: ";
 	cin >> classId;
 
-	dept.deleteClass(classYear, classId);
+	if (classYear > 5 || classId < 1) {
+		cout << "Ano da turma invalido.Tente novamente.\n";
+		system("pause");
+		return;
+	}
+
+	if (dept.deleteClass((uint)classYear, (uint)classId)) {
+		cout << "Id da turma invalido.Tente novamente.\n";
+		system("pause");
+		return;
+	}
+}
+
+
+void m_top_slots(Department &dept) {
+	int classYear;
+	cout << "\nAno da turma(1-5): ";
+	cin >> classYear;
+
+	dept.top_slots(classYear);
+	system("pause");
+
+	return;
 }
 
 void classManagement(Department &dept) {
+	int option;
 	while (true) {
 		clrscr();
-		cout << "1 - Atribuir Estudante" << "\n";
-		cout << "2 - Criar Turma" << "\n";
-		cout << "3 - Eliminar Turma" << "\n";
-		cout << "0 - Retornar" << "\n\n";
+		cout << BIG_TAB << "Gestao de Turmas" << endl << endl;
+		cout << TAB << "1 - Atribuir Turma" << endl;
+		cout << TAB << "2 - Criar Turma" << endl;
+		cout << TAB << "3 - Eleminar Turma" << endl;
+		cout << TAB << "4 - Verificar Vagas" << endl;
+		cout << TAB << "0 - Sair" << endl << endl;
 
-		cout << "Opcao: ";
-		int option;
+		cout << "Escolha uma opcao: ";
 		cin >> option;
 
 		if (cin.bad()) {
@@ -975,19 +987,28 @@ void classManagement(Department &dept) {
 		}
 		
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-		switch (option) {
-		case 1:
-			m_enrollInClass(dept);
-			break;
-		case 2:
-			m_createClass(dept);
-			break;
-		case 3:
-			m_delClass(dept);
-			break;
-		case 0:
-			return;
+		try {
+			switch (option) {
+			case 1:
+				m_enrollInClass(dept);
+				break;
+			case 2:
+				m_createClass(dept);
+				break;
+			case 3:
+				m_delClass(dept);
+				break;
+			case 4:
+				m_top_slots(dept);
+				break;
+			case 0:
+				return;
+			}
+		}
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente.\n";
+			system("PAUSE");
+			clrscr();
 		}
 	}
 }
