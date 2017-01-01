@@ -38,7 +38,7 @@ void Tutor::create_newMeeting(string studentCod, string topics, string dateStr)
 	}
 
 	if (!foundst) {
-		throw exception_or_error("Este tutor nao mentor do estudante com o codigo: " + studentCod);
+		throw exception_or_error("Este tutor nao e mentor do estudante com o codigo: " + studentCod);
 	}
 
 	Date dateofmeeting(dateStr);
@@ -48,6 +48,7 @@ void Tutor::create_newMeeting(string studentCod, string topics, string dateStr)
 
 	Meeting * meeting = new Meeting(nextid, dateofmeeting, studentCod, topics);
 	meetings.insert(meeting);
+	cout << "A sua reuniao foi criada com sucesso e tem o ID: " << nextid << endl;
 	nextid++;
 	return;
 }
@@ -126,11 +127,12 @@ void Tutor::ListFutureMeetings() const
 	return;
 }
 
-void Tutor::ListMeetingsBeetween2Dates(Date date1, Date date2) const
+void Tutor::ListMeetingsBeetween2Dates(Date &date1, Date &date2) const
 {
 	set <Meeting *>::iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
-		if ((*it)->getDate() < date2 && date1 < (*it)->getDate())
+		if (((*it)->getDate() < date2 && date1 < (*it)->getDate())||
+			(*it)->getDate()==date1|| (*it)->getDate() == date2)
 			cout << (*it) << endl << endl;
 	}
 	return;

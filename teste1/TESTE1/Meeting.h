@@ -20,7 +20,6 @@ public:
 	unsigned getId() const;
 	string getDescription() const;
 	void setDescription(string discription);
-	bool operator< (const Meeting *meeting) const;
 	friend ostream& operator<<(ostream &out, const Meeting *meeting);
 };
 

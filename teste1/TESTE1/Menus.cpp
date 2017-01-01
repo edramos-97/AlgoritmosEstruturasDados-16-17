@@ -9,7 +9,7 @@ bool Menu_department() {
 	cout << TAB << "1 - Criar um novo curso" << endl;
 	cout << TAB << "2 - Importar um curso ja existente" << endl;
 	cout << TAB << "0 - Sair" << endl << endl;
-	
+
 	cout << "Escolha uma opcao: ";
 	cin >> option;
 
@@ -70,7 +70,7 @@ bool Menu_department() {
 
 	case 0:
 		return true;
-	default: 
+	default:
 		cerr << "O input nao e valido. Tente novamente." << endl << endl;
 		system("PAUSE");
 		clrscr();
@@ -82,7 +82,7 @@ void mainMenu(Department &dept)
 {
 	unsigned short option;
 	bool exit_program = false;
-	 //without .txt
+	//without .txt
 	while (!exit_program)
 	{
 		cout << BIG_TAB << "Menu Principal" << endl << endl;
@@ -90,7 +90,7 @@ void mainMenu(Department &dept)
 		cout << TAB << "2 - Gestao de Estudantes" << endl;
 		cout << TAB << "3 - Informacao de UC" << endl;
 		cout << TAB << "4 - Gestao de Turmas" << endl;
-		cout << TAB << "5 - " << endl;
+		cout << TAB << "5 - Gestao de Reunioes" << endl;
 		cout << TAB << "0 - Sair" << endl << endl; //grava num ficheiro e sai definitvamente do programa
 
 		cout << "Escolha uma opcao: ";
@@ -116,22 +116,246 @@ void mainMenu(Department &dept)
 			studentManagement(dept);
 			break;
 		case 3:
+			clrscr();
 			courseInfo(dept);
 			break;
 		case 4:
+			clrscr();
 			classManagement(dept);
+			break;
+		case 5:
+			clrscr();
+			callMeetingManagement(dept);
 			break;
 		case 0:
 			dept.save_dept();
-			exit_program=true;
+			exit_program = true;
 			break;
-		default: 
+		default:
 			cerr << "O input nao e valido. Tente novamente." << endl << endl;
 			system("PAUSE");
 		}
 		clrscr();
 	}
 	return;
+}
+
+void callMeetingManagement(Department &dept) {
+	while (true) {
+		string tutorcod;
+		cout << "Esta a entrar no gestor de reunioes, por favor insira o seu codigo de tutor!" << endl;
+		cout << "Para voltar atras insira \"exit\"\n";
+		cout << "Cod: ";
+		cin >> tutorcod;
+
+		if (tutorcod == "exit")
+			return;
+
+		try {
+			Tutor *tutor_to_manage = dept.getTutor(tutorcod);
+			MeetingManagement(tutor_to_manage, dept);
+			return;
+		}
+		catch (exception_or_error x) {
+			cerr << x.get_reason() << ". Tente novamente.\n";
+			system("pause");
+			clrscr();
+		}
+	}
+	return;
+}
+
+void MeetingManagement(Tutor * tutor, Department &dept)
+{
+	unsigned short option;
+	bool exitFunc = false;
+
+	while (exitFunc == false) {
+		cout << BIG_TAB << "Gestao de Reunioes" << endl << endl;
+		cout << TAB << "1 - Criar uma nova reuniao" << endl;
+		cout << TAB << "2 - Desmarcar uma futura reuniao" << endl;
+		cout << TAB << "3 - Mudar a descricao de uma reuniao" << endl;
+		cout << TAB << "4 - Listar todas as reuniaoes" << endl;
+		cout << TAB << "5 - Listar todas as passadas reunioes" << endl;
+		cout << TAB << "6 - Listar futuras reunioes e reunioes que tem hoje" << endl;
+		cout << TAB << "7 - Listar reunioes entre duas datas" << endl;
+		cout << TAB << "0 - Sair" << endl;
+
+
+		vector <uint> nodescription = tutor->PastMeetings_NoDescription();
+		if (nodescription.size() != 0) {
+			cout << "Reunioes ocorridas sem descricao: ";
+			for (size_t i = 0; i < nodescription.size(); i++)
+				cout << nodescription.at(i) << " ";
+			cout << endl;
+		}
+
+		cout << endl << "Escolha uma opcao: ";
+		cin >> option;
+
+		if (!cin.good()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+			clrscr();
+			continue;
+		}
+
+		switch (option) {
+		case 1:
+			clrscr();
+			call_createnewmeeting(tutor, dept);
+			break;
+		case 2:
+			call_removemeeting(tutor);
+			break;
+		case 3:
+			call_changemeetingdescription(tutor);
+			break;
+		case 4:
+			clrscr();
+			tutor->ListAllMeettings();
+			system("pause");
+			break;
+		case 5:
+			clrscr();
+			tutor->ListPastMeetings();
+			system("pause");
+			break;
+		case 6:
+			clrscr();
+			tutor->ListFutureMeetings();
+			system("pause");
+			break;
+		case 7:
+			clrscr();
+			call_listbeetween2dates(tutor);
+			break;
+		case 0:
+			exitFunc = true;
+			break;
+		default:
+			cerr << "O input nao e valido. Tente novamente." << endl << endl;
+			system("PAUSE");
+		}
+		clrscr();
+	}
+}
+
+void call_listbeetween2dates (Tutor *tutor) {
+	string date1str, date2str;
+
+	cout << "Insira uma data: ";
+	cin >> date1str;
+	cout << "Insira a outra data: ";
+	cin >> date2str;
+
+	try {
+		Date date1(date1str);
+		Date date2(date2str);
+		if (date1 < date2)
+			tutor->ListMeetingsBeetween2Dates(date1, date2);
+		else
+			tutor->ListMeetingsBeetween2Dates(date2, date1);
+		system("pause");
+	}
+	catch (exception_or_error x) {
+		cerr << x.get_reason() << ". Tente novamente.\n";
+		system("pause");
+		clrscr();
+	}
+	return;
+}
+
+void call_createnewmeeting(Tutor * tutor, Department &dept)
+{
+	string studentCod, topics, dateStr;
+	cout << "Insira o numero de estudante que requesitou a reuniao." << endl;
+	cout << "Cod:";
+	cin >> studentCod;
+
+	if (!dept.searchstudent(studentCod)) {
+		cerr << "Nao existe estudante com o codigo " << studentCod << ". Tente novamente!" << endl;
+		system("pause");
+		return;
+	}
+
+	cout << "Insira a data em que a reuniao se ira realizar." << endl;
+	cout << "Data: ";
+	cin >> dateStr;
+	cout << "Insira os topicos que serao abordados na reuniao (separado por ,)." << endl;
+	cout << "Topicos: ";
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(cin, topics);
+	try {
+		tutor->create_newMeeting(studentCod, topics, dateStr);
+		system("pause");
+	}
+	catch (exception_or_error x) {
+		cerr << x.get_reason() << ". Tente novamente.\n";
+		system("pause");
+		clrscr();
+	}
+	return;
+}
+
+void call_removemeeting(Tutor * tutor)
+{
+	uint id;
+	cout << "Insira o id da reunião que quer remover: ";
+	cin >> id;
+
+	if (!cin.good()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cerr << "O input nao e valido. Tente novamente." << endl << endl;
+		system("PAUSE");
+		clrscr();
+		return;
+	}
+	try{
+		tutor->remove_meeting(id);
+		cout << "Reuniao desmarcada com sucesso" << endl;
+		system("PAUSE");
+	}
+	catch (exception_or_error x) {
+		cerr << x.get_reason() << ". Tente novamente.\n";
+		system("pause");
+		clrscr();
+	}
+	return;
+}
+
+void call_changemeetingdescription(Tutor * tutor)
+{
+	uint id;
+	string description;
+	cout << "Insira o id da reunião que quer remover: ";
+	cin >> id;
+
+	if (!cin.good()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cerr << "O input nao e valido. Tente novamente." << endl << endl;
+		system("PAUSE");
+		clrscr();
+		return;
+	}
+
+	cout << "Insira a descricao da reuniao: " << endl;
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(cin, description);
+
+	try {
+		tutor->ChangeMeetingDescription(id, description);
+		system("pause");
+	}
+	catch (exception_or_error x) {
+		cerr << x.get_reason() << ". Tente novamente.\n";
+		system("pause");
+		clrscr();
+	}
 }
 
 void tutorManagement(Department &dept) {
@@ -244,7 +468,7 @@ void tutorNameChange(Department &dept) {
 			cout << "Codigo do tutor (\"exit\" para sair): ";
 			cin >> tutorCode;
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			
+
 			if (tutorCode == "exit") {
 				return;
 			}
@@ -335,7 +559,7 @@ void studentChange(Department &dept) {
 
 		if (!cin.good()) {
 			cin.clear();
-		//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cerr << "O input nao e valido. Tente novamente." << endl << endl;
 			system("PAUSE");
 			clrscr();
@@ -373,28 +597,33 @@ void studentChange(Department &dept) {
 Department newDepartment(string name) {
 	ifstream f;
 	string cod;
-	
+
 	f.open(name + ".txt");
 	if (f.is_open())
 		throw exception_or_error("O input nao e valido");
-	
+
 	Department D(name);
 
 	cout << "O departamento necessita de pelo menos um tutor, por favor insira o seu nome: ";
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	getline(cin, name);
-	cod=to_string(D.getNext_assigned_tutor(NEW_TUTOR));
+
+	cod = to_string(D.getNext_assigned_tutor(NEW_TUTOR));
 	while (cod.length() < 9) {
 		cod = '0' + cod;
 	}
 	cod = "tu" + cod;
 	Tutor *T = new Tutor(cod, name);
 	D.new_tutor(T);
+	cout << "O seu codigo de tutor e " << cod << endl;
+	system("Pause");
 	return D;
 }
 
 void call_newtutor(Department &D) {
 	string name, cod;
-	cout <<  "Por favor insira o seu nome: ";
+	cout << "Por favor insira o seu nome: ";
 	cin.ignore();
 	getline(cin, name);
 	cod = to_string(D.getNext_assigned_tutor(NEW_TUTOR));
@@ -422,13 +651,13 @@ void call_newstudent(Department &d)
 	uint status;
 	cout << "Insira o nome do novo estudante: ";
 	cin.ignore();
-	getline(cin,name);
+	getline(cin, name);
 	cout << "Insira o seu estatuto:\n"
 		<< "1 - Trabalhador Estudante\n"
 		<< "2 - Estudante\n"
 		<< "3 - Atleta Estudante\n";
 	cin >> status;
-	
+
 	if (!cin.good()) {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -439,7 +668,7 @@ void call_newstudent(Department &d)
 	}
 	switch (status)
 	{
-	case 1: 
+	case 1:
 		status_str = "Trabalhador Estudante";
 		break;
 	case 2:
@@ -453,19 +682,19 @@ void call_newstudent(Department &d)
 		system("PAUSE");
 		clrscr();
 		return;
-	}	
+	}
 
 	cod = to_string(d.getNext_assigned_student(NEW_STUDENT));
 	while (cod.length() < 9) {
 		cod = '0' + cod;
 	}
 	cod = "st" + cod;
-	
+
 	try {
 		Student *st = new Student(cod, name, cod + "@fe.up.pt", status_str, false, false);
 		d.add_student(st);
-		cout << "Estudante com o nome " << name << " criado com sucesso. O seu codigo e " << cod 
-			<< ". Para mais informacoes use o sistema"<< endl;
+		cout << "Estudante com o nome " << name << " criado com sucesso. O seu codigo e " << cod
+			<< ". Para mais informacoes use o sistema" << endl;
 		system("PAUSE");
 	}
 	catch (exception_or_error x) {
@@ -476,10 +705,10 @@ void call_newstudent(Department &d)
 
 }
 
-void studentInfo(const Department &dept) {	
+void studentInfo(const Department &dept) {
 	string studCode;
 	const Student *stud;
-	
+
 	while (true) {
 		try {
 			clrscr();
@@ -489,7 +718,7 @@ void studentInfo(const Department &dept) {
 				return;
 			}
 			stud = dept.getStudent(studCode);
-			break; 
+			break;
 		}
 		catch (exception_or_error x) {
 			cerr << x.get_reason() << ". Tente novamente.\n";
@@ -766,7 +995,7 @@ void m_listAllStuds(const Department &dept) {
 void courseInfo(const Department &dept) {
 	const Course *course;
 	string courseName;
-	
+
 	while (true) {
 		try {
 			clrscr();
@@ -784,7 +1013,7 @@ void courseInfo(const Department &dept) {
 			clrscr();
 		}
 	}
-	
+
 	cout << "Estudantes inscritos:\n";
 	for (size_t studInd = 0; studInd < course->get_enrol_students().size(); ++studInd) {
 		Student *stud = course->get_enrol_students().at(studInd);
@@ -872,7 +1101,7 @@ void approveStudent(Department &dept) {
 		}
 		catch (exception_or_error x) {
 			cerr << x.get_reason() << ". Tente novamente.\n";
-			system("PAUSE");			
+			system("PAUSE");
 		}
 	}
 }
@@ -970,7 +1199,7 @@ void classManagement(Department &dept) {
 			cin.clear();
 			continue;
 		}
-		
+
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		try {
 			switch (option) {

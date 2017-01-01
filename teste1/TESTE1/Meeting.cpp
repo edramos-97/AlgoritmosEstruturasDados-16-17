@@ -40,12 +40,6 @@ void Meeting::setDescription(string discription)
 	return;
 }
 
-bool Meeting::operator<(const Meeting * meeting) const
-{
-	if (date == meeting->getDate())
-		return id < meeting->getId();
-	return date < meeting->getDate();
-}
 
 ostream & operator<<(ostream & out, const Meeting * meeting)
 {

@@ -630,6 +630,15 @@ bool Department::verify_courses_completition(uint year, uint semester, Student *
 
 }
 
+bool Department::searchstudent(string studentCod) const
+{
+	for (size_t i = 0; i < students.size(); i++)
+		if (students.at(i)->get_code() == studentCod)
+			return true;
+
+	return false;
+}
+
 vector<string> Department::search_sci_area(string area)
 {
 	vector<string> v;

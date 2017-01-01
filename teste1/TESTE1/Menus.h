@@ -37,6 +37,14 @@ bool Menu_department();
 */
 void mainMenu(Department &dept);
 
+void callMeetingManagement(Department &dept);
+
+void MeetingManagement(Tutor* tutor, Department &dept);
+void call_listbeetween2dates(Tutor *tutor);
+void call_createnewmeeting(Tutor *tutor, Department &dept);
+void call_removemeeting(Tutor *tutor);
+void call_changemeetingdescription(Tutor *tutor);
+
 
 /**
 *@brief Asks user for info to create a new Tutor in the Department.

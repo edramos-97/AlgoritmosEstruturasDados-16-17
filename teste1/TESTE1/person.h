@@ -19,6 +19,14 @@ using namespace std;
 
 typedef unsigned int uint;
 
+struct meetingComp {
+	bool operator () (const Meeting *c1, const Meeting *c2) const {
+		if (c1->getDate() == c2->getDate())
+			return c1->getId() < c2->getId();
+		return c1->getDate() < c2->getDate();
+	}
+};
+
 class Person;
 class Tutor;
 class Student;
@@ -58,7 +66,7 @@ public:
 class Tutor : public Person {
 private:
 	uint nextid;
-	set<Meeting *> meetings;
+	set<Meeting *,meetingComp> meetings;
 public:
 	//se der tempo mudar isto para privado
 	vector<Student *> students;
@@ -108,7 +116,7 @@ public:
 
 	void ListFutureMeetings() const;
 
-	void ListMeetingsBeetween2Dates(Date date1, Date date2) const;
+	void ListMeetingsBeetween2Dates(Date &date1, Date &date2) const;
 
 	vector<uint> PastMeetings_NoDescription() const;
 

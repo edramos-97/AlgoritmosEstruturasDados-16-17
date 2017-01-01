@@ -26,9 +26,9 @@ struct stoppedStudsHash {
 		}
 		catch (invalid_argument) {
 			throw exception_or_error("Invalid Student code: " + s->get_code());
-		}		
+		}
 	}
-	bool operator () (const Student *s1, const Student *s2) const {	
+	bool operator () (const Student *s1, const Student *s2) const {
 		return (*s1 == *s2);
 	}
 };
@@ -162,7 +162,7 @@ public:
 	*@param year Year of the Course.
 	*@param semester Semester of the Course.
 	*@param course Pointer to the Course.
-	*@param stud Pointer to the Student wanting approval. 
+	*@param stud Pointer to the Student wanting approval.
 	*@param date Pointer to the Date of the Student's wanted approval.
 	*@return True if Student was approved, false otherwise.
 	*/
@@ -173,6 +173,8 @@ public:
 	*@param scientific_area Wanted scientific area.
 	*@return Vector with the name of the external courses.
 	*/
+
+	bool searchstudent(string studentCod) const;
 	vector<string> search_sci_area(string scientific_area);
 
 	/**
