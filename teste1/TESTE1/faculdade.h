@@ -36,7 +36,7 @@ struct stoppedStudsHash {
 class classComp {
 public:
 	bool operator () (const Class *c1, const Class *c2) const {
-		return (*c1 > *c2);
+		return (*c1 < *c2);
 	}
 };
 
