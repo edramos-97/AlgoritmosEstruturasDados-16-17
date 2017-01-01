@@ -291,3 +291,17 @@ ostream & operator<<(ostream &os, const Student &stud)
 bool operator == (const Student &s1, const Student &s2) {
 	return (s1.code == s2.code);
 }
+
+uint Student::get_year()
+{
+	vector<uint> v1(5,0);
+
+	for  (auto x : enrolled_courses)
+	{
+		v1.at(x->get_year() - 1)++;
+	}
+	
+	auto x = max_element(v1.begin(), v1.end());
+
+	return distance(v1.begin(),x)+1;
+}

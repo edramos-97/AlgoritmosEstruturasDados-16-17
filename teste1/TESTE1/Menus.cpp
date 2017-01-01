@@ -1115,8 +1115,10 @@ void m_enrollInClass(Department &dept) {
 
 	Student *stud = dept.getStudent(studCode);
 
-	cout << "Ano: ";
-	cin >> year;
+	year = stud->get_year();
+
+	cout << "ano retornado: " << year << endl;
+	system("pause");
 
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 

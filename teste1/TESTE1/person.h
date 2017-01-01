@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <algorithm>
 #include "exceptions.h"
 #include "course.h"
 #include "Date.h"
@@ -247,6 +248,12 @@ public:
 	*@return Number of enrolled credits.
 	*/
 	double get_credits() const;
+
+	/**
+	*@brief Gets the Year with the most courses enrolled on.
+	*@return Year with the most courses enrolled on.
+	*/
+	uint get_year();
 
 	/**
 	*@brief Changes state of Student from interrupted to current.

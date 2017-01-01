@@ -15,10 +15,14 @@ Class::Class(uint id, uint year, vector<pair<Course*, uint>> courseSlots) {
 
 void Class::enrollStudent(Student *stud) {
 	if (getOpenSlots() <= 0) {
-		throw exception_or_error("Nao ha vagas nas turmas deste ano.");
+		throw exception_or_error("Nao existem vagas nas turmas deste ano.");
 	}
 	for (size_t ind = 0; ind < openSlots.size(); ++ind) {
-		openSlots.at(ind).second--;
+		for(auto x : stud->get_enrol_courses())
+			if (x == openSlots[ind].first) {
+				openSlots[ind].second--;
+				break;
+			}
 	}
 	studs.push_back(stud);
 }

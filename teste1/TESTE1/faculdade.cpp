@@ -729,8 +729,18 @@ void Department::createClass(uint year, uint slots, uint id) {
 
 void Department::enrollInClass(Student *stud, uint year) {
 	Class *temp = classes.at(year - 1).top();
-	temp->enrollStudent(stud);
 	classes.at(year - 1).pop();
+
+	for (auto x : temp->getStuds()) {
+		if (x == stud) {
+			cout << "O estudante com o codigo " << stud->get_code() << " ja se encontra incrito nesta turma.\n";
+			system("pause");
+			return;
+		}
+	}
+
+	temp->enrollStudent(stud);
+		
 	classes.at(year - 1).push(temp);
 	return;
 }
@@ -780,7 +790,7 @@ void Department::top_slots(uint year) {
 	priority_queue<Class *, vector<Class*>, classComp> temp = classes[year - 1];
 	for (size_t i = 0; (i < 3 && !temp.empty()); i++)
 	{
-		cout << "Turma " << temp.top()->getId() << ": " << temp.top()->getOpenSlots() << "vagas.\n";
+		cout << "Turma " << temp.top()->getId() << ": " << temp.top()->getOpenSlots() << " vagas.\n";
 		temp.pop();
 	}
 }

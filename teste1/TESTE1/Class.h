@@ -7,7 +7,7 @@
 #include <stack>
 #include <set>
 #include <utility>
-#include <memory>
+#include <algorithm>
 
 using namespace std;
 

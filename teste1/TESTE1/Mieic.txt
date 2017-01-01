@@ -30,8 +30,8 @@ st000000019;Estudante 18;st000000019@fe.up.pt;Ordinario;tu199703569
 st000000020;Estudante 19;st000000020@fe.up.pt;Ordinario;tu000000002
 st000000001;Joao Moreno;st000000001@fe.up.pt;Ordinario;tu199703569
 st000000015;Estudante 14;st000000015@fe.up.pt;Ordinario;I
-st000000010;Jim Lovell;st000000010@fe.up.pt;Ordinario;I
 st000000002;Adolf Galland;st000000002@fe.up.pt;Trabalhador Estudante;C
+st000000010;Jim Lovell;st000000010@fe.up.pt;Ordinario;I
 #students_end
 #courses_start
 main_course_start
@@ -57,11 +57,13 @@ approved_students
 end_course
 main_course_start
 ALGE;1;1;4.5
+st000000003;15/12/2015
 st201505779;20/11/2016
 approved_students
 end_course
 main_course_start
 PF;1;1;1.5
+st000000003;15/12/2015
 st201505779;20/11/2016
 approved_students
 end_course
@@ -72,11 +74,13 @@ approved_students
 end_course
 main_course_start
 PROG;1;2;7.5
+st000000003;15/12/2015
 st201505779;20/11/2016
 approved_students
 end_course
 main_course_start
 FISI1;1;2;6
+st000000003;15/12/2015
 st201505779;20/11/2016
 approved_students
 end_course
@@ -96,26 +100,32 @@ approved_students
 end_course
 main_course_start
 MNUM;2;1;4.5
+st000000003;15/12/2015
 approved_students
 end_course
 main_course_start
 FISI2;2;1;6
+st000000003;15/12/2015
 approved_students
 end_course
 main_course_start
 AEDA;2;1;7.5
+st000000003;15/12/2015
 approved_students
 end_course
 main_course_start
 LCOM;2;1;6
+st000000003;15/12/2015
 approved_students
 end_course
 main_course_start
 BDAD;2;2;6
+st000000003;15/12/2015
 approved_students
 end_course
 main_course_start
 CAL;2;2;6
+st000000003;15/12/2015
 approved_students
 end_course
 main_course_start
@@ -385,7 +395,7 @@ end_course
 #courses_end
 #classes_start
 |Class_start
-||5;1;MDIS;50;AOCO;50;FPRO;50;AMAT;50;ALGE;50;PF;50;MEST;50;PROG;50;FISI1;50;CMAT;50;MPCP;50
+||5;1;MDIS;49;AOCO;49;FPRO;49;AMAT;49;ALGE;49;PF;49;MEST;49;PROG;49;FISI1;49;CMAT;49;MPCP;49
 |Class_end
 |Class_start
 ||4;1;MDIS;59;AOCO;59;FPRO;59;AMAT;59;ALGE;59;PF;59;MEST;59;PROG;59;FISI1;59;CMAT;59;MPCP;45
@@ -405,8 +415,7 @@ end_course
 ||2;1;MDIS;20;AOCO;20;FPRO;20;AMAT;20;ALGE;20;PF;20;MEST;20;PROG;20;FISI1;20;CMAT;20;MPCP;20
 |Class_end
 |Class_start
-||1;2;TCOM;29;MNUM;29;FISI2;29;AEDA;29;LCOM;29;BDAD;29;CAL;29;CGRA;29;SOPE;29;LPOO;29
-||st000000004
+||1;2;TCOM;30;MNUM;30;FISI2;30;AEDA;30;LCOM;30;BDAD;30;CAL;30;CGRA;30;SOPE;30;LPOO;30
 |Class_end
 |Class_start
 ||2;2;TCOM;29;MNUM;29;FISI2;29;AEDA;29;LCOM;29;BDAD;29;CAL;29;CGRA;29;SOPE;29;LPOO;29
