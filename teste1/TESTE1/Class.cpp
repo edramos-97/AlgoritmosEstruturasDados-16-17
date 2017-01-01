@@ -59,5 +59,8 @@ uint Class::getYear() const {
 }
 
 bool operator < (const Class &c1, const Class &c2) {
-	return (c1.openSlots[0].second < c2.openSlots[0].second);
+	if (c1.getOpenSlots() == c2.getOpenSlots())
+		return (c1.getId() > c2.getId());
+	else
+		return(c1.getOpenSlots() < c2.getOpenSlots());
 }

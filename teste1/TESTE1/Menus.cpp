@@ -883,13 +883,20 @@ void m_enrollInClass(Department &dept) {
 	uint year;
 	cout << "Codigo do estudante: ";
 	cin >> studCode;
+
+	Student *stud = dept.getStudent(studCode);
+
 	cout << "Ano: ";
 	cin >> year;
 
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	Student *stud = dept.getStudent(studCode);
-
+	if (year > 5 || year < 1) {
+		cout << "Ano \"" << year << "\" invalido tente novamente.\n";
+		system("pause");
+		return;
+	}
+	
 	dept.enrollInClass(stud, year);
 }
 
