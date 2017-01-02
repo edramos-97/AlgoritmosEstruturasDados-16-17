@@ -103,7 +103,46 @@ Tutor* read_tutor(ifstream &f,uint &linenum) {
 	code = line.substr(0, line.find(';'));
 
 	Tutor* t= new Tutor(code, name);
+
+	read_line(f, line, linenum);
+	if(line != "#meetings_start")
+		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #meetings_start");
+	
+	while (f.peek() != '#') {
+		t->add_meeting(read_meeting(f, linenum));
+	}
+
+	read_line(f, line, linenum);
+	if (line != "#meetings_end")
+		throw exception_or_error("O ficheiro esta corrompido, problema encontrado na linha " + to_string(linenum) + ", esperava-se #meetings_end");
+
 	return t;
+}
+
+Meeting * read_meeting(ifstream & f, uint & linenum)
+{
+	uint id;
+	string datestr, studentCod, topics, description, line;
+	read_line(f, line, linenum);
+
+	id = stoi(line.substr(0, line.find(';')));
+	line.erase(0, line.find(';') + 1);
+
+	datestr=line.substr(0, line.find(';'));
+	line.erase(0, line.find(';') + 1);
+
+	studentCod= line.substr(0, line.find(';'));
+	line.erase(0, line.find(';') + 1);
+
+	topics= line.substr(0, line.find(';'));
+	line.erase(0, line.find(';') + 1);
+
+	description= line.substr(0, line.find(';'));
+	line.erase(0, line.find(';') + 1);
+
+	Date meetingdate(datestr);
+	Meeting *meeting = new Meeting(id, meetingdate, studentCod, topics, description);
+	return meeting;
 }
 
 Course * read_external(ifstream &f, uint &linenum)
@@ -152,6 +191,17 @@ void save_class(ofstream &f, Class *c)
 	f << "|Class_end\n";
 }
 
+void save_meeting(ofstream & f, Meeting * x)
+{
+	f << x->getId() << ';';
+		x->getDate().save(f);
+		f << ';'
+		<< x->getStudentCod() << ';'
+		<< x->getTopics() << ';'
+		<< x->getDescription() << endl;
+	return;
+}
+
 void save_student(ofstream & f, Student* x)
 {
 	f << x->get_code() << ';'
@@ -173,6 +223,13 @@ void save_student(ofstream & f, Student* x)
 void save_tutor(ofstream & f,Tutor* x)
 {
 	f << x->get_name() << ';' << x->get_code()<< endl;
+	f << "#meetings_start" << endl;
+	set<Meeting*, meetingComp> meetings = x->getMeetings();
+	set<Meeting*, meetingComp>::const_iterator it = meetings.begin();
+	for (it; it != meetings.end(); it++) {
+		save_meeting(f, (*it));
+	}
+	f << "#meetings_end" << endl;
 }
 
 void save_course(ofstream & f, Course* course)

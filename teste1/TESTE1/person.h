@@ -97,6 +97,8 @@ public:
 	*/
 	void setName(string newName);
 
+	set <Meeting *, meetingComp> getMeetings();
+
 	/**
 	*@brief Adds a Student to the Tutor's Students vector.
 	*@param stud Pointer to the Student to add.

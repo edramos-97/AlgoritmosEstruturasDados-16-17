@@ -19,6 +19,8 @@ public:
 	Date getDate() const;
 	unsigned getId() const;
 	string getDescription() const;
+	string getTopics() const;
+	string getStudentCod() const;
 	void setDescription(string discription);
 	friend ostream& operator<<(ostream &out, const Meeting *meeting);
 };

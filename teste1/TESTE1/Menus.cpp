@@ -153,6 +153,7 @@ void callMeetingManagement(Department &dept) {
 
 		try {
 			Tutor *tutor_to_manage = dept.getTutor(tutorcod);
+			clrscr();
 			MeetingManagement(tutor_to_manage, dept);
 			return;
 		}
@@ -184,7 +185,7 @@ void MeetingManagement(Tutor * tutor, Department &dept)
 
 		vector <uint> nodescription = tutor->PastMeetings_NoDescription();
 		if (nodescription.size() != 0) {
-			cout << "Reunioes ocorridas sem descricao: ";
+			cout<< endl << TAB << "Reunioes ocorridas sem descricao: ";
 			for (size_t i = 0; i < nodescription.size(); i++)
 				cout << nodescription.at(i) << " ";
 			cout << endl;
@@ -208,9 +209,11 @@ void MeetingManagement(Tutor * tutor, Department &dept)
 			call_createnewmeeting(tutor, dept);
 			break;
 		case 2:
+			clrscr();
 			call_removemeeting(tutor);
 			break;
 		case 3:
+			clrscr();
 			call_changemeetingdescription(tutor);
 			break;
 		case 4:
@@ -250,10 +253,11 @@ void call_listbeetween2dates (Tutor *tutor) {
 	cin >> date1str;
 	cout << "Insira a outra data: ";
 	cin >> date2str;
-
+	clrscr();
 	try {
 		Date date1(date1str);
 		Date date2(date2str);
+		cout << "\t\t\t\t" << "Listagem entre " << date1str << " e " << date2str << " do tutor " << tutor->get_code() << endl << endl;
 		if (date1 < date2)
 			tutor->ListMeetingsBeetween2Dates(date1, date2);
 		else
@@ -303,7 +307,7 @@ void call_createnewmeeting(Tutor * tutor, Department &dept)
 void call_removemeeting(Tutor * tutor)
 {
 	uint id;
-	cout << "Insira o id da reunião que quer remover: ";
+	cout << "Insira o id da reuniao que quer remover: ";
 	cin >> id;
 
 	if (!cin.good()) {
@@ -316,7 +320,7 @@ void call_removemeeting(Tutor * tutor)
 	}
 	try{
 		tutor->remove_meeting(id);
-		cout << "Reuniao desmarcada com sucesso" << endl;
+		cout << "Reuniao desmarcada com sucesso!" << endl;
 		system("PAUSE");
 	}
 	catch (exception_or_error x) {
@@ -331,7 +335,7 @@ void call_changemeetingdescription(Tutor * tutor)
 {
 	uint id;
 	string description;
-	cout << "Insira o id da reunião que quer remover: ";
+	cout << "Insira o id da reuniao que quer alterar as descricao (so pode alterar a descricao de reunioes que ja ocorreram) " << endl << "Id: ";
 	cin >> id;
 
 	if (!cin.good()) {
@@ -349,6 +353,7 @@ void call_changemeetingdescription(Tutor * tutor)
 
 	try {
 		tutor->ChangeMeetingDescription(id, description);
+		cout << "Alteracao da descricao da reuniao com o Id " << to_string(id) << " foi bem sucedida!" << endl;
 		system("pause");
 	}
 	catch (exception_or_error x) {

@@ -72,15 +72,19 @@ ostream& operator<<(ostream& out, const Date & date){
 }
 
 bool operator<(const Date &date1, const Date &date2){
-	int date1totaldays = date1.day + 32 * date1.month + 367 * date1.year;
-	int date2totaldays = date2.day + 32 * date2.month + 367 * date2.year;
-	
-	return date1totaldays < date2totaldays;
+	if (date1.getYear() < date2.getYear())
+		return true;
+	else if (date1.getYear() > date2.getYear())
+		return false;
+
+	if (date1.getMonth() < date2.getMonth())
+		return true;
+	else if (date1.getMonth() > date2.getMonth())
+		return false;
+
+	return date1.getDay() < date2.getDay();
 }
 
 bool Date::operator==(const Date &date) const {
-	int this_Datetotaldays = day + 32 * month + 367 * year;
-	int datetotaldays = date.getDay() + 32 * date.getMonth() + 367 * date.getYear();
-
-	return this_Datetotaldays == datetotaldays;
+	return (day == date.getDay() && month == date.getMonth() && year == date.getYear());
 }

@@ -42,6 +42,8 @@ Student* read_student(string &line);
 *@return returns a pointer to the tutor created
 */
 Tutor* read_tutor(ifstream &f, uint &linenum);
+
+Meeting* read_meeting(ifstream &f, uint &linenum);
 /**
 *@brief reads a line from the text file and puts it on a string, used in Faculdade::load_dept
 *@param f ifstream that contains reference to the file
@@ -63,6 +65,8 @@ template<typename T>bool check_duplicates(vector<T> v,T arg);
 *@return returns a true if it already exist else false
 */
 void save_class(ofstream &f, Class * x);
+
+void save_meeting(ofstream &f, Meeting * x);
 /**
 *@brief saves the information of an object of type student in the textfile, used in Faculdade::save_dept
 *@param f ofstream that contains reference to the file

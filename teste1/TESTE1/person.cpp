@@ -74,12 +74,12 @@ void Tutor::remove_meeting(uint IdMeeting)
 				throw exception_or_error("Nao e possivel remover uma reuniao que ja aconteceu");
 		}
 	}
-	throw exception_or_error("Nao ha nenhuma reuniao com o id: " + IdMeeting);
+	throw exception_or_error("Nao ha nenhuma reuniao com o id: " + to_string(IdMeeting));
 }
 
 void Tutor::ChangeMeetingDescription(unsigned IdMeeting, string description)
 {
-	set <Meeting *>::iterator it;
+	set <Meeting *,meetingComp>::iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		if ((*it)->getId() == IdMeeting) {
 			Date date = Date();
@@ -91,12 +91,14 @@ void Tutor::ChangeMeetingDescription(unsigned IdMeeting, string description)
 				throw exception_or_error("Nao e possivel alterar a descricao de uma reuniao que ainda nao aconteceu");
 		}
 	}
-	throw exception_or_error("Nao ha nenhuma reuniao com o id: " + IdMeeting);
+	throw exception_or_error("Nao ha nenhuma reuniao com o id: " + to_string(IdMeeting));
 }
 
 void Tutor::ListAllMeettings() const
 {
-	set <Meeting *>::iterator it;
+
+	cout << "\t\t\t\t\t" << "Listagem de todas as reunioes do tutor " << code << endl << endl;
+	set <Meeting *, meetingComp>::const_iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		cout << (*it) << endl << endl;
 	}
@@ -105,7 +107,8 @@ void Tutor::ListAllMeettings() const
 
 void Tutor::ListPastMeetings() const
 {
-	set <Meeting *>::iterator it;
+	cout << "\t\t\t\t" << "Listagem das reunioes ja ocorridas do tutor " << code << endl << endl;
+	set <Meeting *, meetingComp>::const_iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		Date date = Date();
 		if ((*it)->getDate() < date)
@@ -118,7 +121,8 @@ void Tutor::ListPastMeetings() const
 
 void Tutor::ListFutureMeetings() const
 {
-	set <Meeting *>::iterator it;
+	cout << "\t\t\t\t\t" << "Listagem das futuras reunioes do tutor " << code << endl << endl;
+	set <Meeting *, meetingComp>::const_iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		Date date = Date();
 		if (!((*it)->getDate() < date))
@@ -129,7 +133,7 @@ void Tutor::ListFutureMeetings() const
 
 void Tutor::ListMeetingsBeetween2Dates(Date &date1, Date &date2) const
 {
-	set <Meeting *>::iterator it;
+	set <Meeting *, meetingComp>::const_iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		if (((*it)->getDate() < date2 && date1 < (*it)->getDate())||
 			(*it)->getDate()==date1|| (*it)->getDate() == date2)
@@ -142,7 +146,7 @@ vector<uint> Tutor::PastMeetings_NoDescription() const
 {
 	vector <uint> Nodescription;
 
-	set <Meeting *>::iterator it;
+	set <Meeting *, meetingComp>::const_iterator it;
 	for (it = meetings.begin(); it != meetings.end(); it++) {
 		Date date = Date();
 		if ((*it)->getDate() < date) {
@@ -158,6 +162,11 @@ vector<uint> Tutor::PastMeetings_NoDescription() const
 
 void Tutor::setName(string newName) {
 	name = newName;
+}
+
+set<Meeting*, meetingComp> Tutor::getMeetings()
+{
+	return meetings;
 }
 
 bool Tutor::operator< (const Tutor &t) const {

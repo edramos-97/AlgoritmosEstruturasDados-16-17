@@ -30,11 +30,21 @@ unsigned Meeting::getId() const
 
 string Meeting::getDescription() const
 {
-	return string();
+	return description;
+}
+
+string Meeting::getTopics() const
+{
+	return topicsMeeting;
+}
+
+string Meeting::getStudentCod() const
+{
+	return studentCod;
 }
 
 
-void Meeting::setDescription(string discription)
+void Meeting::setDescription(string description)
 {
 	this->description = description;
 	return;
@@ -48,6 +58,6 @@ ostream & operator<<(ostream & out, const Meeting * meeting)
 	out << "Student Code that requested the meeting: " << meeting->studentCod << endl;
 	out << "Topics of the meeting: " << meeting->topicsMeeting << endl;
 	if (meeting->description != "No description")
-		out << "Description: " << meeting->description;
+		out << "Description: " << meeting->description <<endl;
 	return out;
 }

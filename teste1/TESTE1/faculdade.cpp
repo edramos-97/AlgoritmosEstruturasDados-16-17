@@ -7,8 +7,8 @@ Department::Department(string name) : name(name)
 	vector<vector<Course*>>v1(5, vector<Course*>());
 	courses.push_back(v1);
 	courses.push_back(v1);
-	next_assign_tutor = 1;
-	next_assign_student = 1;
+	next_assign_tutor = 0;
+	next_assign_student = 0;
 /*	Class * temp;
 	priority_queue<Class*> temp_Q;
 
