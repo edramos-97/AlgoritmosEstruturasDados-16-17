@@ -96,7 +96,9 @@ public:
 	*@param newName New name of the Tutor.
 	*/
 	void setName(string newName);
-
+	/**
+	*@brief Returns a set with all the tutor meetings
+	*/
 	set <Meeting *, meetingComp> getMeetings();
 
 	/**
@@ -104,23 +106,48 @@ public:
 	*@param stud Pointer to the Student to add.
 	*/
 	void add_student(Student *stud);
-
+	/**
+	*@brief creates a new meeting
+	*@param studentCod Code of the student that requested the meeting
+	*@param topics topics being treated on the meeting
+	*@param dateStr date of the meeting
+	*/
 	void create_newMeeting(string studentCod,string topics, string dateStr);
-
+	/**
+	*@brief adds a meeting to the set meetings
+	*@param meeting Meeting to add
+	*/
 	void add_meeting(Meeting *meeting);
-
+	/**
+	*@brief removes a future meeting
+	*@param IdMeeting meeting to remove
+	*/
 	void remove_meeting(uint IdMeeting);
-
+	/**
+	*@brief changes the description of a past meeting
+	*@param IdMeeting meeting to change
+	*@param meeting to change
+	*/
 	void ChangeMeetingDescription(unsigned IdMeeting,string description);
-
+	/**
+	*@brief List all the tutor meetings
+	*/
 	void ListAllMeettings() const;
-
+	/**
+	*@brief List all the tutor past meetings
+	*/
 	void ListPastMeetings() const;
-
+	/**
+	*@brief List all the tutor future meetings
+	*/
 	void ListFutureMeetings() const;
-
+	/**
+	*@brief List all the tutor meetings beetween two dates
+	*/
 	void ListMeetingsBeetween2Dates(Date &date1, Date &date2) const;
-
+	/**
+	*@brief Return a vector with the ID's of the past meetings with no description
+	*/
 	vector<uint> PastMeetings_NoDescription() const;
 
 	/**
@@ -129,7 +156,6 @@ public:
 	*@return True if the amount of students in *this is lower than the one in tutor.
 	*/
 	bool operator < (const Tutor &tutor) const;
-
 	/**
 	*Format: "code || name".
 	*@brief Prints to an output stream the Tutor's code and name.

@@ -36,13 +36,35 @@ bool Menu_department();
 *@param dept Department being used.
 */
 void mainMenu(Department &dept);
-
+/**
+*@brief Asks user for the tutor to manage the meetings, and calls the respective menu
+*@param dept Department being used.
+*/
 void callMeetingManagement(Department &dept);
-
+/**
+*@brief Meeting management menu
+*@param tutor pointer to the tutor being managed
+*/
 void MeetingManagement(Tutor* tutor, Department &dept);
+/**
+*@brief gets the info to call to the function on class tutor to list all the meetings beetween tow dates
+*@param tutor pointer to the tutor being managed
+*/
 void call_listbeetween2dates(Tutor *tutor);
+/**
+*@brief gets the info to call to the function on class tutor to create a new meeting
+*@param tutor pointer to the tutor being managed
+*/
 void call_createnewmeeting(Tutor *tutor, Department &dept);
+/**
+*@brief gets the info to call to the function on class tutor to create a remove a meeting
+*@param tutor pointer to the tutor being managed
+*/
 void call_removemeeting(Tutor *tutor);
+/**
+*@brief gets the info to call to the function on class tutor to change a meeting description
+*@param tutor pointer to the tutor being managed
+*/
 void call_changemeetingdescription(Tutor *tutor);
 
 
