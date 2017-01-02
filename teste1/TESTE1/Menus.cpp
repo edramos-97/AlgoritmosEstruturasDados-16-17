@@ -1176,7 +1176,6 @@ void m_delClass(Department &dept) {
 	}
 }
 
-
 void m_top_slots(Department &dept) {
 	int classYear;
 	cout << "\nAno da turma(1-5): ";
